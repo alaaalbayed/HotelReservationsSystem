@@ -1,0 +1,76 @@
+﻿@model Domain.DTO_s.LookUpRoomType
+
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+
+@inject IViewLocalizer localizer
+
+@{
+    var check = CultureInfo.CurrentCulture.Name;
+}
+
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+            @if (check == "en-US")
+            {
+                <div class="table-container">
+                    <div class="table-row">
+                        <div class="table-cell">
+                            <label class="control-label">@localizer["Type"]</label>
+                        </div>
+                        <div class="table-cell">
+                            @Model.NameEn
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="table-container-ar">
+                    <div class="table-row">
+                        <div class="table-cell">
+                            @Model.NameEn
+                        </div>
+                        <div class="table-cell">
+                            <label class="control-label">@localizer["Type"]</label>
+                        </div>
+                    </div>
+                </div>
+            }
+        </main>
+        <partial name="_Footer" />
+    </div>
+</div>
+
+<style>
+    .table-container {
+        font-size: 20px;
+        display: table;
+        width:70%
+    }
+
+    .table-container-ar {
+        font-size: 20px;
+        display: table;
+        margin-left:60%;
+        width:60%;
+    }
+
+    .table-row {
+        display: table-row;
+    }
+
+    .table-cell {
+        display: table-cell;
+        padding: 15px 10px;
+        top: 20px;
+    }
+
+    .control-label {
+        color: black;
+        font-weight: bold;
+    }
+</style>

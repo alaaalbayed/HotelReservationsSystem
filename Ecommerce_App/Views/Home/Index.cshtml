@@ -1,0 +1,60 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Ecommerce_App.Areas.Identity.Data
+
+@inject SignInManager<Ecommerce_AppUser> SignInManager
+@inject UserManager<Ecommerce_AppUser> UserManager
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+    <title>AdminKit Demo - Bootstrap 5 Admin Template</title>
+
+    <link href="~/assets/css/app.css" rel="stylesheet">
+</head>
+
+<body>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="wrapper">
+            <partial name="_Slide" />
+            <div class="main">
+                <partial name="_Navbar" />
+                <main class="content">
+                <partial name="Test" />
+                </main>
+                <partial name="_Footer" />
+            </div>
+        </div>
+        <script src="~/assets/js/app.js"></script>
+    }
+    else
+    {
+        <div class="wrapper">
+            <partial name="_Slide" />
+            <div class="main">
+                <partial name="_Navbar" />
+                <main class="content">
+                    <div class="container-fluid p-0">
+
+                    </div>
+                </main>
+                <partial name="_Footer" />
+            </div>
+        </div>
+    }
+    
+</body>
+</html>

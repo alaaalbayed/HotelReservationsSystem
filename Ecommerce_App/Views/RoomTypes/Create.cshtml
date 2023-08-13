@@ -1,0 +1,67 @@
+﻿@model Domain.DTO_s.LookUpRoomType
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+            <div class="row justify-content-md-center">
+                <div class="col-md-6">
+                    <form class="card mt-5" asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Create New Room Type</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="NameEn"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="NameEn" placeholder="RoomType En">
+                                    <small class="form-hint">Here The Type Name That Will Display For The User In English.</small>
+                                    <span asp-validation-for="NameEn" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="NameAr"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="NameAr" placeholder="RoomType Ar">
+                                    <small class="form-hint">Here The Type Name That Will Display For The User In Arabic.</small>
+                                    <span asp-validation-for="NameAr" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required">Select Room Type</label>
+                                <div class="col">
+                                    <select asp-for="Id" class="form-control" asp-items="@Model.RoomTypes"></select>
+                                    <small class="form-hint">Select a room type from the list.</small>
+                                    <span asp-validation-for="Id" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <partial name="_Footer" />
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,100 @@
+﻿@model Ecommerce_AppUser
+
+@using Ecommerce_App.Areas.Identity.Pages.Account;
+@using Microsoft.AspNetCore.Identity
+@using Ecommerce_App.Areas.Identity.Data
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+
+@inject SignInManager<Ecommerce_AppUser> SignInManager
+@inject UserManager<Ecommerce_AppUser> UserManager
+@inject IViewLocalizer localizer
+
+@{
+    var check = CultureInfo.CurrentCulture.Name;
+}
+
+<style>
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group select {
+        width: 100%;
+        height: 38px;
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-8">
+                    <form class="card" method="post" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <h3 class="card-title">Edit Profile</h3>
+                            <div class="row row-cards">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">First Name</label>
+                                        <input type="text" class="form-control" asp-for="FirstName" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" asp-for="LastName" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" asp-for="Email" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone Number</label>
+                                        <input type="tel" class="form-control" asp-for="PhoneNumber" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Address</label>
+                                        <input type="text" class="form-control" asp-for="Address" />
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Profile Image</label>
+                                        <input type="file"  asp-for="Image" class="form-control" />
+                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <partial name="_Footer" />
+    </div>
+</div>

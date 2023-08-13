@@ -1,0 +1,185 @@
+﻿@model Domain.DTO_s.Reservation
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+            <div class="row justify-content-md-center">
+                <div class="col-md-6">
+                    <form class="card mt-5" asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Reservation</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="FullName"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="FullName">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="FullName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="Nationality"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="Nationality">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="Nationality" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="NationalityId"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="NationalityId">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="NationalityId" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="PhoneNumber"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="PhoneNumber">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="Email"></label>
+                                <div class="col">
+                                    <input type="email" class="form-control" asp-for="Email">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="IsAdult"></label>
+                                <div class="col">
+                                    <input type="checkbox" class="form-check-input" asp-for="IsAdult">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="IsAdult" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="CheckIn"></label>
+                                <div class="col">
+                                    <input type="datetime-local" class="form-control" asp-for="CheckIn">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="CheckIn" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="CheckOut"></label>
+                                <div class="col">
+                                    <input type="datetime-local" class="form-control" asp-for="CheckOut">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="CheckOut" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="Breakfast"></label>
+                                <div class="col">
+                                    <input type="checkbox" class="form-check-input" asp-for="Breakfast">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="Breakfast" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="Lunch"></label>
+                                <div class="col">
+                                    <input type="checkbox" class="form-check-input" asp-for="Lunch">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="Lunch" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="Dinner"></label>
+                                <div class="col">
+                                    <input type="checkbox" class="form-check-input" asp-for="Dinner">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="Dinner" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="ExtraBed"></label>
+                                <div class="col">
+                                    <input type="checkbox" class="form-check-input" asp-for="ExtraBed">
+                                    <small class="form-hint">Enter the Full Name.</small>
+                                    <span asp-validation-for="ExtraBed" class="text-danger"></span>
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-check-input" asp-for="RoomId" hidden>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label">Room Number</label>
+                                <div class="col">
+                                    <input type="text" class="form-control" value="@ViewBag.RoomNumber" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Escorts</h3>
+                                            </div>
+                                            <div class="card-body">
+                                                @if (Model.Escorts.Count > 0)
+                                                {
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Full Name</th>
+                                                                <th>Is Adult</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var escort in Model.Escorts)
+                                                            {
+                                                                <tr>
+                                                                    <td>@escort.FullName</td>
+                                                                    <td>@(escort.IsAdult ? "Yes" : "No")</td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                }
+                                                else
+                                                {
+                                                    <p>No escorts for this reservation.</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <partial name="_Footer" />
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Add your JavaScript code here if needed
+    </script>
+}

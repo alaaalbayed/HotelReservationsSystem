@@ -1,0 +1,74 @@
+﻿@model Domain.Models.EditRoomTypeViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+            <div class="row justify-content-md-center">
+                <div class="col-md-6">
+                    <form class="card mt-5" asp-action="Edit">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Room Type</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="LookUpRoomType.NameEn"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="LookUpRoomType.NameEn">
+                                    <small class="form-hint">Here The Updated Type Name That Will Display For The User In English.</small>
+                                    <span asp-validation-for="LookUpRoomType.NameEn" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="LookUpRoomType.NameAr"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="LookUpRoomType.NameAr">
+                                    <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
+                                    <span asp-validation-for="LookUpRoomType.NameAr" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required">Select Room Type</label>
+                                <div class="col">
+                                    <select asp-for="LookUpProperty.Id" class="form-control" asp-items="@Model.LookUpProperty.RoomTypes"></select>
+                                    <small class="form-hint">Select a room type from the list.</small>
+                                    <span asp-validation-for="LookUpProperty.Id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row" hidden>
+                                <label class="col-3 col-form-label required" asp-for="LookUpProperty.TypeId"></label>
+                                <div class="col">
+                                    <input type="text" class="form-control" asp-for="LookUpProperty.TypeId">
+                                    <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
+                                    <span asp-validation-for="LookUpProperty.TypeId" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <partial name="_Footer" />
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

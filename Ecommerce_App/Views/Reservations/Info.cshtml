@@ -1,0 +1,107 @@
+﻿@model Domain.DTO_s.Reservation
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+            <div>
+                <h4>Reservation</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.NationalityId)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.NationalityId)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.IsAdult)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.IsAdult)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.CheckIn)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CheckIn)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.CheckOut)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.CheckOut)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Breakfast)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Breakfast)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Lunch)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Lunch)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Dinner)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Dinner)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.ExtraBed)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.ExtraBed)
+                    </dd>
+                </dl>
+                <div>
+                    <h2>Escorts</h2>
+                    @foreach (var escort in Model.Escorts)
+                    {
+                        <dl class="row mt-3">
+                            <dt class="col-sm-2">
+                                @Html.DisplayName($"Escorts[{escort.FullName}].FullName")
+                            </dt>
+                            <dd class="col-sm-10">
+                                <span>@escort.FullName</span>
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayName($"Escorts[{escort.IsAdult}].IsAdult")
+                            </dt>
+                            <dd class="col-sm-10">
+                                <input type="checkbox" class="form-check-input ms-3" name="Escorts[@escort.IsAdult].IsAdult" disabled @(escort.IsAdult ? "checked" : "")>
+                            </dd>
+                        </dl>
+                    }
+                </div>
+            </div>
+
+            <div>
+                <a class="btn btn-primary" asp-action="Index">Back to List</a>
+            </div>
+        </main>
+        <partial name="_Footer" />
+    </div>
+</div>

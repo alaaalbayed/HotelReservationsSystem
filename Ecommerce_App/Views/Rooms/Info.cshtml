@@ -1,0 +1,90 @@
+﻿@model Domain.DTO_s.Room
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Details";
+}
+
+
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+            <div>
+                <h4>Room</h4>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Capacity)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Capacity)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.AdultPrice)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.AdultPrice)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.ChildrenPrice)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.ChildrenPrice)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.RoomNumber)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.RoomNumber)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.RoomType)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @{
+                            var listOfRoomTypes = ViewBag.RoomTypes;
+
+                            @foreach (var roomType in listOfRoomTypes)
+                            {
+                                @roomType.NameEn
+                            }
+                        }
+                    </dd>
+                </dl>
+                <div>
+                    <h4>Room Images</h4>
+                    <hr />
+                    <div class="row">
+                        @if (Model.RoomImages2 != null && Model.RoomImages2.Any())
+                        {
+                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach (var image in Model.RoomImages2)
+                                    {
+
+                                        <div class="carousel-item active ">
+                                            <img class="d-blank w-100" src="@image.ImageUrl" alt="First slide">
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <p>No room images available.</p>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            </main>
+            <partial name="_Footer" />
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

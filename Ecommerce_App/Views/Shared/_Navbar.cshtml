@@ -1,0 +1,193 @@
+﻿@using Ecommerce_App.Areas.Identity.Data;
+@using Ecommerce_App.Areas.Identity.Pages.Account;
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Builder;
+@using Microsoft.AspNetCore.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Options;
+@using System.Globalization;
+
+
+@inject SignInManager<Ecommerce_AppUser> SignInManager
+@inject UserManager<Ecommerce_AppUser> UserManager
+@inject IViewLocalizer localizer
+@inject IOptions<RequestLocalizationOptions> options
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var supportedCultures = options.Value.SupportedUICultures;
+    var cultures = supportedCultures?.Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName }) ?? new List<SelectListItem>();
+    var returnUrl = string.IsNullOrEmpty(Context.Request.Path) ? "~/" : $"~{Context.Request.Path.Value}";
+    var check = CultureInfo.CurrentCulture.Name;
+}
+
+<style>
+    .me-1 {
+        margin-left: -73rem !important;
+    }
+</style>
+<nav class="navbar navbar-expand navbar-light navbar-bg">
+    <a class="sidebar-toggle js-sidebar-toggle">
+        <i class="hamburger align-self-center"></i>
+    </a>
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                var user = await SignInManager.UserManager.GetUserAsync(User);
+                if (check == "en-US")
+                {
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon dropdown-toggle" style="text-decoration: none;" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+                            <div class="position-relative mt-1" style="font-size:15px">
+                                <form method="post" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" class="form-inline">
+                                    <div class="form-group">
+                                        @if (requestCulture != null)
+                                        {
+                                            <select name="culture" id="languageSelect"
+                                                    asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                                    asp-items="cultures"
+                                                    onchange="this.form.submit();"
+                                                    class="form-control">
+                                            </select>
+                                        }
+                                    </div>
+                                </form>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                            <i class="align-middle" data-feather="settings"></i>
+                        </a>
+                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                            @if (!string.IsNullOrEmpty(user?.Image))
+                            {
+                                <img src="~/Images/@user.Image" class="avatar img-fluid rounded" alt="User Image" />
+                                <span class="text-dark">@user.FirstName @user.LastName</span>
+                            }
+                            else
+                            {
+                                <img src="~/assets/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
+                            }
+
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">@localizer["LogOut"]</a>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item dropdown me-1">
+                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                            <i class="align-middle" data-feather="settings"></i>
+                        </a>
+                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                            @if (!string.IsNullOrEmpty(user?.Image))
+                            {
+                                <img src="~/Images/@user.Image" class="avatar img-fluid rounded" alt="User Image" />
+                                <span class="text-dark">@user.FirstName @user.LastName</span>
+                            }
+                            else
+                            {
+                                <img src="~/assets/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
+                            }
+
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">@localizer["LogOut"]</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown ms-1">
+                        <a class="nav-icon dropdown-toggle" style="text-decoration: none;" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
+                            <div class="position-relative mt-1" style="font-size:15px">
+                                <form method="post" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" class="form-inline">
+                                    <div class="form-group">
+                                        @if (requestCulture != null)
+                                        {
+                                            <select name="culture" id="languageSelect"
+                                                    asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                                    asp-items="cultures"
+                                                    onchange="this.form.submit();"
+                                                    class="form-control">
+                                            </select>
+                                        }
+                                    </div>
+                                </form>
+                            </div>
+                        </a>
+                    </li>
+                }      
+            }
+            else
+            {
+                if(check == "en-US"){
+                <li class="nav-item dropdown me-3">
+                    <a class="nav-icon dropdown-toggle" href="#" style="text-decoration: none;" id="alertsDropdown" data-bs-toggle="dropdown">
+                        <div class="position-relative mt-1" style="font-size:15px">
+                            <form method="post" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" class="form-inline">
+                                <div class="form-group">
+                                    @if (requestCulture != null)
+                                    {
+                                        <select name="culture" id="languageSelect"
+                                                asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                                asp-items="cultures"
+                                                onchange="this.form.submit();"
+                                                class="form-control">
+                                        </select>
+                                    }
+                                </div>
+                            </form>
+                        </div>
+                    </a>
+                </li>
+                <li class="sidebar-item mt-1 me-4">
+                    <a asp-area="Identity" asp-page="/Account/Login">
+                        <input type="button" value="@localizer["SignIn"]" class="btn btn-primary">
+                    </a>
+                </li>
+                <li class="sidebar-item mt-1">
+                    <a asp-area="Identity" asp-page="/Account/Register">
+                        <input type="button" value="@localizer["SignUp"]" class="btn btn-primary">
+                    </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="sidebar-item me-1 mt-1 me-3">
+                        <a asp-area="Identity" asp-page="/Account/Register">
+                            <input type="button" value="@localizer["SignUp"]" class="btn btn-primary">
+                        </a>
+                    </li>
+                    <li class="sidebar-item mt-1 me-4">
+                        <a asp-area="Identity" asp-page="/Account/Login">
+                            <input type="button" value="@localizer["SignIn"]" class="btn btn-primary">
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-icon dropdown-toggle" href="#" style="text-decoration: none;" id="alertsDropdown" data-bs-toggle="dropdown">
+                            <div class="position-relative mt-1" style="font-size:15px">
+                                <form method="post" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" class="form-inline">
+                                    <div class="form-group">
+                                        @if (requestCulture != null)
+                                        {
+                                            <select name="culture" id="languageSelect"
+                                                    asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                                    asp-items="cultures"
+                                                    onchange="this.form.submit();"
+                                                    class="form-control">
+                                            </select>
+                                        }
+                                    </div>
+                                </form>
+                            </div>
+                        </a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</nav>

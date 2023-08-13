@@ -1,0 +1,141 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Ecommerce_App.Areas.Identity.Data
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+
+@inject SignInManager<Ecommerce_AppUser> SignInManager
+@inject UserManager<Ecommerce_AppUser> UserManager
+@inject IViewLocalizer localizer
+
+
+@{
+    var check = CultureInfo.CurrentCulture.Name;
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <!-- Sidebar for signed-in users -->
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <!-- Sidebar content -->
+        <div class="sidebar-content js-simplebar">
+            @if (check == "en-US")
+            {
+                <a class="sidebar-brand" asp-controller="Home" asp-action="">
+                    <span class="align-middle">AdminKit</span>
+                </a>
+
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header fs-6">
+                        @localizer["Pages"]
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Home" asp-action="">
+                            <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">@localizer["Dashboard"]</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Users" asp-action="Index">
+                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">@localizer["Users"]</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="RoomTypes" asp-action="Index">
+                            <i class="fa-solid fa-hotel"></i> <span class="align-middle">@localizer["RoomTypes"]</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Rooms" asp-action="Index">
+                            <i class="fa-solid fa-hotel"></i> <span class="align-middle">@localizer["Rooms"]</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Reservations" asp-action="Index">
+                            <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">Reservations@*@localizer["Reservations"]*@</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Settings" asp-action="Index">
+                            <i class="align-middle" data-feather="settings"></i> <span class="align-middle">@localizer["Settings"]</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <a class="sidebar-brand text-end" asp-controller="Home" asp-action="">
+                    <span class="align-middle">AdminKit</span>
+                </a>
+
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header text-end fs-6">
+                        @localizer["Pages"]
+                    </li>
+
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-end fs-5" asp-controller="Home" asp-action="">
+                            <span class="align-middle">@localizer["Dashboard"]</span> <i class="align-middle" data-feather="sliders"></i>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-end fs-5" asp-controller="Users" asp-action="Index">
+                            <span class="align-middle">@localizer["Users"]</span> <i class="align-middle" data-feather="user"></i>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-end fs-5" asp-controller="RoomTypes" asp-action="Index">
+                            <span class="align-middle">@localizer["RoomTypes"]</span> <i class="fa-solid fa-hotel"></i>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-end fs-5" asp-controller="Rooms" asp-action="Index">
+                            <span class="align-middle">@localizer["Rooms"]</span> <i class="fa-solid fa-hotel"></i>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Settings" asp-action="Index">
+                            <span class="align-middle">Reservations@*@localizer["Settings"]*@</span> <i class="align-middle me-2" data-feather="inbox"></i>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-end fs-5" asp-controller="Settings" asp-action="Index">
+                            <span class="align-middle">@localizer["Settings"]</span> <i class="align-middle" data-feather="settings"></i>
+                        </a>
+                    </li>
+
+                </ul>
+            }
+        </div>
+    </nav>
+}
+else
+{
+    <!-- Sidebar for guests -->
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <!-- Sidebar content -->
+        <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" asp-controller="Home" asp-action="">
+                <span class="align-middle">AdminKit</span>
+            </a>
+        </div>
+    </nav>
+}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('li.sidebar-item a').click(function () {
+            $('li.sidebar-item').removeClass('active');
+
+            $(this).parent().addClass('active');
+
+            localStorage.setItem('activeItem', $(this).attr('href'));
+        });
+
+        var activeHref = localStorage.getItem('activeItem');
+        if (activeHref) {
+            $('a[href="' + activeHref + '"]').parent().addClass('active');
+        }
+    });
+</script>
+
