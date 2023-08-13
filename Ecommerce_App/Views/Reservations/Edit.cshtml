@@ -122,43 +122,24 @@
                                     <input type="text" class="form-control" value="@ViewBag.RoomNumber" readonly>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="row mt-4">
-                                    <div class="col-md-6">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h3 class="card-title">Escorts</h3>
-                                            </div>
-                                            <div class="card-body">
-                                                @if (Model.Escorts.Count > 0)
-                                                {
-                                                    <table class="table">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Full Name</th>
-                                                                <th>Is Adult</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            @foreach (var escort in Model.Escorts)
-                                                            {
-                                                                <tr>
-                                                                    <td>@escort.FullName</td>
-                                                                    <td>@(escort.IsAdult ? "Yes" : "No")</td>
-                                                                </tr>
-                                                            }
-                                                        </tbody>
-                                                    </table>
-                                                }
-                                                else
-                                                {
-                                                    <p>No escorts for this reservation.</p>
-                                                }
-                                            </div>
+                            <div>
+                                @for (var i = 0; i < Model.Escorts.Count; i++)
+                                {
+                                    var escort = Model.Escorts[i];
+                                    <div class="mb-3 row mt-4">
+                                        <label class="col-3 col-form-label required">Escort Full Name</label>
+                                        <div class="col">
+                                            <input type="text" class="form-control" name="Escorts[@i].FullName" placeholder="Full Name" value="@escort.FullName">
                                         </div>
+                                        <div class="col">
+                                            <input type="checkbox" class="form-check-input" name="Escorts[@i].IsAdult" asp-for="@escort.IsAdult">
+                                            <small class="form-hint mt-1">Is Adult</small>
+                                        </div>
+                                        <input type="hidden" asp-for="@escort.EscortId" />
                                     </div>
-                                </div>
+                                }
                             </div>
+
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-between align-items-center">
@@ -177,9 +158,3 @@
         <partial name="_Footer" />
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        // Add your JavaScript code here if needed
-    </script>
-}

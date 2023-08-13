@@ -131,7 +131,7 @@ namespace Ecommerce_App.Controllers
             reservation.ReservationId = id;
             var userId = _userManager.GetUserId(User);
             reservation.UserId = userId;
-            List<Escort> getEscorts = _escortService.GetEscorts(reservation.ReservationId ?? 0);
+            List<Escort> getEscorts = reservation.Escorts;
 
             if (id == null)
             {

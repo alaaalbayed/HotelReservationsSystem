@@ -19,7 +19,6 @@ namespace Domain.Service
         private readonly Ecommerce_AppContext _db;
         private readonly IEscortService _ecortService;
         private readonly IRoomService _roomService;
-        private static double price = 0;
 
         public ReservationService(Ecommerce_AppContext db, IEscortService ecortService, IRoomService roomService)
         {
@@ -106,7 +105,7 @@ namespace Domain.Service
             return reservations.Select(r => MapReservation.MAP(r));
         }
 
-        public async Task<bool> AreDatesAcceptable(int roomId,DateTime CheckIn, DateTime CheckOut, int? reservationId)
+        public async Task<bool> AreDatesAcceptable(int roomId, DateTime CheckIn, DateTime CheckOut, int? reservationId)
         {
             if (CheckIn >= CheckOut || CheckIn < DateTime.Today)
             {
@@ -146,8 +145,10 @@ namespace Domain.Service
 
         public async Task<double> GetFinalPrice(Reservation reservation, List<Escort> escorts)
         {
+            double price = 0;
             double adultPrice = await _roomService.GetAdultPrice(reservation.RoomId);
             double chidlernPrice = await _roomService.GetChildrenPrice(reservation.RoomId);
+
 
             foreach (Escort escort in escorts)
             {
