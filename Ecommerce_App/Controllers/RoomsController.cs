@@ -1,12 +1,14 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
 using Ecommerce_App.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce_App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoomsController : BaseController
     {
         private readonly Infrastructure.Data.Ecommerce_AppContext _db;

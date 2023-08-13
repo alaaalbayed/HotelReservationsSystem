@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging.AzureAppServices;
 using Microsoft.Extensions.DependencyInjection;
 using Domain.Service;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Ecommerce_AppContextConnection") ?? throw new InvalidOperationException("Connection string 'Ecommerce_AppContextConnection' not found.");
@@ -27,6 +28,7 @@ builder.Host.UseSerilog();
 builder.Services.AddDbContext<Ecommerce_App.Areas.Identity.Data.Ecommerce_AppContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddDefaultIdentity<Ecommerce_AppUser>(options => options.SignIn.RequireConfirmedAccount = false)
+	.AddRoles<IdentityRole>()
 	.AddEntityFrameworkStores<Ecommerce_App.Areas.Identity.Data.Ecommerce_AppContext>();
 
 builder.Services.AddDbContext<Ecommerce_App.Areas.Identity.Data.Ecommerce_AppContext>(options =>
@@ -112,6 +114,35 @@ app.UseAuthorization();
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Ecommerce_AppUser>>();
+
+    var roles = new[] { "Admin", "User" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+
+    var adminEmail = "test@gmail.com";
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        var admin = new Ecommerce_AppUser
+        {
+            UserName = adminEmail,
+            Email = adminEmail,
+        };
+        await userManager.CreateAsync(admin, "Admin123@");
+        await userManager.AddToRoleAsync(admin, "Admin");
+    }
+}
 
 app.MapRazorPages();
 

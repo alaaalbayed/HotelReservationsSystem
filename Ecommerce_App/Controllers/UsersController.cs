@@ -12,7 +12,7 @@ using Microsoft.VisualBasic;
 
 namespace Ecommerce_App.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class UsersController : BaseController
     {
         private readonly UserManager<Ecommerce_AppUser> _userManager;

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Domain.DTO_s;
+using Microsoft.AspNetCore.Identity;
 
 namespace Ecommerce_App.Areas.Identity.Data;
 

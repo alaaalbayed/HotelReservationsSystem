@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ecommerce_App.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class RoomTypesController : BaseController
     {
         private readonly IRoomTypeService _roomTypeService;

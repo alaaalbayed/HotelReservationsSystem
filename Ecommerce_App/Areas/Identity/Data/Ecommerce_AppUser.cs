@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Identity;
 namespace Ecommerce_App.Areas.Identity.Data;
 
 // Add profile data for application users by adding properties to the Ecommerce_AppUser class
+
+[NotMapped]
 public class Ecommerce_AppUser : IdentityUser
 {
 	public string FirstName { get; set; } = string.Empty;

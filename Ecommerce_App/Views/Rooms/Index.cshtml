@@ -163,7 +163,7 @@
             deleteButton.addEventListener("click", function () {
                 var deleteUrl = this.dataset.url;
                 var headers = new Headers();
-                headers.append('RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value); // Include the CSRF token
+                headers.append('RequestVerificationToken', document.querySelector('input[name="__RequestVerificationToken"]').value);
 
                 fetch(deleteUrl, {
                     method: 'DELETE',

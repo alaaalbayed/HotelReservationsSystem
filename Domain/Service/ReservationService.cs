@@ -149,7 +149,6 @@ namespace Domain.Service
             double adultPrice = await _roomService.GetAdultPrice(reservation.RoomId);
             double chidlernPrice = await _roomService.GetChildrenPrice(reservation.RoomId);
 
-
             foreach (Escort escort in escorts)
             {
                 if (escort.IsAdult)

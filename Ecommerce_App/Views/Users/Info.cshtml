@@ -23,143 +23,157 @@
     <div class="main">
         <partial name="_Navbar" />
         <main class="content">
+
             @if (check == "en-US")
             {
-                <div class="table-container">
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["FirstName"]</label>
-                        </div>
-                        <div class="table-cell">
-                            @Model.FirstName
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["LastName"]</label>
-                        </div>
-                        <div class="table-cell">
-                            @Model.LastName
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Email"]</label>
-                        </div>
-                        <div class="table-cell">
-                            @Model.Email
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["PhoneNumber"]</label>
-                        </div>
-                        <div class="table-cell">
-                            @Model.PhoneNumber
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Address"]</label>
-                        </div>
-                        <div class="table-cell">
-                            @Model.Address
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Image"]</label>
-                        </div>
-                        <div class="table-cell">
-                            <img src="~/Images/@Model.Image" style="height:75px; width:75px;" />
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Status"]</label>
-                        </div>
-                        <div class="table-cell">
-                            @if (Model.Status)
-                            {
-                                @localizer["Deleted"]
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-body">
+                            <div class="table-container">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["FirstName"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.FirstName
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["LastName"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.LastName
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Email"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.Email
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["PhoneNumber"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.PhoneNumber
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Address"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.Address
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Image"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        <img src="~/Images/@Model.Image" style="height:75px; width:75px;" />
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Status"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @if (Model.Status)
+                                        {
+                                            @localizer["Deleted"]
 
-                            }
-                            else
-                            {
-                                @localizer["Active"]
-                            }
+                                        }
+                                        else
+                                        {
+                                            @localizer["Active"]
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="mt-5 ms-2">
-                        <a class="btn btn-primary" asp-action="Index">Back to List</a>
                     </div>
                 </div>
+                <div class="mt-5 ms-2">
+                    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+                </div>
+
             }
             else
             {
-                <div class="table-container-ar">
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @Model.FirstName
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["FirstName"]</label>
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @Model.LastName
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["LastName"]</label>
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @Model.Email
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Email"]</label>
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @Model.PhoneNumber
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["PhoneNumber"]</label>
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @Model.Address
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Address"]</label>
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            <img src="~/Images/@Model.Image" style="height:75px; width:75px;" />
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Image"]</label>
-                        </div>
-                    </div>
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @if (Model.Status)
-                            {
-                                @localizer["Deleted"]
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-body">
+                            <div class="table-container-ar">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.FirstName
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["FirstName"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.LastName
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["LastName"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.Email
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Email"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.PhoneNumber
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["PhoneNumber"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.Address
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Address"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <img src="~/Images/@Model.Image" style="height:75px; width:75px;" />
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Image"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @if (Model.Status)
+                                        {
+                                            @localizer["Deleted"]
 
-                            }
-                            else
-                            {
-                                @localizer["Active"]
-                            }
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Status"]</label>
+                                        }
+                                        else
+                                        {
+                                            @localizer["Active"]
+                                        }
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Status"]</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -171,13 +185,13 @@
 
 <style>
     .table-container {
-        font-size:20px;
+        font-size: 20px;
         display: table;
         width: 100%;
     }
 
     .table-container-ar {
-        text-align:right;
+        text-align: right;
         font-size: 20px;
         display: table;
         width: 100%;
@@ -190,12 +204,12 @@
     .table-cell {
         display: table-cell;
         padding: 15px 10px;
-        top:20px;
+        top: 20px;
     }
 
-    .control-label{
-        color:black;
-        font-weight:bold;
+    .control-label {
+        color: black;
+        font-weight: bold;
     }
 </style>
 

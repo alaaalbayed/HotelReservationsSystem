@@ -1,10 +1,12 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
 using Domain.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SettingsController : BaseController
     {
         private readonly ISettingService _setting;

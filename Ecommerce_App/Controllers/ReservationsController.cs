@@ -8,9 +8,11 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Ecommerce_App.Areas.Identity.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Ecommerce_App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ReservationsController : BaseController
     {
         private readonly Infrastructure.Data.Ecommerce_AppContext _db;
@@ -162,9 +164,6 @@ namespace Ecommerce_App.Controllers
 
             return View(reseravtions);
         }
-
-        [HttpDelete]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             if (id == null)

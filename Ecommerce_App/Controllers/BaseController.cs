@@ -6,6 +6,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Ecommerce_App.Controllers
 {
+	[Authorize(Roles ="Admin")]
     public class BaseController : Controller
 	{
 		public readonly IStringLocalizer<BaseController> _Localizer;
