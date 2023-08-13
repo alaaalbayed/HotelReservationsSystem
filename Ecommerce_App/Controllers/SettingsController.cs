@@ -10,16 +10,26 @@ namespace Ecommerce_App.Controllers
     public class SettingsController : BaseController
     {
         private readonly ISettingService _setting;
+        private readonly ILoggerService _logger;
 
-        public SettingsController(ISettingService setting)
+        public SettingsController(ISettingService setting, ILoggerService logger)
         {
             _setting = setting;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            var allRoomTypes = _setting.GetAllRoomTypes();
-            return View(allRoomTypes);
+            try
+            {
+                var allRoomTypes = _setting.GetAllRoomTypes();
+                return View(allRoomTypes);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while getting room types", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         public IActionResult Create()
@@ -31,70 +41,114 @@ namespace Ecommerce_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(LookUpRoomType roomTypeIn)
         {
-            if (ModelState.IsValid)
+            try
             {
-                await _setting.Add(roomTypeIn);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    await _setting.Add(roomTypeIn);
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(roomTypeIn);
             }
-            return View(roomTypeIn);
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while creating a room type", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         public async Task<IActionResult> Edit(int id)
         {
-            if (id <= 0)
+            try
             {
-                return NotFound();
+                if (id <= 0)
+                {
+                    return NotFound();
+                }
+
+                var roomType = await _setting.GetRoomTypeById(id);
+                if (roomType == null)
+                {
+                    return NotFound();
+                }
+
+                return View(roomType);
             }
-            var roomType = await _setting.GetRoomTypeById(id);
-            if (roomType == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError("An error occurred while getting room type for editing", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
-            return View(roomType);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, LookUpRoomType roomType)
         {
-            if (id <= 0)
+            try
             {
-                return NotFound();
+                if (id <= 0)
+                {
+                    return NotFound();
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(roomType);
+                }
+
+                await _setting.Update(id, roomType);
+                return RedirectToAction(nameof(Index));
             }
-            if (!ModelState.IsValid)
+            catch (Exception ex)
             {
-                return View(roomType);
+                _logger.LogError("An error occurred while updating room type", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
-            await _setting.Update(id, roomType);
-            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Info(int id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null)
+                {
+                    return NotFound();
+                }
 
-            var roomType = await _setting.GetRoomTypeById(id);
-            if (roomType == null)
+                var roomType = await _setting.GetRoomTypeById(id);
+                if (roomType == null)
+                {
+                    return NotFound();
+                }
+
+                return View(roomType);
+            }
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError("An error occurred while getting room type info", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
-
-            return View(roomType);
         }
 
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            if (id <= 0)
+            try
             {
-                return NotFound();
-            }
+                if (id <= 0)
+                {
+                    return NotFound();
+                }
 
-            await _setting.Delete(id);
-            return Ok();
+                await _setting.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while deleting room type", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
     }
 }

@@ -41,31 +41,23 @@ namespace Ecommerce_App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var reservations = await _reservationService.GetAllReservations();
-            return View(reservations);
+            try
+            {
+                var reservations = await _reservationService.GetAllReservations();
+                return View(reservations);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while getting reservations", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         public async Task<IActionResult> Create()
         {
-            var allRoomAvailable = await _roomService.GetAllRoom();
-            var model = new Reservation
+            try
             {
-                Rooms = allRoomAvailable.Select(rt => new SelectListItem
-                {
-                    Value = rt.RoomId.ToString(),
-                    Text = rt.RoomNumber.ToString()
-                }).ToList()
-            };
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Reservation reservation)
-        {
-            var allRoomAvailable = await _roomService.GetAllRoom();
-            if (!ModelState.IsValid)
-            {
+                var allRoomAvailable = await _roomService.GetAllRoom();
                 var model = new Reservation
                 {
                     Rooms = allRoomAvailable.Select(rt => new SelectListItem
@@ -74,20 +66,24 @@ namespace Ecommerce_App.Controllers
                         Text = rt.RoomNumber.ToString()
                     }).ToList()
                 };
-
                 return View(model);
             }
-            else
+            catch (Exception ex)
             {
-                var room = await _roomService.GetId(reservation.RoomId);
+                _logger.LogError("An error occurred while preparing reservation creation", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
+        }
 
-                var roomIsEmpty = await _reservationService.AreDatesAcceptable(room.RoomId,
-                                                                              reservation.CheckIn,
-                                                                              reservation.CheckOut,
-                                                                              null);
-                if (!roomIsEmpty)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Reservation reservation)
+        {
+            try
+            {
+                var allRoomAvailable = await _roomService.GetAllRoom();
+                if (!ModelState.IsValid)
                 {
-                    ModelState.AddModelError(nameof(reservation.CheckIn), "Room is already reserved at that time");
                     var model = new Reservation
                     {
                         Rooms = allRoomAvailable.Select(rt => new SelectListItem
@@ -96,91 +92,157 @@ namespace Ecommerce_App.Controllers
                             Text = rt.RoomNumber.ToString()
                         }).ToList()
                     };
+
                     return View(model);
                 }
+                else
+                {
+                    var room = await _roomService.GetId(reservation.RoomId);
 
-                var userId = _userManager.GetUserId(User);
-                await _reservationService.Add(reservation, userId);
+                    var roomIsEmpty = await _reservationService.AreDatesAcceptable(room.RoomId,
+                                                                                  reservation.CheckIn,
+                                                                                  reservation.CheckOut,
+                                                                                  null);
+                    if (!roomIsEmpty)
+                    {
+                        ModelState.AddModelError(nameof(reservation.CheckIn), "Room is already reserved at that time");
+                        var model = new Reservation
+                        {
+                            Rooms = allRoomAvailable.Select(rt => new SelectListItem
+                            {
+                                Value = rt.RoomId.ToString(),
+                                Text = rt.RoomNumber.ToString()
+                            }).ToList()
+                        };
+                        return View(model);
+                    }
 
-                return RedirectToAction(nameof(Index));
+                    var userId = _userManager.GetUserId(User);
+                    await _reservationService.Add(reservation, userId);
+
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while creating a reservation", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
         }
 
 
         public async Task<IActionResult> Edit(int id)
         {
-            var reservation = await _reservationService.GetReservationById(id);
-            var getCapacity = _roomService.GetRoomCapacity(reservation.RoomId);
-            var getRoomNumber = _roomService.GetRoomNumber(reservation.RoomId);
-            var getEscorts = _escortService.GetEscorts(reservation.ReservationId ?? 0);
-
-            ViewBag.Capacity = getCapacity;
-            ViewBag.RoomNumber = getRoomNumber;
-            reservation.Escorts = getEscorts;
-            if (reservation == null)
+            try
             {
-                return NotFound();
+                var reservation = await _reservationService.GetReservationById(id);
+                var getCapacity = _roomService.GetRoomCapacity(reservation.RoomId);
+                var getRoomNumber = _roomService.GetRoomNumber(reservation.RoomId);
+                var getEscorts = _escortService.GetEscorts(reservation.ReservationId ?? 0);
+
+                ViewBag.Capacity = getCapacity;
+                ViewBag.RoomNumber = getRoomNumber;
+                reservation.Escorts = getEscorts;
+                if (reservation == null)
+                {
+                    return NotFound();
+                }
+
+                return View(reservation);
             }
-
-
-            return View(reservation);
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while preparing reservation editing", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Reservation reservation)
         {
-            reservation.ReservationId = id;
-            var userId = _userManager.GetUserId(User);
-            reservation.UserId = userId;
-            List<Escort> getEscorts = reservation.Escorts;
-
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
+                reservation.ReservationId = id;
+                var userId = _userManager.GetUserId(User);
+                reservation.UserId = userId;
+                List<Escort> getEscorts = reservation.Escorts;
 
-            if (ModelState.IsValid)
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                if (ModelState.IsValid)
+                {
+                    await _reservationService.Update(id, reservation, getEscorts);
+                    return RedirectToAction("Index");
+                }
+
+                return View(reservation);
+            }
+            catch (Exception ex)
             {
-                await _reservationService.Update(id, reservation, getEscorts);
-                return RedirectToAction("Index");
+                _logger.LogError("An error occurred while updating a reservation", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
-
-            return View(reservation);
         }
 
         public async Task<IActionResult> Info(int id)
         {
-
-            var reseravtions = await _reservationService.GetReservationById(id);
-            List<Escort> escort =  _escortService.GetEscorts(reseravtions.ReservationId ?? 0);
-
-            reseravtions.Escorts = escort;
-
-            if (reseravtions == null)
+            try
             {
-                return NotFound();
-            }
+                var reseravtions = await _reservationService.GetReservationById(id);
+                List<Escort> escort = _escortService.GetEscorts(reseravtions.ReservationId ?? 0);
 
-            return View(reseravtions);
+                reseravtions.Escorts = escort;
+
+                if (reseravtions == null)
+                {
+                    return NotFound();
+                }
+
+                return View(reseravtions);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while getting reservation info", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
+
         public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            try
             {
+                if (id == null)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+
+                await _reservationService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
-
-            await _reservationService.Delete(id);
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while deleting a reservation", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpGet]
         public IActionResult GetRoomCapacity(int roomId)
         {
-            var roomCapacity = _roomService.GetRoomCapacity(roomId);
-            return Json(roomCapacity);
+            try
+            {
+                var roomCapacity = _roomService.GetRoomCapacity(roomId);
+                return Json(roomCapacity);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while getting room capacity", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
-
     }
 }

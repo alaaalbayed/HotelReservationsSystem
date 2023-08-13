@@ -33,16 +33,30 @@ namespace YourApplication.Infrastructure.Logging
 
         public void LogError(string message, Exception exception)
         {
-            Log("Error", message, exception);
+            try
+            {
+                Log("Error", message, exception);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while logging an error message.", ex);
+            }
         }
 
         public void Log(string level, string message, Exception exception = null)
         {
-            var timestamp = DateTime.Now;
-            var methodName = GetMethodName(exception);
-            var className = GetClassName(exception);
-            LogToDatabase(level, timestamp, exception, className, methodName, message);
-            LogToFile(level, timestamp, exception, className, methodName, message);
+            try
+            {
+                var timestamp = DateTime.Now;
+                var methodName = GetMethodName(exception);
+                var className = GetClassName(exception);
+                LogToDatabase(level, timestamp, exception, className, methodName, message);
+                LogToFile(level, timestamp, exception, className, methodName, message);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while logging a message.", ex);
+            }
         }
 
         private void LogToDatabase(string level, DateTime timestamp, Exception exception, string className, string methodName, string message)

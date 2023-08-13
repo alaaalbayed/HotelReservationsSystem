@@ -70,6 +70,7 @@
                                     <tbody>
                                         @foreach (var item in Model)
                                         {
+                                         @if (await UserManager.IsInRoleAsync(item, "User")){
                                             @if (check == "en-US")
                                             {
                                                 <tr>
@@ -184,6 +185,7 @@
                                                         @Html.DisplayFor(modelItem => item.FirstName)
                                                     </td>
                                                 </tr>
+                                                }
                                             }
                                         }
                                     </tbody>

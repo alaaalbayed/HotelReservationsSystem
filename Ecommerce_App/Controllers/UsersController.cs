@@ -16,13 +16,11 @@ namespace Ecommerce_App.Controllers
     public class UsersController : BaseController
     {
         private readonly UserManager<Ecommerce_AppUser> _userManager;
-        private readonly IStringLocalizer _localizer;
         private readonly ILoggerService _logger;
 
-        public UsersController(UserManager<Ecommerce_AppUser> userManager, IStringLocalizer<HomeController> Localizer, ILoggerService logger) : base(Localizer)
+        public UsersController(UserManager<Ecommerce_AppUser> userManager, ILoggerService logger) : base(Localizer)
         {
             _userManager = userManager;
-            _localizer = Localizer;
             _logger = logger;
         }
         public async Task<IActionResult> Index()
