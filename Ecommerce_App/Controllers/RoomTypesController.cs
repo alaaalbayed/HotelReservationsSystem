@@ -12,20 +12,18 @@ namespace Ecommerce_App.Controllers
     {
         private readonly IRoomTypeService _roomTypeService;
         private readonly ISettingService _setting;
-        private readonly ILoggerService _logger;
 
-        public RoomTypesController(IRoomTypeService roomTypeService, ISettingService setting, ILoggerService looger)
+        public RoomTypesController(IRoomTypeService roomTypeService, ISettingService setting, ILoggerService logger) : base(logger)
         {
             _roomTypeService = roomTypeService;
             _setting = setting;
-            _logger = looger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
-                var allRoomTypes = _roomTypeService.GetAllRoomTypes();
+                var allRoomTypes = await _roomTypeService.GetAllRoomTypes();
                 ViewBag.RoomTypes = allRoomTypes;
                 return View(allRoomTypes);
             }
@@ -36,11 +34,11 @@ namespace Ecommerce_App.Controllers
             }
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             try
             {
-                var allRoomTypes = _setting.GetAllRoomTypes();
+                var allRoomTypes = await _setting.GetAllRoomTypes();
                 var model = new LookUpRoomType
                 {
                     RoomTypes = allRoomTypes.Select(rt => new SelectListItem
@@ -95,7 +93,7 @@ namespace Ecommerce_App.Controllers
                     return NotFound();
                 }
 
-                var allRoomTypes = _setting.GetAllRoomTypes();
+                var allRoomTypes = await _setting.GetAllRoomTypes();
                 var model = new LookUpProperty
                 {
                     RoomTypes = allRoomTypes.Select(rt => new SelectListItem

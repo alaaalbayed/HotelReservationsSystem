@@ -5,18 +5,26 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using orm = Infrastructure.Data;
 
 namespace Ecommerce_App.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class RoomsController : BaseController
     {
-        private readonly Infrastructure.Data.Ecommerce_AppContext _db;
+        private readonly orm.Ecommerce_AppContext _db;
         private readonly IRoomService _roomService;
         private readonly IRoomTypeService _roomTypeService;
         private readonly IRoomImageService _roomImageService;
 
-        public RoomsController(Infrastructure.Data.Ecommerce_AppContext db, IRoomService roomService, IRoomTypeService roomTypeService, IRoomImageService roomImageService)
+
+        public RoomsController(
+            orm.Ecommerce_AppContext db,
+            IRoomService roomService,
+            IRoomTypeService roomTypeService,
+            IRoomImageService roomImageService,
+            ILoggerService logger
+            ) : base(logger)
         {
             _db = db;
             _roomService = roomService;
@@ -29,7 +37,7 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var rooms = await _roomService.GetAllRoom();
-                var roomTypes = _roomTypeService.GetAllRoomTypes();
+                var roomTypes = await _roomTypeService.GetAllRoomTypes();
 
                 ViewBag.RoomTypes = roomTypes;
                 return View(rooms);
@@ -45,7 +53,7 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                var availableRoomTypes = _roomTypeService.GetAllRoomTypes();
+                var availableRoomTypes = await _roomTypeService.GetAllRoomTypes();
 
                 var model = new Room
                 {
@@ -113,7 +121,7 @@ namespace Ecommerce_App.Controllers
                     RoomTypeId = room.RoomTypeId,
                 };
 
-                var availableRoomTypes = _roomTypeService.GetAllRoomTypes();
+                var availableRoomTypes = await _roomTypeService.GetAllRoomTypes();
                 viewModel.RoomTypes = availableRoomTypes.Select(rt => new SelectListItem
                 {
                     Value = rt.TypeId.ToString(),
@@ -199,7 +207,7 @@ namespace Ecommerce_App.Controllers
             {
                 var room = await _roomService.GetId(id);
 
-                var roomTypes = _roomTypeService.GetAllRoomTypes();
+                var roomTypes = await _roomTypeService.GetAllRoomTypes();
 
                 ViewBag.RoomTypes = roomTypes;
 

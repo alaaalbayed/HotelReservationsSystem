@@ -17,8 +17,8 @@ namespace Domain.Interface
 		Task<IEnumerable<Room>> GetAllRoom();
         Task<Room> GetId(int id);
         Task<bool> IsRoomNumberFree(int number, int? roomId = null);
-		int GetRoomCapacity(int roomId);
-		int GetRoomNumber(int roomId);
+		Task<int> GetRoomCapacity(int roomId);
+		Task<int> GetRoomNumber(int roomId);
 		Task<double> GetAdultPrice(int roomId);
 		Task<double> GetChildrenPrice(int roomId);
 		

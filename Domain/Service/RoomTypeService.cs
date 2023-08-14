@@ -74,9 +74,9 @@ namespace Domain.Service
             return MapLookUp.MAP(roomType);
         }
 
-        public IEnumerable<LookUpProperty> GetAllRoomTypes()
+        public async Task<IEnumerable<LookUpProperty>> GetAllRoomTypes()
         {
-            var roomTypes = _db.LookupProperty.ToList();
+            var roomTypes = await _db.LookupProperty.ToListAsync();
             return MapLookUp.MAP(roomTypes);
         }
     }

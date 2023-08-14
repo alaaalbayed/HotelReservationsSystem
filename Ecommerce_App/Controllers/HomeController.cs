@@ -16,11 +16,9 @@ namespace Ecommerce_App.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger, IStringLocalizer<HomeController> Localizer) : base(Localizer)
+        public HomeController(ILoggerService logger) : base(logger)
         {
-            _logger = logger;
+
         }
 
         public IActionResult Index()

@@ -16,12 +16,10 @@ namespace Ecommerce_App.Controllers
     public class UsersController : BaseController
     {
         private readonly UserManager<Ecommerce_AppUser> _userManager;
-        private readonly ILoggerService _logger;
 
-        public UsersController(UserManager<Ecommerce_AppUser> userManager, ILoggerService logger) : base(Localizer)
+        public UsersController(UserManager<Ecommerce_AppUser> userManager, ILoggerService logger) : base(logger)
         {
             _userManager = userManager;
-            _logger = logger;
         }
         public async Task<IActionResult> Index()
         {
@@ -70,15 +68,6 @@ namespace Ecommerce_App.Controllers
 
         public async Task<IActionResult> Edit(Guid? id)
         {
-            try
-            {
-                int result = Math(1, 0);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("An error occurred while doing something.", ex);
-            }
-
             try
             {
                 if (id == null)
@@ -218,11 +207,6 @@ namespace Ecommerce_App.Controllers
                 _logger.LogError($"There is error while trying to upload the image", ex);
             }
             
-        }
-
-        public int Math(int x, int y)
-        {
-            return x / y;
         }
     }
 }
