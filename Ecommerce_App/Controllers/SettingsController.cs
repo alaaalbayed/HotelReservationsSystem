@@ -3,6 +3,7 @@ using Domain.Interface;
 using Domain.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 
 namespace Ecommerce_App.Controllers
 {
@@ -10,19 +11,18 @@ namespace Ecommerce_App.Controllers
     public class SettingsController : BaseController
     {
         private readonly ISettingService _setting;
-        private readonly ILoggerService _logger;
 
-        public SettingsController(ISettingService setting, ILoggerService logger)
+
+        public SettingsController(ISettingService setting, ILoggerService logger) : base (logger)
         {
             _setting = setting;
-            _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<ActionResult> Index()
         {
             try
             {
-                var allRoomTypes = _setting.GetAllRoomTypes();
+                var allRoomTypes = await _setting.GetAllRoomTypes();
                 return View(allRoomTypes);
             }
             catch (Exception ex)

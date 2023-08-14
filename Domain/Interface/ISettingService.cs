@@ -16,6 +16,6 @@ namespace Domain.Interface
         Task Delete(int id);
         Task<int> CountAllRoomTypeAsync();
         Task<LookUpRoomType> GetRoomTypeById(int id);
-        IEnumerable<LookUpRoomType> GetAllRoomTypes();
+        Task<IEnumerable<LookUpRoomType>> GetAllRoomTypes();
     }
 }

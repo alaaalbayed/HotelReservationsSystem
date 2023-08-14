@@ -17,7 +17,7 @@ namespace Domain.Interface
 
         Task<List<Escort>> GetAllEscorts(Escort escort);
 
-        List<Escort> GetEscorts(int reservationId);
+        Task<List<Escort>> GetEscorts(int reservationId);
         Task UpdateEscorts(int reservationId, List<Escort> newEscorts);
 
     }

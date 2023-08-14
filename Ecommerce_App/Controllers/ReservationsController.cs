@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Ecommerce_App.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Localization;
 
 namespace Ecommerce_App.Controllers
 {
@@ -28,8 +29,9 @@ namespace Ecommerce_App.Controllers
             IReservationService reservationService,
             IRoomService roomService,
             IRoomTypeService roomTypeService,
-            IEscortService escortService
-            )
+            IEscortService escortService,
+            ILoggerService logger
+            ) : base(logger)
         {
             _db = db;
             _userManager = userManager;
@@ -37,6 +39,7 @@ namespace Ecommerce_App.Controllers
             _roomService = roomService;
             _roomTypeService = roomTypeService;
             _escortService = escortService;
+
         }
 
         public async Task<IActionResult> Index()
@@ -136,9 +139,9 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var reservation = await _reservationService.GetReservationById(id);
-                var getCapacity = _roomService.GetRoomCapacity(reservation.RoomId);
-                var getRoomNumber = _roomService.GetRoomNumber(reservation.RoomId);
-                var getEscorts = _escortService.GetEscorts(reservation.ReservationId ?? 0);
+                var getCapacity = await _roomService.GetRoomCapacity(reservation.RoomId);
+                var getRoomNumber = await _roomService.GetRoomNumber(reservation.RoomId);
+                var getEscorts = await _escortService.GetEscorts(reservation.ReservationId ?? 0);
 
                 ViewBag.Capacity = getCapacity;
                 ViewBag.RoomNumber = getRoomNumber;
@@ -193,7 +196,7 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var reseravtions = await _reservationService.GetReservationById(id);
-                List<Escort> escort = _escortService.GetEscorts(reseravtions.ReservationId ?? 0);
+                List<Escort> escort = await _escortService.GetEscorts(reseravtions.ReservationId ?? 0);
 
                 reseravtions.Escorts = escort;
 

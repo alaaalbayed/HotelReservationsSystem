@@ -113,9 +113,9 @@ namespace Domain.Service
             return await _db.Rooms.AsNoTracking().Where(x => x.RoomId != roomId).AnyAsync(x => x.RoomNumber == number);
         }
 
-        public int GetRoomCapacity(int roomId)
+        public async Task<int> GetRoomCapacity(int roomId)
         {
-            var room = _db.Rooms.Find(roomId);
+            var room = await _db.Rooms.FindAsync(roomId);
             if (room != null)
             {
                 return room.Capacity;
@@ -123,9 +123,9 @@ namespace Domain.Service
             return 0;
         }
 
-        public int GetRoomNumber(int roomId)
+        public async Task<int> GetRoomNumber(int roomId)
         {
-            var room = _db.Rooms.Find(roomId);
+            var room = await _db.Rooms.FindAsync(roomId);
             if (room != null)
             {
                 return room.RoomNumber;

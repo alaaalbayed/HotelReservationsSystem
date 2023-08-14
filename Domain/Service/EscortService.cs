@@ -58,11 +58,11 @@ namespace Domain.Service
             throw new NotImplementedException();
         }
 
-        public List<Escort> GetEscorts(int reservationId)
+        public async Task<List<Escort>> GetEscorts(int reservationId)
         {
             var list = new List<Escort>();
 
-            var reservation = _db.Escorts
+            var reservation = await _db.Escorts
                 .Where(r => r.ReservationId == reservationId)
                 .Select(r => new Escort
                 {
@@ -70,7 +70,7 @@ namespace Domain.Service
                     IsAdult = r.IsAdult,
                     ReservationId = r.ReservationId
                 })
-                .ToList();
+                .ToListAsync();
 
             list.AddRange(reservation);
 

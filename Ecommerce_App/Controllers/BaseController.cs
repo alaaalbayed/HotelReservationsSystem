@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration.UserSecrets;
@@ -10,12 +11,10 @@ namespace Ecommerce_App.Controllers
     [Authorize(Roles = "Admin")]
     public class BaseController : Controller
     {
-        private readonly IStringLocalizer<BaseController> _localizer;
-        private readonly ILogger<BaseController> _logger;
+        public readonly ILoggerService _logger;
 
-        public BaseController(IStringLocalizer<BaseController> localizer, ILogger<BaseController> logger)
+        public BaseController(ILoggerService logger)
         {
-            _localizer = localizer;
             _logger = logger;
         }
 

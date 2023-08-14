@@ -14,6 +14,6 @@ namespace Domain.Interface
         Task Delete(int id);
         Task<LookUpProperty> GetRoomTypeById(int id);
         Task<LookUpProperty> GetByTypeId(int id);
-        IEnumerable<LookUpProperty> GetAllRoomTypes();
+        Task<IEnumerable<LookUpProperty>> GetAllRoomTypes();
     }
 }
