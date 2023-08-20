@@ -11,13 +11,14 @@ namespace Domain.DTO_s
 {
     public class LookUpProperty
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
+
+        public string NameAr { get; set; }
+
+        public string NameEn { get; set; }
 
         public long TypeId { get; set; }
 
-        public string? NameAr { get; set; }
-
-        public string? NameEn { get; set; }
-        public List<SelectListItem>? RoomTypes { get; set; }
+        public LookUpType LookUpType { get; set; }
     }
 }

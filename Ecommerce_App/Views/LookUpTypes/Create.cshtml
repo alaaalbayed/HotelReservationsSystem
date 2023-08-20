@@ -1,7 +1,7 @@
-﻿@*@model Domain.DTO_s.RoomType
+﻿@model Domain.DTO_s.LookUpType
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 <div class="wrapper">
     <partial name="_Slide" />
@@ -10,34 +10,26 @@
         <main class="content">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
-                    <form class="card mt-5" asp-action="Edit">
+                    <form class="card mt-5" asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="card-header">
-                            <h3 class="card-title">Edit Room Type</h3>
+                            <h3 class="card-title">Create New Room Type</h3>
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="NameEn"></label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameEn">
-                                    <small class="form-hint">Here The Updated Type Name That Will Display For The User In English.</small>
+                                    <input type="text" class="form-control" asp-for="NameEn" placeholder="RoomType En">
+                                    <small class="form-hint">Here The Type Name That Will Display For The User In English.</small>
                                     <span asp-validation-for="NameEn" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="NameAr"></label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameAr">
-                                    <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
+                                    <input type="text" class="form-control" asp-for="NameAr" placeholder="RoomType Ar">
+                                    <small class="form-hint">Here The Type Name That Will Display For The User In Arabic.</small>
                                     <span asp-validation-for="NameAr" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Price"></label>
-                                <div class="col">
-                                    <input type="text" class="form-control" asp-for="Price">
-                                    <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
-                                    <span asp-validation-for="Price" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +39,7 @@
                                     <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
                                 </div>
                                 <div>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    <button type="submit" class="btn btn-primary">Create</button>
                                 </div>
                             </div>
                         </div>
@@ -64,4 +56,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-*@

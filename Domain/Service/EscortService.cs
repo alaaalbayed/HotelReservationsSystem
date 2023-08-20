@@ -99,7 +99,7 @@ namespace Domain.Service
                 else
                 {
                     newEscort.ReservationId = reservationId;
-                    _db.Escorts.Add(MapEscort.MAP(newEscort));
+                    await _db.Escorts.AddAsync(MapEscort.MAP(newEscort));
                 }
             }
 

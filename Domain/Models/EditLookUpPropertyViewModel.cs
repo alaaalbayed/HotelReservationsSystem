@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class EditRoomTypeViewModel
+    public class EditLookUpPropertyViewModel
     {
-        public RoomType LookUpRoomType { get; set; }
         public LookUpProperty LookUpProperty { get; set; }
+        public IEnumerable<LookUpType> AllLookUpTypes { get; set; }
     }
 }

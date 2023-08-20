@@ -20,7 +20,7 @@ namespace Ecommerce_App.Controllers
         private readonly UserManager<Ecommerce_AppUser> _userManager;
         private readonly IReservationService _reservationService;
         private readonly IRoomService _roomService;
-        private readonly IRoomTypeService _roomTypeService;
+        private readonly ILookUpTypeService _roomTypeService;
         private readonly IEscortService _escortService;
 
         public ReservationsController(
@@ -28,7 +28,7 @@ namespace Ecommerce_App.Controllers
             UserManager<Ecommerce_AppUser> userManager,
             IReservationService reservationService,
             IRoomService roomService,
-            IRoomTypeService roomTypeService,
+            ILookUpTypeService roomTypeService,
             IEscortService escortService,
             ILoggerService logger
             ) : base(logger)
@@ -234,11 +234,11 @@ namespace Ecommerce_App.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetRoomCapacity(int roomId)
+        public async Task<IActionResult> GetRoomCapacity(int roomId)
         {
             try
             {
-                var roomCapacity = _roomService.GetRoomCapacity(roomId);
+                var roomCapacity = await _roomService.GetRoomCapacity(roomId);
                 return Json(roomCapacity);
             }
             catch (Exception ex)

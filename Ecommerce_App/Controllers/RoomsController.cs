@@ -14,22 +14,25 @@ namespace Ecommerce_App.Controllers
     {
         private readonly orm.Ecommerce_AppContext _db;
         private readonly IRoomService _roomService;
-        private readonly IRoomTypeService _roomTypeService;
+        private readonly ILookUpTypeService _lookUpTypeService;
         private readonly IRoomImageService _roomImageService;
+        private readonly ILookUpPropertyService _lookUpPropertyService;
 
 
         public RoomsController(
             orm.Ecommerce_AppContext db,
             IRoomService roomService,
-            IRoomTypeService roomTypeService,
+            ILookUpTypeService lookUpTypeService,
             IRoomImageService roomImageService,
+            ILookUpPropertyService lookUpPropertyService,
             ILoggerService logger
             ) : base(logger)
         {
             _db = db;
             _roomService = roomService;
-            _roomTypeService = roomTypeService;
+            _lookUpTypeService = lookUpTypeService;
             _roomImageService = roomImageService;
+            _lookUpPropertyService = lookUpPropertyService;
         }
 
         public async Task<IActionResult> Index()
@@ -37,7 +40,7 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var rooms = await _roomService.GetAllRoom();
-                var roomTypes = await _roomTypeService.GetAllRoomTypes();
+                var roomTypes = await _lookUpPropertyService.GetAllLookUpProperty();
 
                 ViewBag.RoomTypes = roomTypes;
                 return View(rooms);
@@ -53,14 +56,14 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                var availableRoomTypes = await _roomTypeService.GetAllRoomTypes();
+                var availableRoomTypes = await _lookUpPropertyService.GetAllLookUpProperty();
 
                 var model = new Room
                 {
                     RoomTypes = availableRoomTypes.Select(rt => new SelectListItem
                     {
-                        Value = rt.TypeId.ToString(),
-                        Text = rt.NameEn
+                        Value = rt.Id.ToString(),
+                        Text = rt.NameEn.ToString()
                     }).ToList()
                 };
 
@@ -79,7 +82,7 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                var selectedRoomType = await _roomTypeService.GetByTypeId(model.RoomTypeId);
+                var selectedRoomType = await _lookUpPropertyService.GetByRoomTypeId(model.RoomTypeId);
 
                 if (selectedRoomType != null)
                 {
@@ -121,11 +124,11 @@ namespace Ecommerce_App.Controllers
                     RoomTypeId = room.RoomTypeId,
                 };
 
-                var availableRoomTypes = await _roomTypeService.GetAllRoomTypes();
+                var availableRoomTypes = await _lookUpPropertyService.GetAllLookUpProperty();
                 viewModel.RoomTypes = availableRoomTypes.Select(rt => new SelectListItem
                 {
-                    Value = rt.TypeId.ToString(),
-                    Text = rt.NameEn
+                    Value = rt.Id.ToString(),
+                    Text = rt.NameEn.ToString()
                 }).ToList();
 
                 return View(viewModel);
@@ -207,7 +210,7 @@ namespace Ecommerce_App.Controllers
             {
                 var room = await _roomService.GetId(id);
 
-                var roomTypes = await _roomTypeService.GetAllRoomTypes();
+                var roomTypes = await _lookUpTypeService.GetAllLookUpTypes();
 
                 ViewBag.RoomTypes = roomTypes;
 

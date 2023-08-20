@@ -21,6 +21,7 @@ namespace Domain.Interface
 		Task<int> GetRoomNumber(int roomId);
 		Task<double> GetAdultPrice(int roomId);
 		Task<double> GetChildrenPrice(int roomId);
-		
+        Task<Room> GetRoomByRoomId(int id);
+
     }
 }

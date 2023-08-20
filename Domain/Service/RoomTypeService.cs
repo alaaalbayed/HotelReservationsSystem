@@ -1,83 +1,67 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
+using Domain.MAPPER;
+using Humanizer;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using Domain.MAPPER;
 
 namespace Domain.Service
 {
-	public class RoomTypeService : IRoomTypeService
-	{
+    public class RoomTypeService : IRoomTypeService
+    {
         private readonly Ecommerce_AppContext _db;
 
         public RoomTypeService(Ecommerce_AppContext db)
         {
             _db = db;
         }
-
-        public async Task Add(LookUpProperty roomType)
+        public async Task Add(RoomType roomType)
         {
-            var selectedRoomType = await _db.LookupRoomType.FindAsync((long)roomType.Id);
+            var _roomType = await _db.LookUpProperty
+                .FirstOrDefaultAsync(lt => lt.Id == roomType.TypeId);
 
-            if (selectedRoomType == null)
+            if (_roomType != null)
             {
-                throw new ArgumentException("Invalid selected room type ID.");
-            }
+                roomType.TypeId = _roomType.Id;
 
-            var lookupProperty = MapLookUp.MAP(roomType);
-            lookupProperty.TypeId = selectedRoomType.Id;
-
-            await _db.LookupProperty.AddAsync(lookupProperty);
-            await _db.SaveChangesAsync();
-        }
-
-
-        public async Task Update(int id, LookUpProperty roomType)
-        {
-            var roomTypeToUpdate = await _db.LookupProperty.FindAsync(id);
-            if (roomTypeToUpdate != null)
-            {
-                roomTypeToUpdate.NameEn = roomType.NameEn;
-                roomTypeToUpdate.NameAr = roomType.NameAr;
-
+                await _db.RoomTypes.AddAsync(MapRoomType.MAP(roomType));
                 await _db.SaveChangesAsync();
             }
         }
 
-        public async Task Delete(int id)
+        public Task Delete(int id)
         {
-            var data = await _db.LookupProperty.FirstOrDefaultAsync(x => x.Id == id);
-            if (data != null)
-            {
-                _db.LookupProperty.Remove(data);
-                await _db.SaveChangesAsync();
-            }
+            throw new NotImplementedException();
         }
 
-        public async Task<int> CountAllRoomTypeAsync()
+        public async Task<IEnumerable<RoomType>> GetAllRoomType()
         {
-            return await _db.LookupProperty.CountAsync();
+            var roomTypes = await _db.RoomTypes
+                .Include(x=>x.Type)
+                .ToListAsync();
+
+            return MapRoomType.MAP(roomTypes);
         }
 
-        public async Task<LookUpProperty> GetRoomTypeById(int id)
+        public Task<RoomType> GetAllRoomTypeById(int id)
         {
-            var roomType = await _db.LookupProperty.FirstOrDefaultAsync(x => x.Id == id);
-            return MapLookUp.MAP(roomType);
+            throw new NotImplementedException();
         }
 
-        public async Task<LookUpProperty> GetByTypeId(int id)
+        public async Task<RoomType> GetRoomTypeByID(int id)
         {
-            var roomType = await _db.LookupProperty.FirstOrDefaultAsync(x => x.TypeId == id);
-            return MapLookUp.MAP(roomType);
+            var roomType = await _db.RoomTypes.FirstOrDefaultAsync(x => x.TypeId == id);
+            return MapRoomType.MAP(roomType);
         }
 
-        public async Task<IEnumerable<LookUpProperty>> GetAllRoomTypes()
+        public Task Update(int id, RoomType roomType)
         {
-            var roomTypes = await _db.LookupProperty.ToListAsync();
-            return MapLookUp.MAP(roomTypes);
+            throw new NotImplementedException();
         }
     }
 }
