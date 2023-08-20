@@ -11,25 +11,36 @@ namespace Domain.MAPPER
 {
     public class MapRoomType
     {
-        public static dto.LookUpRoomType MAP(orm.LookupRoomType obj)
+        public static dto.RoomType MAP(orm.RoomTypes obj)
         {
-            var roomType = new dto.LookUpRoomType();
+            var roomType = new dto.RoomType();
 
             if (obj != null)
             {
-                roomType = new dto.LookUpRoomType
+                roomType = new dto.RoomType
                 {
                     Id = obj.Id,
-                    NameAr = obj.NameAr,
-                    NameEn = obj.NameEn,
+                    Breakfast = obj.Breakfast,
+                    Dinner = obj.Dinner,
+                    Lunch = obj.Lunch,
+                    ExtraBed = obj.ExtraBed,
+                    TypeId = obj.TypeId,
+                    Type = new dto.LookUpProperty
+                    {
+                        Id = obj.Id,
+                        NameEn = obj.Type.NameEn,
+                        NameAr = obj.Type.NameAr,
+                        TypeId = obj.Type.TypeId
+                    }
+
                 };
             }
             return roomType;
         }
 
-        public static List<dto.LookUpRoomType> MAP(List<orm.LookupRoomType> in_obj)
+        public static List<dto.RoomType> MAP(List<orm.RoomTypes> in_obj)
         {
-            var list = new List<dto.LookUpRoomType>();
+            var list = new List<dto.RoomType>();
 
             if (in_obj != null)
             {
@@ -41,25 +52,28 @@ namespace Domain.MAPPER
             return list;
         }
 
-        public static orm.LookupRoomType MAP(dto.LookUpRoomType obj)
+        public static orm.RoomTypes MAP(dto.RoomType obj)
         {
-            var roomType = new orm.LookupRoomType();
+            var roomType = new orm.RoomTypes();
 
             if (obj != null)
             {
-                roomType = new orm.LookupRoomType
+                roomType = new orm.RoomTypes
                 {
                     Id = obj.Id,
-                    NameAr = obj.NameAr,
-                    NameEn = obj.NameEn,
+                    Breakfast = obj.Breakfast,
+                    Dinner = obj.Dinner,
+                    Lunch = obj.Lunch,
+                    ExtraBed = obj.ExtraBed,
+                    TypeId = obj.TypeId,
                 };
             }
             return roomType;
         }
 
-        public static List<orm.LookupRoomType> MAP(List<dto.LookUpRoomType> obj)
+        public static List<orm.RoomTypes> MAP(List<dto.RoomType> obj)
         {
-            var list = new List<orm.LookupRoomType>();
+            var list = new List<orm.RoomTypes>();
 
             if (obj != null)
             {

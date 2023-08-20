@@ -1,4 +1,4 @@
-﻿@*@model Domain.DTO_s.RoomType
+﻿@model Domain.Models.EditLookUpPropertyViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -17,27 +17,29 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="NameEn"></label>
+                                <label class="col-3 col-form-label required" asp-for="LookUpProperty.NameEn"></label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameEn">
+                                    <input type="text" class="form-control" asp-for="LookUpProperty.NameEn">
                                     <small class="form-hint">Here The Updated Type Name That Will Display For The User In English.</small>
-                                    <span asp-validation-for="NameEn" class="text-danger"></span>
+                                    <span asp-validation-for="LookUpProperty.NameEn" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="NameAr"></label>
+                                <label class="col-3 col-form-label required" asp-for="LookUpProperty.NameAr"></label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameAr">
+                                    <input type="text" class="form-control" asp-for="LookUpProperty.NameAr">
                                     <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
-                                    <span asp-validation-for="NameAr" class="text-danger"></span>
+                                    <span asp-validation-for="LookUpProperty.NameAr" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Price"></label>
+                                <label class="col-3 col-form-label required" asp-for="LookUpProperty.TypeId"></label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="Price">
-                                    <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
-                                    <span asp-validation-for="Price" class="text-danger"></span>
+                                    <select asp-for="LookUpProperty.TypeId" asp-items="@(new SelectList(Model.AllLookUpTypes, "Id", "NameEn", Model.LookUpProperty.TypeId))" class="form-select">
+                                        <option value="">-- Select Type --</option>
+                                    </select>
+                                    <small class="form-hint">Select the type from the dropdown.</small>
+                                    <span asp-validation-for="LookUpProperty.TypeId" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -64,4 +66,3 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-*@

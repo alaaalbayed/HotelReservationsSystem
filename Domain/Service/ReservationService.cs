@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Domain.Service
 {
@@ -19,12 +20,20 @@ namespace Domain.Service
         private readonly Ecommerce_AppContext _db;
         private readonly IEscortService _ecortService;
         private readonly IRoomService _roomService;
+        private readonly IRoomTypeService _roomTypeService;
 
-        public ReservationService(Ecommerce_AppContext db, IEscortService ecortService, IRoomService roomService)
+        public ReservationService(
+            Ecommerce_AppContext db,
+            IEscortService ecortService,
+            IRoomService roomService,
+            IRoomTypeService roomTypeService
+            )
         {
             _db = db;
             _ecortService = ecortService;
             _roomService = roomService;
+            _roomTypeService = roomTypeService;
+
         }
 
         public async Task Add(Reservation reservation, string userId)
@@ -146,24 +155,30 @@ namespace Domain.Service
         public async Task<double> GetFinalPrice(Reservation reservation, List<Escort> escorts)
         {
             double price = 0;
-            double adultPrice = await _roomService.GetAdultPrice(reservation.RoomId);
-            double chidlernPrice = await _roomService.GetChildrenPrice(reservation.RoomId);
+            double roomPrice = reservation.IsAdult ? await _roomService.GetAdultPrice(reservation.RoomId) : await _roomService.GetChildrenPrice(reservation.RoomId);
+            var room = await _roomService.GetRoomByRoomId(reservation.RoomId);
+            var roomType = await _roomTypeService.GetRoomTypeByID((int) room.RoomTypeId);
+
+            if (reservation.Lunch)
+                price += roomType.Lunch;
+
+            if (reservation.Dinner)
+                price += roomType.Dinner;
+
+            if (reservation.Breakfast)
+                price += roomType.Breakfast;
+
+            if (reservation.ExtraBed)
+                price += roomType.ExtraBed;
 
             foreach (Escort escort in escorts)
             {
-                if (escort.IsAdult)
-                {
-                    price += adultPrice;
-                }
-                else
-                {
-                    price += chidlernPrice;
-                }
+                double escortPrice = escort.IsAdult ? await _roomService.GetAdultPrice(reservation.RoomId) : await _roomService.GetChildrenPrice(reservation.RoomId);
+                price += escortPrice;
             }
 
-            var getHowMnayDat = GetDaysBetweenDates(reservation.CheckIn, reservation.CheckOut);
-
-            return price * getHowMnayDat;
+            int numberOfDays = GetDaysBetweenDates(reservation.CheckIn, reservation.CheckOut);
+            return (price + roomPrice) * numberOfDays;
         }
     }
 }

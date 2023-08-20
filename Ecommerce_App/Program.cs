@@ -55,10 +55,12 @@ builder.Services.AddSingleton<ILoggerService>(provider =>
     new LoggerService(logFilePath, logger, dbContext, provider.GetRequiredService<IServiceScopeFactory>()));
 
 
-builder.Services.AddScoped<IRoomTypeService, RoomTypeService>();
+builder.Services.AddScoped<ILookUpPropertyService, LookUpPropertyService>();
+builder.Services.AddScoped<ILookUpTypeService, LookUpTypeService>();
+builder.Services.AddScoped<IRoomTypeService,RoomTypeService>();
 builder.Services.AddScoped<IRoomService, RoomService>();
 builder.Services.AddScoped<IRoomImageService, RoomImageService>();
-builder.Services.AddScoped<ISettingService, SettingService>();
+builder.Services.AddScoped<ILookUpTypeService, LookUpTypeService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IEscortService, EscortService>();
 builder.Services.AddControllersWithViews();

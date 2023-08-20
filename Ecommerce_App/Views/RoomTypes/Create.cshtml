@@ -1,4 +1,4 @@
-﻿@model Domain.DTO_s.LookUpRoomType
+﻿@model Domain.DTO_s.RoomType
 
 @{
     ViewData["Title"] = "Create";
@@ -17,28 +17,45 @@
                         </div>
                         <div class="card-body">
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="NameEn"></label>
+                                <label class="col-3 col-form-label required" asp-for="Breakfast"></label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameEn" placeholder="RoomType En">
-                                    <small class="form-hint">Here The Type Name That Will Display For The User In English.</small>
-                                    <span asp-validation-for="NameEn" class="text-danger"></span>
+                                    <input type="number" class="form-control" asp-for="Breakfast" placeholder="Property En">
+                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
+                                    <span asp-validation-for="Breakfast" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="NameAr"></label>
+                                <label class="col-3 col-form-label required" asp-for="Dinner"></label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameAr" placeholder="RoomType Ar">
-                                    <small class="form-hint">Here The Type Name That Will Display For The User In Arabic.</small>
-                                    <span asp-validation-for="NameAr" class="text-danger"></span>
+                                    <input type="number" class="form-control" asp-for="Dinner" placeholder="Property En">
+                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
+                                    <span asp-validation-for="Dinner" class="text-danger"></span>
                                 </div>
                             </div>
-
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label required">Select Room Type</label>
+                                <label class="col-3 col-form-label required" asp-for="Lunch"></label>
                                 <div class="col">
-                                    <select asp-for="Id" class="form-control" asp-items="@Model.RoomTypes"></select>
-                                    <small class="form-hint">Select a room type from the list.</small>
-                                    <span asp-validation-for="Id" class="text-danger"></span>
+                                    <input type="number" class="form-control" asp-for="Lunch" placeholder="Property En">
+                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
+                                    <span asp-validation-for="Lunch" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="ExtraBed"></label>
+                                <div class="col">
+                                    <input type="number" class="form-control" asp-for="ExtraBed" placeholder="Property En">
+                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
+                                    <span asp-validation-for="ExtraBed" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label class="col-3 col-form-label required" asp-for="TypeId"></label>
+                                <div class="col">
+                                    <select class="form-select" asp-for="TypeId" asp-items="ViewBag.TypeOptions">
+                                        <option value="">Select a Type</option>
+                                    </select>
+                                    <small class="form-hint">Select the corresponding property type.</small>
+                                    <span asp-validation-for="TypeId" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>

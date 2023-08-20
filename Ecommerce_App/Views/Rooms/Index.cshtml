@@ -53,29 +53,22 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Capacity)
+                                            @Html.DisplayFor(x => item.Capacity)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.IsTaken)
+                                            @Html.DisplayFor(x => item.IsTaken)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.AdultPrice)
+                                            @Html.DisplayFor(x => item.AdultPrice)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.ChildrenPrice)
+                                            @Html.DisplayFor(x => item.ChildrenPrice)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.RoomNumber)
+                                            @Html.DisplayFor(x => item.RoomNumber)
                                         </td>
                                         <td>
-                                            @{
-                                                var listOfRoomTypes = ViewBag.RoomTypes;
-
-                                                @foreach (var roomType in listOfRoomTypes)
-                                                {
-                                                    @roomType.NameEn
-                                                }
-                                            }
+                                            @Html.DisplayFor(x => item.RoomType.NameEn)
                                         </td>
                                         <td class="col-5">
 

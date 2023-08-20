@@ -21,11 +21,9 @@ namespace Domain.DTO_s
         public List<IFormFile>? RoomImages { get; set; }
         public List<RoomImage> RoomImages2 { get; set; }
         public List<SelectListItem>? RoomTypes { get; set; }
-        public List<LookUpRoomType>? RoomTypes2 { get; set; }
-        public string ImageUrl { get; set; }
         public string NameAr { get; set; }
         public string NameEn { get; set; }
-        public int RoomTypeId { get; set; }
-        public LookUpProperty RoomType { get; set; }
+        public long RoomTypeId { get; set; }
+        public LookUpProperty? RoomType { get; set; }
     }
 }

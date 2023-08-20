@@ -57,11 +57,18 @@ namespace Domain.MAPPER
                     IsTaken = obj.IsTaken,
                     RoomNumber = obj.RoomNumber,
                     RoomTypeId = obj.RoomTypeId,
+                    RoomType = obj.RoomType != null ? new dto.LookUpProperty
+                    {
+                        Id = obj.RoomType.Id,
+                        NameAr = obj.RoomType.NameAr,
+                        NameEn = obj.RoomType.NameEn,
+                    } : null,
                     RoomImages2 = obj.RoomImages.Select(ri => new dto.RoomImage
                     {
                         RoomImageId = ri.RoomImageId,
                         ImageUrl = ri.ImageUrl
                     }).ToList()
+                    
                 };
             }
             return room;

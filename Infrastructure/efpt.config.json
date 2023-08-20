@@ -52,11 +52,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[LookupProperty]",
+         "Name": "[dbo].[LookUpProperty]",
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[LookupRoomType]",
+         "Name": "[dbo].[LookUpType]",
          "ObjectType": 0
       },
       {
@@ -69,6 +69,10 @@
       },
       {
          "Name": "[dbo].[Rooms]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RoomTypes]",
          "ObjectType": 0
       }
    ],

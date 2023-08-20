@@ -20,13 +20,15 @@ namespace Domain.Service
 	{
         private readonly Ecommerce_AppContext _db;
         private readonly IRoomImageService _roomImageService;
-        private readonly IRoomTypeService _roomTypeService;
+        private readonly ILookUpTypeService _roomTypeService;
+        private readonly ILookUpPropertyService _lookUpPropertyService;
 
-        public RoomService(Ecommerce_AppContext db, IRoomImageService roomImageService, IRoomTypeService roomTypeService)
+        public RoomService(Ecommerce_AppContext db, IRoomImageService roomImageService, ILookUpTypeService roomTypeService, ILookUpPropertyService lookUpPropertyService)
         {
             _db = db;
             _roomImageService = roomImageService;
             _roomTypeService = roomTypeService;
+            _lookUpPropertyService = lookUpPropertyService;
         }
 
         public async Task Add(Room room, List<IFormFile> roomImages)
@@ -54,13 +56,11 @@ namespace Domain.Service
 
         public async Task Update(int id, Room room, List<IFormFile> roomImages)
         {
-            var selectedRoomType = await _roomTypeService.GetByTypeId(room.RoomTypeId);
+            var selectedRoomType = await _lookUpPropertyService.GetByRoomTypeId(room.RoomTypeId);
 
             var roomToChange = await _db.Rooms.FirstOrDefaultAsync(x => x.RoomId == id);
             if (roomToChange != null)
             {
-                roomToChange.RoomType.NameEn = selectedRoomType.NameEn;
-                roomToChange.RoomType.NameAr = selectedRoomType.NameAr;
                 roomToChange.RoomTypeId = selectedRoomType.Id;
 
                 roomToChange.AdultPrice = room.AdultPrice;
@@ -99,6 +99,7 @@ namespace Domain.Service
                 .ToListAsync();
             return rooms.Select(roomEntity => MapRoom.MAP(roomEntity));
         }
+
         public async Task<Room> GetId(int id)
         {
             var room = await _db.Rooms
@@ -151,6 +152,11 @@ namespace Domain.Service
                 return room.ChildrenPrice;
             }
             return 0;
+        }
+        public async Task<Room> GetRoomByRoomId(int id)
+        {
+            var room = await _db.Rooms.FirstOrDefaultAsync(x => x.RoomId == id);
+            return MapRoom.MAP(room);
         }
     }
 }

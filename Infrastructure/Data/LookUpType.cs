@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Infrastructure.Data;
 
-public partial class LookupRoomType
+public partial class LookUpType
 {
     public long Id { get; set; }
 
@@ -13,5 +13,5 @@ public partial class LookupRoomType
 
     public string NameEn { get; set; }
 
-    public virtual ICollection<LookupProperty> LookupProperty { get; set; } = new List<LookupProperty>();
+    public virtual ICollection<LookUpProperty> LookUpProperty { get; set; } = new List<LookUpProperty>();
 }

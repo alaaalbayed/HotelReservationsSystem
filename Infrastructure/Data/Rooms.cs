@@ -19,11 +19,11 @@ public partial class Rooms
 
     public int RoomNumber { get; set; }
 
-    public int RoomTypeId { get; set; }
+    public long RoomTypeId { get; set; }
 
     public virtual ICollection<Reservations> Reservations { get; set; } = new List<Reservations>();
 
     public virtual ICollection<RoomImages> RoomImages { get; set; } = new List<RoomImages>();
 
-    public virtual LookupProperty RoomType { get; set; }
+    public virtual LookUpProperty RoomType { get; set; }
 }

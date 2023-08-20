@@ -1,5 +1,4 @@
 ﻿using Humanizer;
-using Microsoft.CodeAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +9,17 @@ using orm = Infrastructure.Data;
 
 namespace Domain.MAPPER
 {
-    public class MapLookUp
+    public class MapLookUpType
     {
-        public static dto.LookUpProperty MAP(orm.LookupProperty obj)
+        public static dto.LookUpType MAP(orm.LookUpType obj)
         {
-            var roomType = new dto.LookUpProperty();
+            var roomType = new dto.LookUpType();
 
             if (obj != null)
             {
-                roomType = new dto.LookUpProperty
+                roomType = new dto.LookUpType
                 {
                     Id = obj.Id,
-                    TypeId = obj.TypeId,
                     NameAr = obj.NameAr,
                     NameEn = obj.NameEn,
                 };
@@ -29,9 +27,9 @@ namespace Domain.MAPPER
             return roomType;
         }
 
-        public static List<dto.LookUpProperty> MAP(List<orm.LookupProperty> in_obj)
+        public static List<dto.LookUpType> MAP(List<orm.LookUpType> in_obj)
         {
-            var list = new List<dto.LookUpProperty>();
+            var list = new List<dto.LookUpType>();
 
             if (in_obj != null)
             {
@@ -43,15 +41,15 @@ namespace Domain.MAPPER
             return list;
         }
 
-        public static orm.LookupProperty MAP(dto.LookUpProperty obj)
+        public static orm.LookUpType MAP(dto.LookUpType obj)
         {
-            var roomType = new orm.LookupProperty();
+            var roomType = new orm.LookUpType();
 
             if (obj != null)
             {
-                roomType = new orm.LookupProperty
+                roomType = new orm.LookUpType
                 {
-                    TypeId = obj.TypeId,
+                    Id = obj.Id,
                     NameAr = obj.NameAr,
                     NameEn = obj.NameEn,
                 };
@@ -59,9 +57,9 @@ namespace Domain.MAPPER
             return roomType;
         }
 
-        public static List<orm.LookupProperty> MAP(List<dto.LookUpProperty> in_obj)
+        public static List<orm.LookUpType> MAP(List<dto.LookUpType> in_obj)
         {
-            var list = new List<orm.LookupProperty>();
+            var list = new List<orm.LookUpType>();
 
             if (in_obj != null)
             {
@@ -74,4 +72,3 @@ namespace Domain.MAPPER
         }
     }
 }
-

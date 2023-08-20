@@ -5,17 +5,19 @@ using System.Collections.Generic;
 
 namespace Infrastructure.Data;
 
-public partial class LookupProperty
+public partial class LookUpProperty
 {
-    public int Id { get; set; }
-
-    public long TypeId { get; set; }
+    public long Id { get; set; }
 
     public string NameAr { get; set; }
 
     public string NameEn { get; set; }
 
+    public long TypeId { get; set; }
+
+    public virtual ICollection<RoomTypes> RoomTypes { get; set; } = new List<RoomTypes>();
+
     public virtual ICollection<Rooms> Rooms { get; set; } = new List<Rooms>();
 
-    public virtual LookupRoomType Type { get; set; }
+    public virtual LookUpType Type { get; set; }
 }

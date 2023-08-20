@@ -8,22 +8,22 @@ using Microsoft.Extensions.Localization;
 namespace Ecommerce_App.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class SettingsController : BaseController
+    public class LookUpTypesController : BaseController
     {
-        private readonly ISettingService _setting;
+        private readonly ILookUpTypeService _lookUpTypeService;
 
 
-        public SettingsController(ISettingService setting, ILoggerService logger) : base (logger)
+        public LookUpTypesController(ILookUpTypeService lookUpTypeService, ILoggerService logger) : base (logger)
         {
-            _setting = setting;
+            _lookUpTypeService = lookUpTypeService;
         }
 
         public async Task<ActionResult> Index()
         {
             try
             {
-                var allRoomTypes = await _setting.GetAllRoomTypes();
-                return View(allRoomTypes);
+                var allLookUpTypes = await _lookUpTypeService.GetAllLookUpTypes();
+                return View(allLookUpTypes);
             }
             catch (Exception ex)
             {
@@ -39,16 +39,16 @@ namespace Ecommerce_App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(LookUpRoomType roomTypeIn)
+        public async Task<IActionResult> Create(LookUpType lookUpType)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    await _setting.Add(roomTypeIn);
+                    await _lookUpTypeService.Add(lookUpType);
                     return RedirectToAction(nameof(Index));
                 }
-                return View(roomTypeIn);
+                return View(lookUpType);
             }
             catch (Exception ex)
             {
@@ -66,13 +66,13 @@ namespace Ecommerce_App.Controllers
                     return NotFound();
                 }
 
-                var roomType = await _setting.GetRoomTypeById(id);
-                if (roomType == null)
+                var lookUpType = await _lookUpTypeService.GetLookUpTypeById(id);
+                if (lookUpType == null)
                 {
                     return NotFound();
                 }
 
-                return View(roomType);
+                return View(lookUpType);
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace Ecommerce_App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, LookUpRoomType roomType)
+        public async Task<IActionResult> Edit(int id, LookUpType lookUpType)
         {
             try
             {
@@ -94,10 +94,10 @@ namespace Ecommerce_App.Controllers
 
                 if (!ModelState.IsValid)
                 {
-                    return View(roomType);
+                    return View(lookUpType);
                 }
 
-                await _setting.Update(id, roomType);
+                await _lookUpTypeService.Update(id, lookUpType);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -116,7 +116,7 @@ namespace Ecommerce_App.Controllers
                     return NotFound();
                 }
 
-                var roomType = await _setting.GetRoomTypeById(id);
+                var roomType = await _lookUpTypeService.GetLookUpTypeById(id);
                 if (roomType == null)
                 {
                     return NotFound();
@@ -141,7 +141,7 @@ namespace Ecommerce_App.Controllers
                     return NotFound();
                 }
 
-                await _setting.Delete(id);
+                await _lookUpTypeService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

@@ -29,13 +29,15 @@ public partial class Ecommerce_AppContext : DbContext
 
     public virtual DbSet<Logs> Logs { get; set; }
 
-    public virtual DbSet<LookupProperty> LookupProperty { get; set; }
+    public virtual DbSet<LookUpProperty> LookUpProperty { get; set; }
 
-    public virtual DbSet<LookupRoomType> LookupRoomType { get; set; }
+    public virtual DbSet<LookUpType> LookUpType { get; set; }
 
     public virtual DbSet<Reservations> Reservations { get; set; }
 
     public virtual DbSet<RoomImages> RoomImages { get; set; }
+
+    public virtual DbSet<RoomTypes> RoomTypes { get; set; }
 
     public virtual DbSet<Rooms> Rooms { get; set; }
 
@@ -164,23 +166,19 @@ public partial class Ecommerce_AppContext : DbContext
             entity.Property(e => e.Timestamp).HasColumnType("datetime");
         });
 
-        modelBuilder.Entity<LookupProperty>(entity =>
+        modelBuilder.Entity<LookUpProperty>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LookupPr__3214EC079D52C189");
-
             entity.Property(e => e.NameAr).IsRequired();
             entity.Property(e => e.NameEn).IsRequired();
 
-            entity.HasOne(d => d.Type).WithMany(p => p.LookupProperty)
+            entity.HasOne(d => d.Type).WithMany(p => p.LookUpProperty)
                 .HasForeignKey(d => d.TypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__LookupPro__TypeI__55009F39");
+                .HasConstraintName("FK_LookUpType_LookUpProperty_TypeId");
         });
 
-        modelBuilder.Entity<LookupRoomType>(entity =>
+        modelBuilder.Entity<LookUpType>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LookupRo__3214EC07592D6FB4");
-
             entity.Property(e => e.NameAr).IsRequired();
             entity.Property(e => e.NameEn).IsRequired();
         });
@@ -229,14 +227,22 @@ public partial class Ecommerce_AppContext : DbContext
             entity.HasOne(d => d.Room).WithMany(p => p.RoomImages).HasForeignKey(d => d.RoomId);
         });
 
+        modelBuilder.Entity<RoomTypes>(entity =>
+        {
+            entity.HasOne(d => d.Type).WithMany(p => p.RoomTypes)
+                .HasForeignKey(d => d.TypeId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_LookUpProperty_RoomTypes_TypeId");
+        });
+
         modelBuilder.Entity<Rooms>(entity =>
         {
-            entity.HasKey(e => e.RoomId).HasName("PK__Rooms__328639390772BE41");
+            entity.HasKey(e => e.RoomId).HasName("PK__Rooms__32863939CB6D3DA3");
 
             entity.HasOne(d => d.RoomType).WithMany(p => p.Rooms)
                 .HasForeignKey(d => d.RoomTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Rooms_RoomType");
+                .HasConstraintName("FK_LookUpProperty_Rooms_RoomTypeId");
         });
 
         OnModelCreatingPartial(modelBuilder);
