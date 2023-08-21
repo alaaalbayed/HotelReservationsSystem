@@ -11,7 +11,7 @@
 @inject IViewLocalizer localizer
 
 @{
-	ViewData["Title"] = "Create User";
+    ViewData["Title"] = "Create User";
 }
 
 <div class="wrapper">
@@ -20,53 +20,47 @@
         <partial name="_Navbar" />
         <main class="content">
             <div class="row justify-content-md-center">
-                <div class="col-lg-8">
-                    <form class="card" method="post" enctype="multipart/form-data">
-                        <div class="card-body">
+                <div class="col-md-6">
+                    <form class="card mt-5" method="post" enctype="multipart/form-data">
+                        <div class="card-header">
                             <h3 class="card-title">Create User</h3>
-                            <div class="row row-cards">
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3 row">
                                 <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label" asp-for="FirstName"></label>
-                                        <input type="text" class="form-control" asp-for="FirstName" />
-                                        <span asp-validation-for="FirstName" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label" asp-for="LastName"></label>
-                                        <input type="text" class="form-control" asp-for="LastName" />
-                                        <span asp-validation-for="LastName" class="text-danger"></span>
-                                    </div>
+                                    <label class="required col-form-label" asp-for="FirstName">First Name</label>
+                                    <input type="text" class="form-control" asp-for="FirstName">
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label" asp-for="Email"></label>
-                                        <input type="email" class="form-control" asp-for="Email" />
-                                        <span asp-validation-for="Email" class="text-danger"></span>
-                                    </div>
+                                    <label class="required col-form-label" asp-for="LastName">Last Name</label>
+                                    <input type="text" class="form-control" asp-for="LastName">
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label" asp-for="PhoneNumber"></label>
-                                        <input type="tel" class="form-control" asp-for="PhoneNumber" />
-                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label class="form-label" asp-for="Address"></label>
-                                        <input type="text" class="form-control" asp-for="Address" />
-                                        <span asp-validation-for="Address" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label class="form-label" asp-for="Image"></label>
-                                        <input type="file" asp-for="Image" class="form-control" />
-                                        <span asp-validation-for="Image" class="text-danger"></span>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="required form-label" asp-for="Email">Email</label>
+                                <input type="email" class="form-control" asp-for="Email">
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="required form-label" asp-for="PhoneNumber">Phone Number</label>
+                                <input type="tel" class="form-control" asp-for="PhoneNumber">
+                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label class="required form-label" asp-for="Address">Address</label>
+                                <input type="text" class="form-control" asp-for="Address">
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="NewPassword">New Password:</label>
+                                <input type="password" id="NewPassword" name="NewPassword" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" asp-for="Image">Image</label>
+                                <input type="file" class="form-control" asp-for="Image">
+                                <span asp-validation-for="Image" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -88,5 +82,5 @@
 </div>
 
 @section Scripts {
-	<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

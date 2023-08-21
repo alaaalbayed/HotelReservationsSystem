@@ -1,25 +1,28 @@
-﻿using Domain.DTO_s;
-using Domain.Interface;
+﻿using Domain.Interface;
 using Domain.Service;
 using Ecommerce_App.Areas.Identity.Data;
+using Humanizer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using Microsoft.VisualBasic;
+using System.Data;
 
 namespace Ecommerce_App.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class UsersController : BaseController
+    public class AdminsController : BaseController
     {
         private readonly UserManager<Ecommerce_AppUser> _userManager;
+        private readonly Ecommerce_AppContext _db;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public UsersController(UserManager<Ecommerce_AppUser> userManager, ILoggerService logger) : base(logger)
+        public AdminsController(UserManager<Ecommerce_AppUser> userManager, Ecommerce_AppContext db, RoleManager<IdentityRole> roleManager, ILoggerService logger) : base(logger)
         {
             _userManager = userManager;
+            _db = db;
+            _roleManager = roleManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -34,13 +37,13 @@ namespace Ecommerce_App.Controllers
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
         }
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Ecommerce_AppUser user, string newPassword)
+        public async Task<IActionResult> Create(Ecommerce_AppUser user, string selectedRole, string newPassword)
         {
             try
             {
@@ -49,11 +52,24 @@ namespace Ecommerce_App.Controllers
                     await UploadImage(user);
                     user.UserName = user.Email;
 
-                    var result = await _userManager.CreateAsync(user, newPassword);
+                    var result = await _userManager.CreateAsync(user);
 
                     if (result.Succeeded)
                     {
-                        await _userManager.AddToRoleAsync(user, "User");
+                        if (!string.IsNullOrWhiteSpace(newPassword))
+                        {
+                            await _userManager.AddPasswordAsync(user, newPassword);
+                        }
+
+                        if (selectedRole == "Employee")
+                        {
+                            await _userManager.AddToRoleAsync(user, "Employee");
+                        }
+                        else if (selectedRole == "Admin")
+                        {
+                            await _userManager.AddToRoleAsync(user, "Admin");
+                        }
+
                         return RedirectToAction(nameof(Index));
                     }
                 }

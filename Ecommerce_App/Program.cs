@@ -123,7 +123,7 @@ using (var scope = app.Services.CreateScope())
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Ecommerce_AppUser>>();
 
-    var roles = new[] { "Admin", "User" };
+    var roles = new[] { "Admin", "User", "Employee" };
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))

@@ -40,6 +40,11 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
+                        <a class="sidebar-link" asp-controller="Admins" asp-action="Index">
+                            <i class="align-middle" data-feather="shield"></i> <span class="align-middle">@localizer["Admins"]</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
                         <a class="sidebar-link" asp-controller="LookUpTypes" asp-action="Index">
                             <i class="fa-solid fa-hotel"></i> <span class="align-middle">LookUpType</span>
                         </a>
@@ -89,7 +94,12 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link text-end fs-5" asp-controller="Users" asp-action="Index">
-                            <span class="align-middle">@localizer["Users"]</span> <i class="align-middle" data-feather="user"></i>
+                            <span class="align-middle">@localizer["Users"]</span> <i class="align-middle" data-feather="shield"></i>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link text-end fs-5" asp-controller="Admins" asp-action="Index">
+                            <span class="align-middle">@localizer["Admins"]</span> <i class="align-middle" data-feather="user"></i>
                         </a>
                     </li>
                     <li class="sidebar-item">
