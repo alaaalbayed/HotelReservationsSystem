@@ -14,6 +14,7 @@ using System.Diagnostics;
 
 namespace Ecommerce_App.Controllers
 {
+    [Authorize(Roles = "Admin, Employee")]
     public class HomeController : BaseController
     {
         public HomeController(ILoggerService logger) : base(logger)

@@ -1,14 +1,12 @@
 ﻿@model Ecommerce_AppUser
 
+
 @using Ecommerce_App.Areas.Identity.Pages.Account;
 @using Microsoft.AspNetCore.Identity
 @using Ecommerce_App.Areas.Identity.Data
 
-@inject SignInManager<Ecommerce_AppUser> SignInManager
-@inject UserManager<Ecommerce_AppUser> UserManager
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create User";
 }
 
 <div class="wrapper">
@@ -18,50 +16,63 @@
         <main class="content">
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
-                    <form class="card mt-5" asp-action="Edit" enctype="multipart/form-data">
+                    <form class="card mt-5" method="post" enctype="multipart/form-data">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="card-header">
-                            <h3 class="card-title">Edit User Information</h3>
+                            <h3 class="card-title">Create Admin or Employee</h3>
                         </div>
                         <div class="card-body">
-                            <div class="mb-3 row">
+                            <div class="mb-3">
                                 <label class="col-3 col-form-label required" asp-for="FirstName">First Name</label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="FirstName" required>
+                                    <input type="text" class="form-control" asp-for="FirstName" placeholder="First Name">
                                     <span asp-validation-for="FirstName" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            <div class="mb-3">
                                 <label class="col-3 col-form-label required" asp-for="LastName">Last Name</label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="LastName" required>
+                                    <input type="text" class="form-control" asp-for="LastName" placeholder="Last Name">
                                     <span asp-validation-for="LastName" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            <div class="mb-3">
                                 <label class="col-3 col-form-label required" asp-for="Email">Email</label>
                                 <div class="col">
-                                    <input type="email" class="form-control" asp-for="Email" required>
+                                    <input type="email" class="form-control" asp-for="Email" placeholder="Email">
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
+                            <div class="mb-3">
+                                <label class="col-3 col-form-label required" asp-for="PhoneNumber">Phone Number</label>
+                                <div class="col">
+                                    <input type="tel" class="form-control" asp-for="PhoneNumber" placeholder="Phone Number">
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
                                 <label class="col-3 col-form-label required" asp-for="Address">Address</label>
                                 <div class="col">
-                                    <input type="text" class="form-control" asp-for="Address" required>
+                                    <input type="text" class="form-control" asp-for="Address" placeholder="Address">
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label" for="NewPassword">New Password</label>
-                                <div class="col">
-                                    <input type="password" class="form-control" id="NewPassword" name="NewPassword" placeholder="New Password">
-                                </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="newPassword">New Password</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New Password">
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label" for="Image">Image</label>
+                            <div class="form-group">
+                                <label for="SelectedRole">Select Role:</label>
+                                <select id="SelectedRole" name="selectedRole" class="form-control">
+                                    <option value="Employee">Employee</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="col-3 col-form-label required" asp-for="Image">Image</label>
                                 <div class="col">
-                                    <input type="file" class="form-control" id="Image" name="Image">
+                                    <input type="file" class="form-control" asp-for="Image">
+                                    <span asp-validation-for="Image" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +95,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }

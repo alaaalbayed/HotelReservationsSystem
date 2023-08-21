@@ -13,7 +13,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Ecommerce_App.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Employee")]
     public class ReservationsController : BaseController
     {
         private readonly Infrastructure.Data.Ecommerce_AppContext _db;

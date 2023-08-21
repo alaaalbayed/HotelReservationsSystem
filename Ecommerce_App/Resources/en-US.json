@@ -44,6 +44,10 @@
   "Rooms": "Rooms",
   "Settings": "Settings",
   "Price": "Price",
+  "Roles": "Roles",
+  "Admin": "Admin",
+  "Admins": "Admins",
+  "Employee": "Employee"
 
 
 }

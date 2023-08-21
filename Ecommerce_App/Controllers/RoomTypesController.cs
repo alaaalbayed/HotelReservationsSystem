@@ -1,10 +1,12 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Ecommerce_App.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class RoomTypesController : BaseController
     {
         private readonly IRoomTypeService _roomTypeService;

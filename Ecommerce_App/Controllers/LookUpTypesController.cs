@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 
 namespace Ecommerce_App.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin, Employee")]
     public class LookUpTypesController : BaseController
     {
         private readonly ILookUpTypeService _lookUpTypeService;
