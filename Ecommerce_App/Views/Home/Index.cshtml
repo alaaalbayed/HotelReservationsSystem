@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@model Domain.Models.AnalyticsViewModel;
+
+@using Microsoft.AspNetCore.Identity
 @using Ecommerce_App.Areas.Identity.Data
 
 @inject SignInManager<Ecommerce_AppUser> SignInManager
@@ -53,7 +55,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h1 class="mt-1 mb-3">$@ViewBag.TotalIncome</h1>
+                                            <h1 class="mt-1 mb-3">$@Model.TotalIncome</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -71,7 +73,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h1 class="mt-1 mb-3">@ViewBag.TotalReservations</h1>
+                                            <h1 class="mt-1 mb-3">@Model.TotalReservations</h1>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +91,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <h1 class="mt-1 mb-3">$@ViewBag.TotalRevenu</h1>
+                                            <h1 class="mt-1 mb-3">$@Model.TotalRevenue</h1>
                                         </div>
                                     </div>
                                 </div>

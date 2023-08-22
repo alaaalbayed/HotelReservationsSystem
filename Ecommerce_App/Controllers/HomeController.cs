@@ -1,5 +1,6 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
+using Domain.Models;
 using Ecommerce_App.Areas.Identity.Data;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -31,12 +32,14 @@ namespace Ecommerce_App.Controllers
                 var totalRevenu = await _analyticService.TotalRevenue();
                 var totalIncome = await _analyticService.TotalIncome();
 
+                var viewModel = new AnalyticsViewModel
+                {
+                    TotalReservations = totalReservations,
+                    TotalRevenue = totalRevenu,
+                    TotalIncome = totalIncome
+                };
 
-                ViewBag.TotalReservations = totalReservations;
-                ViewBag.TotalRevenu = totalRevenu;
-                ViewBag.TotalIncome = totalIncome;
-
-                return View();
+                return View(viewModel);
             }
             catch (Exception ex)
             {
