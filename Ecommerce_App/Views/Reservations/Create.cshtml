@@ -55,8 +55,20 @@
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="IsAdult"></label>
                                 <div class="col">
-                                    <input type="checkbox" class="form-check-input" asp-for="IsAdult">
+                                    <input id="isAdultCheckbox" type="checkbox" class="form-check-input" asp-for="IsAdult">
                                     <span asp-validation-for="IsAdult" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 row">
+                                <label for="roomDropdown" class="col-3 col-form-label required">Select Room</label>
+                                <div class="col">
+                                    <select id="roomDropdown" asp-for="RoomId" class="form-select">
+                                        <option value="" disabled selected>Select Room Number</option>
+                                        @foreach (var room in Model.Rooms)
+                                        {
+                                            <option value="@room.Value">@room.Text</option>
+                                        }
+                                    </select>
                                 </div>
                             </div>
                             <div class="mb-3 row">
@@ -86,21 +98,21 @@
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="Breakfast"></label>
                                 <div class="col">
-                                    <input type="checkbox" class="form-check-input" asp-for="Breakfast">
+                                    <input id="breakfastCheckbox" type="checkbox" class="form-check-input" asp-for="Breakfast">
                                     <span asp-validation-for="Breakfast" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="Lunch"></label>
                                 <div class="col">
-                                    <input type="checkbox" class="form-check-input" asp-for="Lunch">
+                                    <input id="lunchCheckbox" type="checkbox" class="form-check-input" asp-for="Lunch">
                                     <span asp-validation-for="Lunch" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="Dinner"></label>
                                 <div class="col">
-                                    <input type="checkbox" class="form-check-input" asp-for="Dinner">
+                                    <input id="dinnerCheckbox" type="checkbox" class="form-check-input" asp-for="Dinner">
                                     <span asp-validation-for="Dinner" class="text-danger"></span>
                                 </div>
                             </div>
@@ -112,20 +124,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="RoomId" class="control-label">Select Room</label>
-                                <select id="roomDropdown" asp-for="RoomId" class="form-control" asp-items="@Model.Rooms">
-                                    <option value="" disabled selected>Select Room Number</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <div id="escortFields" class="form-group">
                                 </div>
                             </div>
                         </div>
-                        <div class="mb-3 row">
+                        <div class="mb-3 ms-2 row">
                             <label class="col-3 col-form-label">Price</label>
                             <div class="col">
-                                <span id="priceLabel" class="form-control-static">@ViewBag.Price</span>
+                                <span id="priceLabel" class="form-control-static">0.00</span>
                             </div>
                         </div>
                         <div class="card-footer">
@@ -174,29 +180,83 @@
 
             function appendEscortInput(index) {
                 var inputHtml = `
-                            <div class="mb-3 row mt-4">
-                                <label class="col-3 col-form-label required">Full Name</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" name="Escorts[${index}].FullName" placeholder="Full Name">
-                                </div>
-                                <div class="col">
-                                    <div class="col">
-                                        <input type="hidden" name="Escorts[${index}].IsAdult" value="false">
-                                        <input type="checkbox" class="form-check-input" name="Escorts[${index}].IsAdultCheckbox" id="escort_${index}_IsAdult">
-                                        <small class="form-hint mt-1">Is Adult</small>
-                                        <span class="text-danger" data-valmsg-for="Escorts[${index}].IsAdult" data-valmsg-replace="true"></span>
-                                    </div>
-                                </div>
-                            </div>`;
+                <div class="mb-3 row mt-4">
+                    <label class="col-3 col-form-label required">Full Name</label>
+                    <div class="col">
+                        <input type="text" class="form-control" name="Escorts[${index}].FullName" placeholder="Full Name">
+                    </div>
+                    <div class="col">
+                        <div class="col">
+                            <input type="hidden" name="Escorts[${index}].IsAdult" value="false">
+                            <input type="checkbox" class="form-check-input escort-checkbox" name="Escorts[${index}].IsAdultCheckbox" id="escort_${index}_IsAdult">
+                            <small class="form-hint mt-1">Is Adult</small>
+                            <span class="text-danger" data-valmsg-for="Escorts[${index}].IsAdult" data-valmsg-replace="true"></span>
+                        </div>
+                    </div>
+                </div>`;
 
                 $('#escortFields').append(inputHtml);
 
                 $(`#escort_${index}_IsAdult`).change(function () {
                     var isChecked = $(this).prop('checked');
                     $(`input[name="Escorts[${index}].IsAdult"]`).val(isChecked ? "true" : "false");
+                    updatePrice();
                 });
             }
 
+            function updatePrice() {
+                var selectedRoomNumber = $('#roomDropdown').val();
+                var isAdult = $('#isAdultCheckbox').prop('checked');
+                var breakfast = $('#breakfastCheckbox').prop('checked');
+                var lunch = $('#lunchCheckbox').prop('checked');
+                var dinner = $('#dinnerCheckbox').prop('checked');
+                var extraBed = $('#ExtraBed').prop('checked');
+                var escortCheckboxes = $('.escort-checkbox:checked');
+                var checkInDate = new Date($('#checkInInput').val());
+                var checkOutDate = new Date($('#checkOutInput').val());
+                if (isNaN(checkInDate) || isNaN(checkOutDate) || checkInDate >= checkOutDate) {
+                    console.log('Invalid dates');
+                    return;
+                }
+
+                var timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+                var daysBetween = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+                $.ajax({
+                    url: '/Reservations/GetRoomTypePrice',
+                    type: 'GET',
+                    data: { roomNumber: selectedRoomNumber },
+                    success: function (data) {
+                        console.log('Data from server:', data);
+
+
+                        var adultPrice = isAdult ? (data.adultPrice || 0) : 0
+                        var childrenPrice = isAdult ? (data.childrenPrice || 0) :0; 
+                        var breakfastPrice = breakfast ? (data.breakfast || 0) : 0;
+                        var lunchPrice = lunch ? (data.lunch || 0) : 0;
+                        var dinnerPrice = dinner ? (data.dinner || 0) : 0;
+                        var extraBedPrice = extraBed ? (data.extraBed || 0) : 0;
+                        var escortPrice = 0;
+
+                        escortCheckboxes.each(function () {
+                            var isAdultEscort = $(this).prop('checked');
+                            escortPrice += isAdultEscort ? adultPrice : childrenPrice;
+                        });
+
+                        var totalPrice = (isAdult ? adultPrice : childrenPrice) +
+                            breakfastPrice + lunchPrice + dinnerPrice + extraBedPrice + escortPrice;
+
+                        totalPrice *= daysBetween;
+
+                        $('#priceLabel').text(totalPrice.toFixed(2) + '$');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("AJAX error:", error);
+                    }
+                });
+            }
+
+            $('#isAdultCheckbox, #breakfastCheckbox, #lunchCheckbox, #dinnerCheckbox, #ExtraBed, .escort-checkbox').change(updatePrice);
 
             function CheckDates() {
                 var accDate = document.getElementById("checkInInput");
@@ -209,33 +269,6 @@
                 }
             }
 
-            $(document).ready(function () {
-                $("#SelectedRoomTypeId").change(function () {
-                    calculateTotalPrice();
-                });
-
-                $("#SelectedReservationOptionIds").change(function () {
-                    calculateTotalPrice();
-                });
-
-                function calculateTotalPrice() {
-                    var roomTypeId = parseInt($("#SelectedRoomTypeId").val());
-                    var reservationOptionIds = $("#SelectedReservationOptionIds").val() || [];
-                    var totalPrice = 0;
-
-                    var roomTypePrice = parseFloat($("#SelectedRoomTypeId").find(":selected").val());
-
-                    var reservationOptionPrices = [];
-                    $.each(reservationOptionIds, function (index, optionId) {
-                        reservationOptionPrices.push(parseFloat($("#SelectedReservationOptionIds option[value='" + optionId + "']").val()));
-                    });
-
-                    totalPrice = roomTypePrice + reservationOptionPrices.reduce(function (acc, cur) { return acc + cur; }, 0);
-
-
-                    $("#TotalPrice").val(totalPrice.toFixed(2));
-                }
-            });
 
             var currentDate = new Date();
             var year = currentDate.getFullYear();

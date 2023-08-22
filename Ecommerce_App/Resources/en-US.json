@@ -47,7 +47,14 @@
   "Roles": "Roles",
   "Admin": "Admin",
   "Admins": "Admins",
-  "Employee": "Employee"
-
+  "Employee": "Employee",
+  "Reservations": "Reservations",
+  "LookUpProperty": "LookUpProperty",
+  "LookUpType": "LookUpType",
+  "Breakfast": "Breakfast",
+  "Dinner": "Dinner",
+  "Lunch": "Lunch",
+  "ExtraBed": "ExtraBed",
+  "YourAccountNotActive": "Your account is disabled."
 
 }

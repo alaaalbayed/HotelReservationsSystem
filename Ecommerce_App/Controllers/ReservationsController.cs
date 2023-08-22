@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Identity;
 using Ecommerce_App.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Localization;
+using System.Text.Json.Nodes;
+using Domain.Models;
+using System.Text.Json;
 
 namespace Ecommerce_App.Controllers
 {
@@ -20,7 +23,7 @@ namespace Ecommerce_App.Controllers
         private readonly UserManager<Ecommerce_AppUser> _userManager;
         private readonly IReservationService _reservationService;
         private readonly IRoomService _roomService;
-        private readonly ILookUpTypeService _roomTypeService;
+        private readonly IRoomTypeService _roomTypeService;
         private readonly IEscortService _escortService;
 
         public ReservationsController(
@@ -28,7 +31,7 @@ namespace Ecommerce_App.Controllers
             UserManager<Ecommerce_AppUser> userManager,
             IReservationService reservationService,
             IRoomService roomService,
-            ILookUpTypeService roomTypeService,
+            IRoomTypeService roomTypeService,
             IEscortService escortService,
             ILoggerService logger
             ) : base(logger)
@@ -246,6 +249,42 @@ namespace Ecommerce_App.Controllers
                 _logger.LogError("An error occurred while getting room capacity", ex);
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetRoomTypePrice(int roomNumber)
+        {
+            var room = await _db.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomNumber);
+            if (room == null)
+            {
+                return NotFound();
+            }
+
+            var roomTypeId = room.RoomTypeId;
+            var roomType = await _db.RoomTypes.SingleOrDefaultAsync(x => x.TypeId == roomTypeId);
+            if (roomType == null)
+            {
+                return NotFound();
+            }
+
+            var adultPrice = room.AdultPrice;
+            var childrenPrice = room.ChildrenPrice;
+            var breakfast = roomType.Breakfast;
+            var lunch = roomType.Lunch;
+            var dinner = roomType.Dinner;
+            var extraBed = roomType.ExtraBed;
+
+            var result = new
+            {
+                AdultPrice = adultPrice,
+                ChildrenPrice = childrenPrice,
+                Breakfast = breakfast,
+                Lunch = lunch,
+                Dinner = dinner,
+                ExtraBed = extraBed
+            };
+
+            return Json(result);
         }
     }
 }

@@ -62,7 +62,7 @@
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required">Select Room Type</label>
                                 <div class="col">
-                                    <select asp-for="RoomTypeId" class="form-control" asp-items="@Model.RoomTypes"></select>
+                                    <select asp-for="RoomTypeId" class="form-control" asp-items="ViewBag.TypeOptions"></select>
                                     <small class="form-hint">Select a room type from the list.</small>
                                     <span asp-validation-for="RoomTypeId" class="text-danger"></span>
                                 </div>

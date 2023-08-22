@@ -67,6 +67,10 @@
                                                     <label class="form-check-label text-small" for="customControlInline">@localizer["RememberMe"]</label>
                                                 </div>
                                             </div>
+                                            @if ((bool?)ViewData["AccountNotActive"] == true)
+                                            {
+                                                <div class="text-danger mb-3">@localizer["YourAccountNotActive"]</div>
+                                            }
                                             <div class="d-grid gap-2 mt-3">
                                                 <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">@localizer["SignIn"]</button>
                                             </div>
