@@ -18,7 +18,13 @@ namespace Ecommerce_App.Controllers
         private readonly Ecommerce_AppContext _db;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminsController(UserManager<Ecommerce_AppUser> userManager, Ecommerce_AppContext db, RoleManager<IdentityRole> roleManager, ILoggerService logger) : base(logger)
+        public AdminsController(
+            UserManager<Ecommerce_AppUser> userManager,
+            Ecommerce_AppContext db,
+            RoleManager<IdentityRole> roleManager,
+            ILoggerService logger
+            ) 
+            : base(logger)
         {
             _userManager = userManager;
             _db = db;
@@ -112,7 +118,7 @@ namespace Ecommerce_App.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Ecommerce_AppUser user)
+        public async Task<IActionResult> Edit(Ecommerce_AppUser user, string newPassword)
         {
             try
             {
@@ -128,8 +134,15 @@ namespace Ecommerce_App.Controllers
 
                     existingUser.FirstName = user.FirstName;
                     existingUser.LastName = user.LastName;
+                    existingUser.Email = user.Email;
                     existingUser.Address = user.Address;
                     existingUser.Image = user.Image;
+
+                    if (!string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        var token = await _userManager.GeneratePasswordResetTokenAsync(existingUser);
+                        await _userManager.ResetPasswordAsync(existingUser, token, newPassword);
+                    }
 
                     var result = await _userManager.UpdateAsync(existingUser);
                     if (result.Succeeded)
@@ -199,7 +212,6 @@ namespace Ecommerce_App.Controllers
                 _logger.LogError("There is error while trying to delete", ex);
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
-
         }
     }
 }

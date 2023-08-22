@@ -63,6 +63,7 @@ builder.Services.AddScoped<IRoomImageService, RoomImageService>();
 builder.Services.AddScoped<ILookUpTypeService, LookUpTypeService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IEscortService, EscortService>();
+builder.Services.AddScoped<IAnalyticService, AnalyticService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization();
 

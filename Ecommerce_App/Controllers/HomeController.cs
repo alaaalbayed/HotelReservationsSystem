@@ -17,15 +17,25 @@ namespace Ecommerce_App.Controllers
     [Authorize(Roles = "Admin, Employee")]
     public class HomeController : BaseController
     {
-        public HomeController(ILoggerService logger) : base(logger)
+        private readonly IAnalyticService _analyticService;
+        public HomeController(IAnalyticService analyticService, ILoggerService logger) : base(logger)
         {
-
+            _analyticService = analyticService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
+                var totalReservations = await _analyticService.TotalReservationsNumber();
+                var totalRevenu = await _analyticService.TotalRevenue();
+                var totalIncome = await _analyticService.TotalIncome();
+
+
+                ViewBag.TotalReservations = totalReservations;
+                ViewBag.TotalRevenu = totalRevenu;
+                ViewBag.TotalIncome = totalIncome;
+
                 return View();
             }
             catch (Exception ex)

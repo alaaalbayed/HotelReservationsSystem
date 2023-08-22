@@ -1,0 +1,216 @@
+﻿@model Ecommerce_AppUser
+
+@using Infrastructure.Data
+@using Domain.DTO_s;
+@using Ecommerce_App.Areas.Identity.Pages.Account;
+@using Microsoft.AspNetCore.Identity
+@using Ecommerce_App.Areas.Identity.Data
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+
+@inject SignInManager<Ecommerce_AppUser> SignInManager
+@inject UserManager<Ecommerce_AppUser> UserManager
+@inject Infrastructure.Data.Ecommerce_AppContext dbContext
+@inject IViewLocalizer localizer
+
+
+@{
+    var check = CultureInfo.CurrentCulture.Name;
+}
+
+<div class="wrapper">
+    <partial name="_Slide" />
+    <div class="main">
+        <partial name="_Navbar" />
+        <main class="content">
+
+            @if (check == "en-US")
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-body">
+                            <div class="table-container">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["FirstName"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.FirstName
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["LastName"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.LastName
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Email"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.Email
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["PhoneNumber"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.PhoneNumber
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Address"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @Model.Address
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Image"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        <img src="~/Images/@Model.Image" style="height:75px; width:75px;" />
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Status"]</label>
+                                    </div>
+                                    <div class="table-cell">
+                                        @if (Model.Status)
+                                        {
+                                            @localizer["Deleted"]
+
+                                        }
+                                        else
+                                        {
+                                            @localizer["Active"]
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 ms-2">
+                    <a class="btn btn-primary" asp-action="Index">Back to List</a>
+                </div>
+
+            }
+            else
+            {
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-body">
+                            <div class="table-container-ar">
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.FirstName
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["FirstName"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.LastName
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["LastName"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.Email
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Email"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.PhoneNumber
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["PhoneNumber"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @Model.Address
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Address"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        <img src="~/Images/@Model.Image" style="height:75px; width:75px;" />
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Image"]</label>
+                                    </div>
+                                </div>
+                                <div class="table-row">
+                                    <div class="table-cell">
+                                        @if (Model.Status)
+                                        {
+                                            @localizer["Deleted"]
+
+                                        }
+                                        else
+                                        {
+                                            @localizer["Active"]
+                                        }
+                                    </div>
+                                    <div class="table-cell">
+                                        <label class="control-label">@localizer["Status"]</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </main>
+        <partial name="_Footer" />
+    </div>
+</div>
+
+<style>
+    .table-container {
+        font-size: 20px;
+        display: table;
+        width: 100%;
+    }
+
+    .table-container-ar {
+        text-align: right;
+        font-size: 20px;
+        display: table;
+        width: 100%;
+    }
+
+    .table-row {
+        display: table-row;
+    }
+
+    .table-cell {
+        display: table-cell;
+        padding: 15px 10px;
+        top: 20px;
+    }
+
+    .control-label {
+        color: black;
+        font-weight: bold;
+    }
+</style>
+
+
