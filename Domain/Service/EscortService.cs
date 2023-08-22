@@ -43,21 +43,6 @@ namespace Domain.Service
             }
         }
 
-        public Task<List<Escort>> GetAllEscorts(Escort escort)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Remove(int Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(int Id, Escort escort)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<List<Escort>> GetEscorts(int reservationId)
         {
             var list = new List<Escort>();
