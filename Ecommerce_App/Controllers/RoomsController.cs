@@ -1,6 +1,7 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
 using Ecommerce_App.Areas.Identity.Data;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -57,17 +58,10 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var availableRoomTypes = await _lookUpPropertyService.GetAllLookUpProperty();
+                var typeOptions = availableRoomTypes.Select(lt => new SelectListItem { Value = lt.Id.ToString(), Text = lt.NameEn }).ToList();
+                ViewBag.TypeOptions = typeOptions;
 
-                var model = new Room
-                {
-                    RoomTypes = availableRoomTypes.Select(rt => new SelectListItem
-                    {
-                        Value = rt.Id.ToString(),
-                        Text = rt.NameEn.ToString()
-                    }).ToList()
-                };
-
-                return View(model);
+                return View();
             }
             catch (Exception ex)
             {

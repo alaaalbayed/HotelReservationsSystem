@@ -36,11 +36,19 @@ namespace Ecommerce_App.Controllers
 
         public async Task<IActionResult> Create()
         {
-            var lookUpProperty = await _lookUpPropertyService.GetAllLookUpProperty();
-            var typeOptions = lookUpProperty.Select(lt => new SelectListItem { Value = lt.Id.ToString(), Text = lt.NameEn }).ToList();
-            ViewBag.TypeOptions = typeOptions;
+            try
+            {
+                var lookUpProperty = await _lookUpPropertyService.GetAllLookUpProperty();
+                var typeOptions = lookUpProperty.Select(lt => new SelectListItem { Value = lt.Id.ToString(), Text = lt.NameEn }).ToList();
+                ViewBag.TypeOptions = typeOptions;
 
-            return View();
+                return View();
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("An error occurred while creation room type ", ex);
+                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+            }
         }
 
         [HttpPost]

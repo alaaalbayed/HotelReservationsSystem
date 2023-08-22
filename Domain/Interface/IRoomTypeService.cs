@@ -16,6 +16,6 @@ namespace Domain.Interface
         Task Delete(int id);
         Task<IEnumerable<dto.RoomType>> GetAllRoomType();
         Task<dto.RoomType> GetAllRoomTypeById(int id);
-        Task<dto.RoomType> GetRoomTypeByID(int id);
+        Task<dto.RoomType> GetRoomTypeByID(double id);
     }
 }

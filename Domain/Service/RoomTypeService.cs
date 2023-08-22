@@ -53,7 +53,7 @@ namespace Domain.Service
             throw new NotImplementedException();
         }
 
-        public async Task<RoomType> GetRoomTypeByID(int id)
+        public async Task<RoomType> GetRoomTypeByID(double id)
         {
             var roomType = await _db.RoomTypes.FirstOrDefaultAsync(x => x.TypeId == id);
             return MapRoomType.MAP(roomType);

@@ -18,6 +18,7 @@ namespace Domain.Interface
         Task<IEnumerable<Reservation>> GetAllReservations();
         Task<bool> AreDatesAcceptable(int roomId, DateTime CheckIn, DateTime CheckOut, int? reservationId);
         int GetDaysBetweenDates(DateTime chickIn, DateTime chickOut);
+        Task<double> GetFinalPrice(Reservation reservation, List<Escort> escorts);
 
     }
 }

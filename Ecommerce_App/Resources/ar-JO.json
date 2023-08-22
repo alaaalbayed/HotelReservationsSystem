@@ -47,6 +47,14 @@
   "Roles": "الادوار",
   "Admin": "مسؤول",
   "Admins": "المسؤولين",
-  "Employee": "موظف"
+  "Employee": "موظف",
+  "Reservations": "الحجوزات",
+  "LookUpProperty": "الخيارات",
+  "LookUpType": "الانواع",
+  "Breakfast": "الافطار",
+  "Dinner": "العشاء",
+  "Lunch": "العشاء",
+  "ExtraBed": "سرير اضافي",
+  "YourAccountNotActive": ".تم تعطيل حسابك"
 
 }

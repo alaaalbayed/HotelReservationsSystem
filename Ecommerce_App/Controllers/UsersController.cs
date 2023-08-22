@@ -94,7 +94,6 @@ namespace Ecommerce_App.Controllers
             }
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Edit(Ecommerce_AppUser user)
         {
@@ -112,6 +111,7 @@ namespace Ecommerce_App.Controllers
 
                     existingUser.FirstName = user.FirstName;
                     existingUser.LastName = user.LastName;
+                    existingUser.Email = user.Email;
                     existingUser.Address = user.Address;
                     existingUser.Image = user.Image;
 

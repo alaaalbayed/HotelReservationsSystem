@@ -19,6 +19,7 @@ namespace Domain.MAPPER
             {
                 room = new orm.Rooms
                 {
+                    RoomId = obj.RoomId,
                     Capacity = obj.Capacity,
                     AdultPrice = obj.AdultPrice,
                     ChildrenPrice = obj.ChildrenPrice,

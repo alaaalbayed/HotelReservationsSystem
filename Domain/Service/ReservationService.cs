@@ -149,7 +149,7 @@ namespace Domain.Service
             TimeSpan timeSpan = chickOut.Date - chickIn.Date;
             int days = timeSpan.Days;
 
-            return days;
+            return days + 1;
         }
 
         public async Task<double> GetFinalPrice(Reservation reservation, List<Escort> escorts)
@@ -157,7 +157,7 @@ namespace Domain.Service
             double price = 0;
             double roomPrice = reservation.IsAdult ? await _roomService.GetAdultPrice(reservation.RoomId) : await _roomService.GetChildrenPrice(reservation.RoomId);
             var room = await _roomService.GetRoomByRoomId(reservation.RoomId);
-            var roomType = await _roomTypeService.GetRoomTypeByID((int) room.RoomTypeId);
+            var roomType = await _roomTypeService.GetRoomTypeByID(room.RoomTypeId);
 
             if (reservation.Lunch)
                 price += roomType.Lunch;
