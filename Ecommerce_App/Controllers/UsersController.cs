@@ -95,7 +95,7 @@ namespace Ecommerce_App.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Ecommerce_AppUser user)
+        public async Task<IActionResult> Edit(Ecommerce_AppUser user, string newPassword)
         {
             try
             {
@@ -114,6 +114,12 @@ namespace Ecommerce_App.Controllers
                     existingUser.Email = user.Email;
                     existingUser.Address = user.Address;
                     existingUser.Image = user.Image;
+
+                    if (!string.IsNullOrWhiteSpace(newPassword))
+                    {
+                        var token = await _userManager.GeneratePasswordResetTokenAsync(existingUser);
+                        await _userManager.ResetPasswordAsync(existingUser, token, newPassword);
+                    }
 
                     var result = await _userManager.UpdateAsync(existingUser);
                     if (result.Succeeded)

@@ -32,9 +32,160 @@
             <partial name="_Slide" />
             <div class="main">
                 <partial name="_Navbar" />
-                <main class="content">
-                <partial name="Test" />
-                </main>
+                <div class="main">
+                    <main class="content">
+                        <div class="container-fluid p-0">
+
+                            <h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+
+                            <div class="row">
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Income</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat text-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign align-middle"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">$@ViewBag.TotalIncome</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Orders</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat text-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag align-middle"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">@ViewBag.TotalReservations</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Revenue</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat text-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart align-middle"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">$@ViewBag.TotalRevenu</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 col-lg-8 col-xxl-12 d-flex">
+                                    <div class="card flex-fill">
+                                        <div class="card-header">
+
+                                            <h5 class="card-title mb-0">Latest Reservations</h5>
+                                        </div>
+                                        <table class="table table-hover my-0">
+                                            <thead>
+                                                <tr> 
+                                                    <th>Full Name</th>
+                                                    <th class="d-none d-xxl-table-cell">Check In</th>
+                                                    <th class="d-none d-xl-table-cell">Check In</th>
+                                                    <th>Status</th>
+                                                    <th class="d-none d-xl-table-cell">Price</th>
+                                                    <th class="d-none d-xl-table-cell">Order Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Project Hades</td>
+                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
+                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
+                                                    <td><span class="badge bg-success">Done</span></td>
+                                                    <td class="d-none d-xl-table-cell">150$</td>
+                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
                 <partial name="_Footer" />
             </div>
         </div>
@@ -48,13 +199,14 @@
                 <partial name="_Navbar" />
                 <main class="content">
                     <div class="container-fluid p-0">
-
                     </div>
                 </main>
                 <partial name="_Footer" />
             </div>
         </div>
     }
-    
+
 </body>
 </html>
+
+<script src="~/assets/js/app.js"></script>
