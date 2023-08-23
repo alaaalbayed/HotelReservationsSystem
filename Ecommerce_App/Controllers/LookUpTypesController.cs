@@ -1,9 +1,7 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
-using Domain.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Localization;
 
 namespace Ecommerce_App.Controllers
 {

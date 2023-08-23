@@ -3,9 +3,6 @@ using Ecommerce_App.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 
 namespace Ecommerce_App.Controllers
 {

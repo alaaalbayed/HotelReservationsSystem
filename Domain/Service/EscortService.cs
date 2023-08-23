@@ -2,14 +2,8 @@
 using Domain.Interface;
 using Domain.MAPPER;
 using Infrastructure.Data;
-using Microsoft.AspNetCore.Http;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Service
 {

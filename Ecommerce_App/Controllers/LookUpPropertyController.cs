@@ -1,11 +1,9 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
 using Domain.Models;
-using Domain.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using NuGet.Protocol.Core.Types;
 
 namespace Ecommerce_App.Controllers
 {

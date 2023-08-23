@@ -1,24 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using Ecommerce_App.Areas.Identity.Data;
-using Domain.DTO_s;
 using Domain.Interface;
-using Ecommerce_App.Areas.Identity.Pages.Account;
 using Microsoft.Extensions.Localization;
 using Ecommerce_App;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Build.Framework;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Serilog;
-using Serilog.Events;
-using Serilog.Sinks.MSSqlServer;
-using Microsoft.AspNetCore.Hosting;
 using YourApplication.Infrastructure.Logging;
-using Microsoft.Extensions.Logging.AzureAppServices;
-using Microsoft.Extensions.DependencyInjection;
 using Domain.Service;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.CookiePolicy;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Ecommerce_AppContextConnection") ?? throw new InvalidOperationException("Connection string 'Ecommerce_AppContextConnection' not found.");
@@ -67,6 +59,7 @@ builder.Services.AddScoped<IAnalyticService, AnalyticService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization();
 
+
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 builder.Services.AddMvcCore()
 	.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -87,6 +80,35 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 	options.DefaultRequestCulture = new RequestCulture(culture: supportedCultures[0], uiCulture: supportedCultures[0]);
 	options.SupportedCultures = supportedCultures;
 	options.SupportedUICultures = supportedCultures;
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.IsEssential = true;
+    options.Cookie.SameSite = SameSiteMode.Strict;
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+    options.SlidingExpiration = true;
+    options.Cookie.IsEssential = true;
+});
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.HttpOnly = HttpOnlyPolicy.Always;
+    options.Secure = CookieSecurePolicy.Always;
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
+
+builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
 var app = builder.Build();

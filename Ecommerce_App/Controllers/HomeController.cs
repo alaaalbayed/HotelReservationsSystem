@@ -1,17 +1,7 @@
-﻿using Domain.DTO_s;
-using Domain.Interface;
+﻿using Domain.Interface;
 using Domain.Models;
-using Ecommerce_App.Areas.Identity.Data;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace Ecommerce_App.Controllers
 {

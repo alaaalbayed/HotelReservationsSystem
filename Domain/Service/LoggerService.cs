@@ -1,17 +1,9 @@
-﻿using Microsoft.Build.Framework;
-using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using Domain.Interface;
 using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Data.SqlClient;
-using System.Linq;
-using System.Reflection;
 using Domain.DTO_s;
-using Domain;
 using Domain.MAPPER;
 
 namespace YourApplication.Infrastructure.Logging
