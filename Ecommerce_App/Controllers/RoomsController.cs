@@ -111,7 +111,6 @@ namespace Ecommerce_App.Controllers
                 var viewModel = new Room
                 {
                     Capacity = room.Capacity,
-                    IsTaken = room.IsTaken,
                     AdultPrice = room.AdultPrice,
                     ChildrenPrice = room.ChildrenPrice,
                     RoomNumber = room.RoomNumber,
@@ -155,7 +154,6 @@ namespace Ecommerce_App.Controllers
                 existingRoom.Capacity = viewModel.Capacity;
                 existingRoom.RoomNumber = viewModel.RoomNumber;
                 existingRoom.ChildrenPrice = viewModel.ChildrenPrice;
-                existingRoom.IsTaken = viewModel.IsTaken;
                 existingRoom.AdultPrice = viewModel.AdultPrice;
                 existingRoom.RoomTypeId = viewModel.RoomTypeId;
 

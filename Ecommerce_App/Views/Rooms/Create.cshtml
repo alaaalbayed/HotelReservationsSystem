@@ -34,19 +34,9 @@
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label class="col-3 col-form-label required">Is Room Taken</label>
-                                <div class="col">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" asp-for="IsTaken">
-                                        <label class="form-check-label" asp-for="IsTaken">Check if the room is currently taken.</label>
-                                        <span asp-validation-for="IsTaken" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="AdultPrice">Adult Price</label>
                                 <div class="col">
-                                    <input type="number" class="form-control" asp-for="AdultPrice">
+                                    <input type="number" class="form-control" asp-for="AdultPrice" placeholder="Adult Price">
                                     <small class="form-hint">Enter the adult price for the room.</small>
                                     <span asp-validation-for="AdultPrice" class="text-danger"></span>
                                 </div>
@@ -54,7 +44,7 @@
                             <div class="mb-3 row">
                                 <label class="col-3 col-form-label required" asp-for="ChildrenPrice">Children Price</label>
                                 <div class="col">
-                                    <input type="number" class="form-control" asp-for="ChildrenPrice">
+                                    <input type="number" class="form-control" asp-for="ChildrenPrice" placeholder="Children Price">
                                     <small class="form-hint">Enter the children price for the room.</small>
                                     <span asp-validation-for="ChildrenPrice" class="text-danger"></span>
                                 </div>
