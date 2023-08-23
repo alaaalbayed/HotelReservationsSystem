@@ -199,6 +199,7 @@ public partial class Ecommerce_AppContext : DbContext
             entity.Property(e => e.NationalityId)
                 .IsRequired()
                 .HasMaxLength(150);
+            entity.Property(e => e.OrderDate).HasColumnType("datetime");
             entity.Property(e => e.PhoneNumber)
                 .IsRequired()
                 .HasMaxLength(150);

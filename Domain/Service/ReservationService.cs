@@ -90,7 +90,8 @@ namespace Domain.Service
             var reservation = await _db.Reservations.FindAsync(reservationId);
             if (reservation != null)
             {
-                _db.Reservations.Remove(reservation);
+                reservation.Status = !reservation.Status;
+                _db.Reservations.Update(reservation);
                 await _db.SaveChangesAsync();
             }
         }

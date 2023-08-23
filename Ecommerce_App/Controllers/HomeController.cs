@@ -34,13 +34,19 @@ namespace Ecommerce_App.Controllers
                 var totalRevenu = await _analyticService.TotalRevenue();
                 var totalIncome = await _analyticService.TotalIncome();
                 var getAllReservations = await _reservationService.GetAllReservations();
+                var getTotalUsers = await _analyticService.TotalUsers();
+                var getTotalAdmins = await _analyticService.TotalAdmins();
+                var getTotalEmployees = await _analyticService.TotalEmployees();
 
                 var viewModel = new AnalyticsViewModel
                 {
                     TotalReservations = totalReservations,
                     TotalRevenue = totalRevenu,
                     TotalIncome = totalIncome,
-                    Reservations = getAllReservations
+                    Reservations = getAllReservations,
+                    TotalUsers = getTotalUsers,
+                    TotalAdmins = getTotalAdmins,
+                    TotalEmployees = getTotalEmployees,
                 };
 
                 return View(viewModel);

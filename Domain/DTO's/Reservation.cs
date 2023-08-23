@@ -29,6 +29,7 @@ namespace Domain.DTO_s
         public bool ExtraBed { get; set; }
         public double Price { get; set; }
         public DateTime OrderDate { get; set; }
+        public bool Status { get; set; }
         public int RoomId { get; set; }
         public string? UserId { get; set; }
         public List<SelectListItem>? Rooms { get; set; }
