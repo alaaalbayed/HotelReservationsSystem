@@ -55,6 +55,8 @@
   "Dinner": "Dinner",
   "Lunch": "Lunch",
   "ExtraBed": "ExtraBed",
-  "YourAccountNotActive": "Your account is disabled."
+  "YourAccountNotActive": "Your account is disabled.",
+  "Activate": "Activate",
+  "Disabled": "Disabled"
 
 }

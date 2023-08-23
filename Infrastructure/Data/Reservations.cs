@@ -35,11 +35,13 @@ public partial class Reservations
 
     public double Price { get; set; }
 
-    public DateTime OrderDate { get; set; }
-
     public int RoomId { get; set; }
 
     public string UserId { get; set; }
+
+    public DateTime OrderDate { get; set; }
+
+    public bool Status { get; set; }
 
     public virtual ICollection<Escorts> Escorts { get; set; } = new List<Escorts>();
 

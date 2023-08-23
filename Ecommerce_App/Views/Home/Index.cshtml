@@ -95,6 +95,61 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Total Users</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat text-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">@Model.TotalUsers</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Total Admins</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat text-primary">
+                                                        <i class="align-middle" data-feather="shield"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">@Model.TotalAdmins</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-xl-4">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col mt-0">
+                                                    <h5 class="card-title">Total Employees</h5>
+                                                </div>
+
+                                                <div class="col-auto">
+                                                    <div class="stat text-primary">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users align-middle"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h1 class="mt-1 mb-3">@Model.TotalEmployees</h1>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -106,7 +161,7 @@
                                         </div>
                                         <table class="table table-hover my-0">
                                             <thead>
-                                                <tr> 
+                                                <tr>
                                                     <th>Full Name</th>
                                                     <th class="d-none d-xxl-table-cell">Check In</th>
                                                     <th class="d-none d-xl-table-cell">Check In</th>
@@ -116,13 +171,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach(var item in Model.Reservations)
+                                                @foreach (var item in Model.Reservations)
                                                 {
                                                     <tr>
                                                         <td>@item.FullName</td>
                                                         <td class="d-none d-xl-table-cell">@item.CheckIn</td>
                                                         <td class="d-none d-xl-table-cell">@item.CheckOut</td>
-                                                        <td><span class="badge bg-success">Done</span></td>
+                                                        @if (item.Status)
+                                                        {
+                                                            <td><span class="badge bg-danger">Cancelled</span></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td><span class="badge bg-success">Active</span></td>
+                                                        }
                                                         <td class="d-none d-xl-table-cell">$@item.Price</td>
                                                         <td class="d-none d-md-table-cell">@item.OrderDate</td>
                                                     </tr>

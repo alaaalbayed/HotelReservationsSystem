@@ -20,20 +20,53 @@ namespace Domain.Service
 
         public async Task<int> TotalReservationsNumber()
         {
-            var reservationsNumber = await _db.Reservations.CountAsync();
-            return reservationsNumber;
+            var inactiveReservationsCount = await _db.Reservations
+                   .Where(reservation => reservation.Status == false)
+                   .CountAsync();
+
+            return inactiveReservationsCount;
         }
 
         public async Task<double> TotalRevenue()
         {
-            var totalRevenue = await _db.Reservations.SumAsync(x => x.Price);
+            var totalRevenue = await _db.Reservations
+                .Where(reservation => reservation.Status == false)
+                .SumAsync(x => x.Price);
             return totalRevenue;
         }
         public async Task<double> TotalIncome()
         {
-            var totalIncome = await _db.Reservations.SumAsync(x => x.Price);
+            var totalIncome = await _db.Reservations
+                .Where(reservation => reservation.Status == false)
+                .SumAsync(x => x.Price);
             var tax = totalIncome * 0.16;
             return totalIncome - tax;
+        }
+
+        public async Task<int> TotalUsers()
+        {
+            var totalUsers = await _db.AspNetUsers
+                .Where(users => users.Status == false)
+                .CountAsync();
+            return totalUsers;
+        }
+
+        public async Task<int> TotalAdmins()
+        {
+            var totalAdmins = await _db.AspNetUsers
+                .Where(user => user.Role.Any(role => role.Name == "Admin"))
+                .CountAsync();
+
+            return totalAdmins;
+        }
+
+        public async Task<int> TotalEmployees()
+        {
+            var totalEmployees = await _db.AspNetUsers
+                .Where(user => user.Role.Any(role => role.Name == "Employee"))
+                .CountAsync();
+
+            return totalEmployees;
         }
     }
 }

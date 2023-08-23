@@ -34,6 +34,7 @@ namespace Domain.MAPPER
                     ExtraBed = obj.ExtraBed,
                     Price = obj.Price,
                     OrderDate = obj.OrderDate,
+                    Status = obj.Status,
                     RoomId = obj.RoomId,
                     UserId = obj.UserId
 
@@ -78,6 +79,7 @@ namespace Domain.MAPPER
                     ExtraBed = obj.ExtraBed,
                     Price = obj.Price,
                     OrderDate = obj.OrderDate,
+                    Status = obj.Status,
                     RoomId = obj.RoomId,
                     UserId = obj.UserId,
                 };
