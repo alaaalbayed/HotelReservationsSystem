@@ -75,5 +75,15 @@ namespace Domain.Service
             var roomType = await _db.LookUpProperty.FirstOrDefaultAsync(x => x.Id == id);
             return MapLookUpProperty.MAP(roomType);
         }
+
+        public async Task<string> GetTypeNameByRoomTypeId(long typeId)
+        {
+            var lookUpProperty = await _db.LookUpType.FirstOrDefaultAsync(l => l.Id == typeId);
+            if (lookUpProperty != null)
+            {
+                return lookUpProperty.NameEn; 
+            }
+            return null;
+        }
     }
 }

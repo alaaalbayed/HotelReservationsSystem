@@ -55,7 +55,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting reservations", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -77,7 +77,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while preparing reservation creation", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -132,7 +132,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while creating a reservation", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -151,7 +151,7 @@ namespace Ecommerce_App.Controllers
                 reservation.Escorts = getEscorts;
                 if (reservation == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 return View(reservation);
@@ -159,7 +159,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while preparing reservation editing", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -174,11 +174,6 @@ namespace Ecommerce_App.Controllers
                 reservation.UserId = userId;
                 List<Escort> getEscorts = reservation.Escorts;
 
-                if (id == null)
-                {
-                    return NotFound();
-                }
-
                 if (ModelState.IsValid)
                 {
                     await _reservationService.Update(id, reservation, getEscorts);
@@ -190,7 +185,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while updating a reservation", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -205,7 +200,7 @@ namespace Ecommerce_App.Controllers
 
                 if (reseravtions == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 return View(reseravtions);
@@ -213,7 +208,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting reservation info", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -221,18 +216,13 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                if (id == null)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-
                 await _reservationService.Delete(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while deleting a reservation", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -247,44 +237,54 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting room capacity", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetRoomTypePrice(int roomNumber)
         {
-            var room = await _db.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomNumber);
-            if (room == null)
+            try
             {
-                return NotFound();
+                var room = await _db.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomNumber);
+
+                if (room == null)
+                {
+                    return NotFound404();
+                }
+
+                var roomTypeId = room.RoomTypeId;
+                var roomType = await _db.RoomTypes.SingleOrDefaultAsync(x => x.TypeId == roomTypeId);
+
+                if (roomType == null)
+                {
+                    return NotFound404();
+                }
+
+                var adultPrice = room.AdultPrice;
+                var childrenPrice = room.ChildrenPrice;
+                var breakfast = roomType.Breakfast;
+                var lunch = roomType.Lunch;
+                var dinner = roomType.Dinner;
+                var extraBed = roomType.ExtraBed;
+
+                var result = new
+                {
+                    AdultPrice = adultPrice,
+                    ChildrenPrice = childrenPrice,
+                    Breakfast = breakfast,
+                    Lunch = lunch,
+                    Dinner = dinner,
+                    ExtraBed = extraBed
+                };
+
+                return Json(result);
             }
-
-            var roomTypeId = room.RoomTypeId;
-            var roomType = await _db.RoomTypes.SingleOrDefaultAsync(x => x.TypeId == roomTypeId);
-            if (roomType == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                _logger.LogError("An error occurred while getting room type price", ex);
+                return NotFound500();
             }
-
-            var adultPrice = room.AdultPrice;
-            var childrenPrice = room.ChildrenPrice;
-            var breakfast = roomType.Breakfast;
-            var lunch = roomType.Lunch;
-            var dinner = roomType.Dinner;
-            var extraBed = roomType.ExtraBed;
-
-            var result = new
-            {
-                AdultPrice = adultPrice,
-                ChildrenPrice = childrenPrice,
-                Breakfast = breakfast,
-                Lunch = lunch,
-                Dinner = dinner,
-                ExtraBed = extraBed
-            };
-
-            return Json(result);
         }
     }
 }

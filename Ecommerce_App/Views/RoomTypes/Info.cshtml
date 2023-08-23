@@ -1,4 +1,4 @@
-﻿@model Domain.DTO_s.LookUpType
+﻿@model Domain.DTO_s.RoomType
 
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using System.Globalization;
@@ -18,45 +18,38 @@
             {
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">LookUpType Info</h3>
+                        <h3 class="card-title">LookUpProperty Info</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-8">
                                 <dl class="row">
                                     <dt class="col-sm-2">
-                                        @Html.DisplayNameFor(model => model.Type)
+                                        @Html.DisplayNameFor(model => model.Breakfast)
                                     </dt>
                                     <dd class="col-sm-10">
-                                        @Html.DisplayFor(model => model.Type)
+                                        @Html.DisplayFor(model => model.Breakfast)
                                     </dd>
                                     <dt class="col-sm-2">
-                                        @Html.DisplayNameFor(model => model.NameEn)
+                                        @Html.DisplayNameFor(model => model.Dinner)
                                     </dt>
                                     <dd class="col-sm-10">
-                                        @Html.DisplayFor(model => model.NameEn)
+                                        @Html.DisplayFor(model => model.Dinner)
                                     </dd>
                                     <dt class="col-sm-2">
-                                        @Html.DisplayNameFor(model => model.NameAr)
+                                        @Html.DisplayNameFor(model => model.Lunch)
                                     </dt>
                                     <dd class="col-sm-10">
-                                        @Html.DisplayFor(model => model.NameAr)
+                                        @Html.DisplayFor(model => model.Lunch)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.ExtraBed)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.ExtraBed)
                                     </dd>
                                 </dl>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            }
-            else
-            {
-                <div class="table-container-ar">
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @Model.NameEn
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Type"]</label>
                         </div>
                     </div>
                 </div>

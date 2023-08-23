@@ -20,7 +20,7 @@ namespace Ecommerce_App.Controllers
             _lookUpPropertyService = lookUpPropertyService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
@@ -30,7 +30,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting room types", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -47,7 +47,7 @@ namespace Ecommerce_App.Controllers
             catch(Exception ex)
             {
                 _logger.LogError("An error occurred while creation room type ", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -67,8 +67,93 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while creating a room type", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+
+                var lookUpProperty = await _lookUpPropertyService.GetAllLookUpProperty();
+                var typeOptions = lookUpProperty.Select(lt => new SelectListItem { Value = lt.Id.ToString(), Text = lt.NameEn }).ToList();
+
+                ViewBag.TypeOptions = typeOptions;
+
+                var roomType = await _roomTypeService.GetById(id);
+
+                if (roomType == null)
+                {
+                    return NotFound404();
+                }
+
+                return View(roomType);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while getting room type for editing", ex);
+                return NotFound500();
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, RoomType roomType)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(roomType);
+                }
+
+                await _roomTypeService.Update(id, roomType);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while updating room type", ex);
+                return NotFound500();
+            }
+        }
+
+        public async Task<IActionResult> Info(int id)
+        {
+            try
+            {
+
+                var roomType = await _roomTypeService.GetById(id);
+
+                if (roomType == null)
+                {
+                    return NotFound404();
+                }
+
+                return View(roomType);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while getting room type info", ex);
+                return NotFound500();
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+
+                await _roomTypeService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while deleting room type", ex);
+                return NotFound500();
+            }
+        }
+
     }
 }

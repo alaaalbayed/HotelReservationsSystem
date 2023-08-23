@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.DTO_s;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace Domain.Models
         public int TotalReservations { get; set; }
         public double TotalRevenue { get; set; }
         public double TotalIncome { get; set;}
+        public IEnumerable<Reservation> Reservations { get; set; }
     }
 }

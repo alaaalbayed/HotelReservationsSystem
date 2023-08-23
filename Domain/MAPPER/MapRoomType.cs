@@ -32,7 +32,6 @@ namespace Domain.MAPPER
                         NameAr = obj.Type.NameAr,
                         TypeId = obj.Type.TypeId
                     }
-
                 };
             }
             return roomType;

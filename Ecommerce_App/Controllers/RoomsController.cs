@@ -49,7 +49,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting room data", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -66,7 +66,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while preparing room creation", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -92,7 +92,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while creating a room", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -105,7 +105,7 @@ namespace Ecommerce_App.Controllers
 
                 if (room == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 var viewModel = new Room
@@ -130,7 +130,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while preparing room editing", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -141,9 +141,10 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var existingRoom = await _roomService.GetId(id);
+
                 if (existingRoom == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 if (!await _roomService.IsRoomNumberFree(viewModel.RoomNumber, id))
@@ -173,7 +174,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while updating a room", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -182,19 +183,13 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                if (id == null)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-
                 await _roomService.Delete(id);
-
                 return Ok();
             }
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while deleting a room", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -210,7 +205,7 @@ namespace Ecommerce_App.Controllers
 
                 if (room == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 return View(room);
@@ -218,7 +213,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting room info", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
     }

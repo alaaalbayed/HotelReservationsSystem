@@ -33,7 +33,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting users", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
         [HttpGet]
@@ -45,7 +45,7 @@ namespace Ecommerce_App.Controllers
 
                 if (user == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 return View(user);
@@ -53,7 +53,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"There is an error while trying to get the edit page!", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -69,7 +69,7 @@ namespace Ecommerce_App.Controllers
 
                     if (existingUser == null)
                     {
-                        return NotFound();
+                        return NotFound404();
                     }
 
                     existingUser.FirstName = user.FirstName;
@@ -96,9 +96,8 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"There is an error while trying to edit!", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
-
     }
 }

@@ -22,27 +22,42 @@ namespace Ecommerce_App.Controllers
             _lookUpTypeService = lookUpTypeService;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<IActionResult> Index()
         {
             try
             {
                 var allLookUpProperty = await _lookUpPropertyService.GetAllLookUpProperty();
+
+                foreach (var property in allLookUpProperty)
+                {
+                    property.LookUpType = new LookUpType();
+                    property.LookUpType.NameEn = await _lookUpPropertyService.GetTypeNameByRoomTypeId(property.TypeId);
+                }
+
                 return View(allLookUpProperty);
             }
             catch (Exception ex)
             {
-                _logger.LogError("An error occurred while getting room types", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                _logger.LogError("An error occurred while getting LookUpProperty", ex);
+                return NotFound500();
             }
         }
 
         public async Task<IActionResult> Create()
         {
-            var lookUpTypes = await _lookUpTypeService.GetAllLookUpTypes();
-            var typeOptions = lookUpTypes.Select(lt => new SelectListItem { Value = lt.Id.ToString(), Text = lt.NameEn }).ToList();
-            ViewBag.TypeOptions = typeOptions;
+            try
+            {
+                var lookUpTypes = await _lookUpTypeService.GetAllLookUpTypes();
+                var typeOptions = lookUpTypes.Select(lt => new SelectListItem { Value = lt.Id.ToString(), Text = lt.NameEn }).ToList();
+                ViewBag.TypeOptions = typeOptions;
 
-            return View();
+                return View();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occurred while view create LookUpProperty page", ex);
+                return NotFound500();
+            }
         }
 
         [HttpPost]
@@ -56,23 +71,20 @@ namespace Ecommerce_App.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError("An error occurred while creating a room type", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                _logger.LogError("An error occurred while creating a LookUpProperty", ex);
+                return NotFound500();
             }
         }
         public async Task<IActionResult> Edit(int id)
         {
             try
             {
-                if (id <= 0)
-                {
-                    return NotFound();
-                }
 
                 var lookUpProperty = await _lookUpPropertyService.GetLookUpPropertyById(id);
+
                 if (lookUpProperty == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 var allLookUpTypes = await _lookUpTypeService.GetAllLookUpTypes();
@@ -88,7 +100,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting LookUpProperty for editing", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -98,19 +110,13 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-
-                if (id <= 0)
-                {
-                    return NotFound();
-                }
-
                 await _lookUpPropertyService.Update(id, viewModel.LookUpProperty);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while updating LookUpProperty", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -118,15 +124,11 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                if (id == null)
-                {
-                    return NotFound();
-                }
 
-                var roomType = await _lookUpTypeService.GetLookUpTypeById(id);
+                var roomType = await _lookUpPropertyService.GetByRoomTypeId(id);
                 if (roomType == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 return View(roomType);
@@ -134,7 +136,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting room type info", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -143,10 +145,6 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                if (id <= 0)
-                {
-                    return NotFound();
-                }
 
                 await _lookUpTypeService.Delete(id);
                 return Ok();
@@ -154,7 +152,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while deleting room type", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
     }

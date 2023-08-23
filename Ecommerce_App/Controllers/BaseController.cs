@@ -33,7 +33,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while setting language.", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -58,6 +58,15 @@ namespace Ecommerce_App.Controllers
             {
                 _logger.LogError($"There is error while trying to upload the image", ex);
             }
+        }
+        public IActionResult NotFound404()
+        {
+            return View("page-404");
+        }
+
+        public IActionResult NotFound500()
+        {
+            return View("page-500");
         }
     }
 }

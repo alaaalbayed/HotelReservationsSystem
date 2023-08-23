@@ -17,6 +17,7 @@ namespace Domain.Interface
         Task<IEnumerable<dto.LookUpProperty>> GetAllLookUpProperty();
         Task<dto.LookUpProperty> GetLookUpPropertyById(int id);
         Task<dto.LookUpProperty> GetByRoomTypeId(long id);
-
+        Task<string> GetTypeNameByRoomTypeId(long typeId);
+        
     }
 }
