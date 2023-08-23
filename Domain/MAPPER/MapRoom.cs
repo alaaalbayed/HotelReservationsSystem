@@ -23,7 +23,6 @@ namespace Domain.MAPPER
                     Capacity = obj.Capacity,
                     AdultPrice = obj.AdultPrice,
                     ChildrenPrice = obj.ChildrenPrice,
-                    IsTaken = obj.IsTaken,
                     RoomNumber = obj.RoomNumber,
                     RoomTypeId = obj.RoomTypeId,
                 };
@@ -55,7 +54,6 @@ namespace Domain.MAPPER
                     Capacity = obj.Capacity,
                     AdultPrice = obj.AdultPrice,
                     ChildrenPrice = obj.ChildrenPrice,
-                    IsTaken = obj.IsTaken,
                     RoomNumber = obj.RoomNumber,
                     RoomTypeId = obj.RoomTypeId,
                     RoomType = obj.RoomType != null ? new dto.LookUpProperty

@@ -11,8 +11,6 @@ public partial class Rooms
 
     public int Capacity { get; set; }
 
-    public bool IsTaken { get; set; }
-
     public double AdultPrice { get; set; }
 
     public double ChildrenPrice { get; set; }

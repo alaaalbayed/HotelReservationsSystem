@@ -21,27 +21,19 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Capacity
-
+                                        @Html.DisplayNameFor(x=>x.Capacity)
                                     </th>
                                     <th>
-                                        IsTaken
-
+                                        @Html.DisplayNameFor(x=>x.AdultPrice)
                                     </th>
                                     <th>
-                                        AdultPrice
-
+                                        @Html.DisplayNameFor(x=>x.ChildrenPrice)
                                     </th>
                                     <th>
-                                        ChildrenPrice
-
+                                        @Html.DisplayNameFor(x=>x.RoomNumber)
                                     </th>
                                     <th>
-                                        RoomNumber
-
-                                    </th>
-                                    <th>
-                                        RoomType
+                                        @Html.DisplayNameFor(x=>x.RoomType)
                                     </th>
                                     <th>
                                         Events
@@ -54,9 +46,6 @@
                                     <tr>
                                         <td>
                                             @Html.DisplayFor(x => item.Capacity)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(x => item.IsTaken)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(x => item.AdultPrice)$
