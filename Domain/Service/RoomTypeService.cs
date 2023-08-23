@@ -59,9 +59,21 @@ namespace Domain.Service
             return MapRoomType.MAP(roomType);
         }
 
-        public Task Update(int id, RoomType roomType)
+        public async Task<RoomType> GetById(double id)
         {
-            throw new NotImplementedException();
+            var roomType = await _db.RoomTypes.FirstOrDefaultAsync(x => x.Id == id);
+            return MapRoomType.MAP(roomType);
+        }
+
+        public async Task Update(int id, RoomType roomType)
+        {
+            roomType.Id = id;
+            var roomTypeToChange = await _db.RoomTypes.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+            if (roomTypeToChange != null)
+            {
+                _db.RoomTypes.Update(MapRoomType.MAP(roomType));
+                await _db.SaveChangesAsync();
+            }
         }
     }
 }

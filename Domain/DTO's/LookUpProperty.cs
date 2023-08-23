@@ -19,6 +19,6 @@ namespace Domain.DTO_s
 
         public long TypeId { get; set; }
 
-        public LookUpType LookUpType { get; set; }
+        public LookUpType LookUpType { get; set; } = new LookUpType();
     }
 }

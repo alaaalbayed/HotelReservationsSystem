@@ -19,9 +19,11 @@ namespace Ecommerce_App.Controllers
     public class HomeController : BaseController
     {
         private readonly IAnalyticService _analyticService;
-        public HomeController(IAnalyticService analyticService, ILoggerService logger) : base(logger)
+        private readonly IReservationService _reservationService;
+        public HomeController(IAnalyticService analyticService, IReservationService reservationService, ILoggerService logger) : base(logger)
         {
             _analyticService = analyticService;
+            _reservationService = reservationService;
         }
 
         public async Task<IActionResult> Index()
@@ -31,12 +33,14 @@ namespace Ecommerce_App.Controllers
                 var totalReservations = await _analyticService.TotalReservationsNumber();
                 var totalRevenu = await _analyticService.TotalRevenue();
                 var totalIncome = await _analyticService.TotalIncome();
+                var getAllReservations = await _reservationService.GetAllReservations();
 
                 var viewModel = new AnalyticsViewModel
                 {
                     TotalReservations = totalReservations,
                     TotalRevenue = totalRevenu,
-                    TotalIncome = totalIncome
+                    TotalIncome = totalIncome,
+                    Reservations = getAllReservations
                 };
 
                 return View(viewModel);
@@ -44,7 +48,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred in the HomeController Index action.", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
     }

@@ -114,9 +114,12 @@ app.UseRequestLocalization(localizationOptions);
 
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
 	name: "default",
 	pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute("NotFound404", "{*url}", new { controller = "Base", action = "NotFound404" });
 
 
 using (var scope = app.Services.CreateScope())

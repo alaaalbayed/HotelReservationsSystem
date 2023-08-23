@@ -116,70 +116,17 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Project Hades</td>
-                                                    <td class="d-none d-xl-table-cell">01/01/2021</td>
-                                                    <td class="d-none d-xl-table-cell">31/06/2021</td>
-                                                    <td><span class="badge bg-success">Done</span></td>
-                                                    <td class="d-none d-xl-table-cell">150$</td>
-                                                    <td class="d-none d-md-table-cell">31/06/2021</td>
-                                                </tr>
+                                                @foreach(var item in Model.Reservations)
+                                                {
+                                                    <tr>
+                                                        <td>@item.FullName</td>
+                                                        <td class="d-none d-xl-table-cell">@item.CheckIn</td>
+                                                        <td class="d-none d-xl-table-cell">@item.CheckOut</td>
+                                                        <td><span class="badge bg-success">Done</span></td>
+                                                        <td class="d-none d-xl-table-cell">$@item.Price</td>
+                                                        <td class="d-none d-md-table-cell">@item.OrderDate</td>
+                                                    </tr>
+                                                }
                                             </tbody>
                                         </table>
                                     </div>

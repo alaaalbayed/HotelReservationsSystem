@@ -246,7 +246,7 @@
                         var totalPrice = (isAdult ? adultPrice : childrenPrice) +
                             breakfastPrice + lunchPrice + dinnerPrice + extraBedPrice + escortPrice;
 
-                        totalPrice *= daysBetween;
+                        totalPrice *= daysBetween + 1;
 
                         $('#priceLabel').text(totalPrice.toFixed(2) + '$');
                     },

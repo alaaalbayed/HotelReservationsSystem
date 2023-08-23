@@ -33,6 +33,7 @@ namespace Domain.MAPPER
                     Dinner = obj.Dinner,
                     ExtraBed = obj.ExtraBed,
                     Price = obj.Price,
+                    OrderDate = obj.OrderDate,
                     RoomId = obj.RoomId,
                     UserId = obj.UserId
 
@@ -76,6 +77,7 @@ namespace Domain.MAPPER
                     Dinner = obj.Dinner,
                     ExtraBed = obj.ExtraBed,
                     Price = obj.Price,
+                    OrderDate = obj.OrderDate,
                     RoomId = obj.RoomId,
                     UserId = obj.UserId,
                 };

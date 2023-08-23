@@ -40,6 +40,7 @@ namespace Domain.Service
         {
 
             reservation.UserId = userId;
+            reservation.OrderDate = DateTime.Now;
             List<Escort> escorts = reservation.Escorts.ToList();
 
             double finalPrice = await GetFinalPrice(reservation, escorts);
@@ -109,6 +110,7 @@ namespace Domain.Service
             var reservations = await _db.Reservations
                 .Include(r => r.Room)
                 .Include(r => r.User)
+                .OrderByDescending(r => r.OrderDate)
                 .ToListAsync();
 
             return reservations.Select(r => MapReservation.MAP(r));

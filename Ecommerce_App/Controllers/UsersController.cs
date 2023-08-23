@@ -31,7 +31,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("An error occurred while getting users", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
         public IActionResult Create()
@@ -63,7 +63,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"There is an error while trying to create a user.", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -71,17 +71,12 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                if (id == null)
-                {
-                    return BadRequest();
-                }
-
                 var users = await _userManager.Users.ToListAsync();
                 var user = users.FirstOrDefault(u => u.Id == id.ToString());
 
                 if (user == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
                 return View(user);
@@ -90,7 +85,7 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"There is error while trying to get the edit page!", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -106,7 +101,7 @@ namespace Ecommerce_App.Controllers
 
                     if (existingUser == null)
                     {
-                        return NotFound();
+                        return NotFound404();
                     }
 
                     existingUser.FirstName = user.FirstName;
@@ -133,34 +128,29 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"There is error while trying edit!", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
-        public async Task<IActionResult> InfoAsync(Guid? id)
+        public async Task<IActionResult> Info(Guid? id)
         {
             try
             {
-                if (id == null)
-                {
-                    return BadRequest();
-                }
-
                 var users = await _userManager.Users.ToListAsync();
                 var user = users.FirstOrDefault(u => u.Id == id.ToString());
 
                 if (user == null)
                 {
-                    return NotFound();
+                    return NotFound404();
                 }
 
-                return View("Info", user);
+                return View(user);
             }
 
             catch (Exception ex)
             {
                 _logger.LogError("There is error while trying to get the info page!", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
         }
 
@@ -168,15 +158,12 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-                if (id == null)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
 
                 var user = await _userManager.Users.FirstOrDefaultAsync(u => u.Id == id.ToString());
+
                 if (user == null)
                 {
-                    return RedirectToAction(nameof(Index));
+                    return NotFound500();
                 }
 
                 user.Status = !user.Status;
@@ -187,9 +174,8 @@ namespace Ecommerce_App.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("There is error while trying to delete", ex);
-                return StatusCode(500, new { Message = "An error occurred while processing your request." });
+                return NotFound500();
             }
-
         }
     }
 }
