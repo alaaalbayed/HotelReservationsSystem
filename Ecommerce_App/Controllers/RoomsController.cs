@@ -1,7 +1,5 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
-using Ecommerce_App.Areas.Identity.Data;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;

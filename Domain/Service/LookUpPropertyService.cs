@@ -1,15 +1,9 @@
-﻿using Domain.DTO_s;
-using Domain.Interface;
+﻿using Domain.Interface;
 using Domain.MAPPER;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using dto = Domain.DTO_s;
+
 namespace Domain.Service
 {
     public class LookUpPropertyService : ILookUpPropertyService

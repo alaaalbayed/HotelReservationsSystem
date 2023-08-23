@@ -1,11 +1,4 @@
-﻿using Infrastructure.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using dto = Domain.DTO_s;
+﻿using dto = Domain.DTO_s;
 using orm = Infrastructure.Data;
 namespace Domain.MAPPER
 {

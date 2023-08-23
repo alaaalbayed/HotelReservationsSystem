@@ -1,14 +1,9 @@
 ﻿using Domain.DTO_s;
 using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Interface
 {
-	public interface IRoomService
+    public interface IRoomService
 	{
 		Task Add(Room room, List<IFormFile> roomImages);
 		Task Update(int id, Room room, List<IFormFile> roomImages);

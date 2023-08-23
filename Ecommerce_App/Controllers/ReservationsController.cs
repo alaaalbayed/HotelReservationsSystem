@@ -1,18 +1,11 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
 using Microsoft.AspNetCore.Mvc;
-using Domain.MAPPER;
-using Domain.Service;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Ecommerce_App.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Localization;
-using System.Text.Json.Nodes;
-using Domain.Models;
-using System.Text.Json;
 
 namespace Ecommerce_App.Controllers
 {

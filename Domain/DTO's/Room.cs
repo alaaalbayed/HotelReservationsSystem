@@ -1,16 +1,9 @@
-﻿using Infrastructure.Data;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.DTO_s
 {
-	public class Room
+    public class Room
 	{
         public int RoomId { get; set; }
         public int Capacity { get; set; }
