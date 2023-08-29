@@ -21,7 +21,6 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var totalReservations = await _analyticService.TotalReservationsNumber();
-                var totalRevenu = await _analyticService.TotalRevenue();
                 var totalIncome = await _analyticService.TotalIncome();
                 var getAllReservations = await _reservationService.GetAllReservations();
                 var getTotalUsers = await _analyticService.TotalUsers();
@@ -31,7 +30,6 @@ namespace Ecommerce_App.Controllers
                 var viewModel = new AnalyticsViewModel
                 {
                     TotalReservations = totalReservations,
-                    TotalRevenue = totalRevenu,
                     TotalIncome = totalIncome,
                     Reservations = getAllReservations,
                     TotalUsers = getTotalUsers,
@@ -46,6 +44,20 @@ namespace Ecommerce_App.Controllers
                 _logger.LogError("An error occurred in the HomeController Index action.", ex);
                 return NotFound500();
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMonthlySale(string year, int month)
+        {
+            var monthlySale = await _analyticService.GetMonthlySale(year, month);
+            return Json(monthlySale);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMonthlyOrder(string year, int month)
+        {
+            var monthlyOrder = await _analyticService.GetMonthlyOrder(year, month);
+            return Json(monthlyOrder);
         }
     }
 }

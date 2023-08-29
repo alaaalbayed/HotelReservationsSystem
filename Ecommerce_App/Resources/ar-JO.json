@@ -57,6 +57,23 @@
   "Lunch": "العشاء",
   "ExtraBed": "سرير اضافي",
   "YourAccountNotActive": ".تم تعطيل حسابك",
-  "Activate": "تفعيل"
+  "Activate": "تفعيل",
+  "Analytics": "التحليلات",
+  "Income": "الدخل الصافي",
+  "Revenue": "الربح",
+  "TotalUsers": "عدد المستخدمين",
+  "TotalAdmins": "عدد المسؤولين",
+  "TotalEmployees": "عدد الموظفين",
+  "FullName": "الاسم الكامل",
+  "CheckIn": "موعد الوصول",
+  "CheckOut": "موعد المغادرة",
+  "OrderDtae": "وقت الطلب",
+  "Orders": "الطلبات",
+  "Cancelled": "ملغي",
+  "LatestReservations": "اخر الحجوزات",
+  "MonthlySales": "الارباح الشهرية",
+  "MonthlyOrders": "الطلبات الشهرية"
+
 
 }
+

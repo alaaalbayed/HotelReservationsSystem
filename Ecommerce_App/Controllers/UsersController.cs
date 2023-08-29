@@ -89,11 +89,12 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
+                var existingUser = await _userManager.FindByIdAsync(user.Id);
+
                 if (ModelState.IsValid)
                 {
                     await UploadImage(user);
-                    var existingUser = await _userManager.FindByIdAsync(user.Id);
-
+                   
                     if (existingUser == null)
                     {
                         return NotFound404();

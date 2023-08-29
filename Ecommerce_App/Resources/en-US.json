@@ -57,6 +57,23 @@
   "ExtraBed": "ExtraBed",
   "YourAccountNotActive": "Your account is disabled.",
   "Activate": "Activate",
-  "Disabled": "Disabled"
+  "Disabled": "Disabled",
+  "Analytics": "Analytics",
+  "Income": "Income",
+  "Revenue": "Revenue",
+  "TotalUsers": "Total Users",
+  "TotalAdmins": "Total Admins",
+  "TotalEmployees": "Total Employees",
+  "FullName": "Full Name",
+  "CheckIn": "Check In",
+  "CheckOut": "Check Out",
+  "OrderDtae": "Order Date",
+  "Orders": "Orders",
+  "Cancelled": "Cancelled",
+  "LatestReservations": "Latest Reservations",
+  "MonthlySales": "Monthly Sales",
+  "MonthlyOrders": "Monthly Orders"
+
+
 
 }
