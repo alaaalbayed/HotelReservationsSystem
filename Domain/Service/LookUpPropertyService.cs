@@ -2,6 +2,7 @@
 using Domain.MAPPER;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using dto = Domain.DTO_s;
 
 namespace Domain.Service
@@ -72,10 +73,18 @@ namespace Domain.Service
 
         public async Task<string> GetTypeNameByRoomTypeId(long typeId)
         {
+            var check = CultureInfo.CurrentCulture.Name;
             var lookUpProperty = await _db.LookUpType.FirstOrDefaultAsync(l => l.Id == typeId);
             if (lookUpProperty != null)
             {
-                return lookUpProperty.NameEn; 
+                if (check == "en-US")
+                {
+                    return lookUpProperty.NameEn;
+                }
+                else
+                {
+                    return lookUpProperty.NameAr;
+                }
             }
             return null;
         }

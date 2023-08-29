@@ -21,13 +21,8 @@
     var check = CultureInfo.CurrentCulture.Name;
 }
 
-<style>
-    .me-1 {
-        margin-left: -73rem !important;
-    }
-</style>
 <nav class="navbar navbar-expand navbar-light navbar-bg">
-    <a class="sidebar-toggle js-sidebar-toggle">
+    <a id="toggle-btn" class="sidebar-toggle js-sidebar-toggle">
         <i class="hamburger align-self-center"></i>
     </a>
 
@@ -80,7 +75,7 @@
                 }
                 else
                 {
-                    <li class="nav-item dropdown me-1">
+                    <li class="nav-item dropdown position-absolute start-0 ms-3">
                         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                             <i class="align-middle" data-feather="settings"></i>
                         </a>
@@ -191,3 +186,4 @@
         </ul>
     </div>
 </nav>
+

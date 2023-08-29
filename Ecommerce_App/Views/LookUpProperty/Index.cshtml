@@ -48,10 +48,13 @@
                                         {
                                             <tr>
                                                 <th>
-                                                    @localizer["Type"]
+                                                    @localizer["Events"]
                                                 </th>
                                                 <th>
-                                                    @localizer["Events"]
+                                                    الخيارات
+                                                </th>
+                                                <th>
+                                                    @localizer["Type"]
                                                 </th>
                                             </tr>
                                         }
@@ -142,7 +145,10 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        @Html.DisplayFor(modelItem => item.NameEn)
+                                                        @Html.DisplayFor(modelItem => item.NameAr)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.LookUpType.NameAr)
                                                     </td>
                                                 </tr>
                                             }
