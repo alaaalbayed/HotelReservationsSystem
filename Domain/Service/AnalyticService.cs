@@ -22,26 +22,18 @@ namespace Domain.Service
             return inactiveReservationsCount;
         }
 
-        public async Task<double> TotalRevenue()
-        {
-            var totalRevenue = await _db.Reservations
-                .Where(reservation => reservation.Status == false)
-                .SumAsync(x => x.Price);
-            return totalRevenue;
-        }
         public async Task<double> TotalIncome()
         {
             var totalIncome = await _db.Reservations
                 .Where(reservation => reservation.Status == false)
                 .SumAsync(x => x.Price);
-            var tax = totalIncome * 0.16;
-            return totalIncome - tax;
+            return totalIncome;
         }
 
         public async Task<int> TotalUsers()
         {
             var totalUsers = await _db.AspNetUsers
-                .Where(users => users.Status == false)
+                .Where(users => users.Status == false && users.Role.Any(x=>x.Name == "User"))
                 .CountAsync();
             return totalUsers;
         }
@@ -62,6 +54,43 @@ namespace Domain.Service
                 .CountAsync();
 
             return totalEmployees;
+        }
+
+        public async Task<double> GetMonthlySale(string year, int month)
+        {
+            try
+            {
+                int selectedYear = string.IsNullOrWhiteSpace(year) ? DateTime.Now.Year : int.Parse(year);
+
+                var monthlySale = await _db.Reservations
+                    .Where(x => x.OrderDate.Year == selectedYear && x.OrderDate.Month == month && x.Status == false)
+                    .Select(x => x.Price)
+                    .SumAsync();
+
+                return monthlySale;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public async Task<double> GetMonthlyOrder(string year, int month)
+        {
+            try
+            {
+                int selectedYear = string.IsNullOrWhiteSpace(year) ? DateTime.Now.Year : int.Parse(year);
+
+                var monthlySale = await _db.Reservations
+                    .Where(x => x.OrderDate.Year == selectedYear && x.OrderDate.Month == month && x.Status == false)
+                    .CountAsync();
+
+                return monthlySale;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }
