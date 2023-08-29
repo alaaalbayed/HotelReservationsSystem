@@ -4,6 +4,7 @@ using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 
 namespace Ecommerce_App.Controllers
 {
@@ -25,11 +26,17 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var allLookUpProperty = await _lookUpPropertyService.GetAllLookUpProperty();
-
+                var check = CultureInfo.CurrentCulture.Name;
                 foreach (var property in allLookUpProperty)
                 {
                     property.LookUpType = new LookUpType();
-                    property.LookUpType.NameEn = await _lookUpPropertyService.GetTypeNameByRoomTypeId(property.TypeId);
+                    if(check == "en-US") { 
+                        property.LookUpType.NameEn = await _lookUpPropertyService.GetTypeNameByRoomTypeId(property.TypeId);
+                    }
+                    else
+                    {
+                        property.LookUpType.NameAr = await _lookUpPropertyService.GetTypeNameByRoomTypeId(property.TypeId);
+                    }
                 }
 
                 return View(allLookUpProperty);

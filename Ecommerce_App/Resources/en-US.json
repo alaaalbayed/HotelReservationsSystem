@@ -72,7 +72,12 @@
   "Cancelled": "Cancelled",
   "LatestReservations": "Latest Reservations",
   "MonthlySales": "Monthly Sales",
-  "MonthlyOrders": "Monthly Orders"
+  "MonthlyOrders": "Monthly Orders",
+  "Capacity": "Capacity",
+  "AdultPrice": "Adult Price",
+  "ChildrenPrice": "Children Price",
+  "RoomNumber": "Room Number",
+  "RoomType": "Room Type"
 
 
 

@@ -72,8 +72,12 @@
   "Cancelled": "ملغي",
   "LatestReservations": "اخر الحجوزات",
   "MonthlySales": "الارباح الشهرية",
-  "MonthlyOrders": "الطلبات الشهرية"
-
+  "MonthlyOrders": "الطلبات الشهرية",
+  "Capacity": "سعه الغرفة",
+  "AdultPrice": "السعر لكل بالغ",
+  "ChildrenPrice": "السعر لكل طفل",
+  "RoomNumber": "رقم الغرفة",
+  "RoomType" :  "نوع الغرفة"
 
 }
 

@@ -94,12 +94,12 @@
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link text-end fs-5" asp-controller="Users" asp-action="Index">
-                            <span class="align-middle">@localizer["Users"]</span> <i class="align-middle" data-feather="shield"></i>
+                            <span class="align-middle">@localizer["Users"]</span> <i class="align-middle" data-feather="user"></i>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link text-end fs-5" asp-controller="Admins" asp-action="Index">
-                            <span class="align-middle">@localizer["Admins"]</span> <i class="align-middle" data-feather="user"></i>
+                            <span class="align-middle">@localizer["Admins"]</span> <i class="align-middle" data-feather="shield"></i>
                         </a>
                     </li>
                     <li class="sidebar-item">
@@ -169,3 +169,20 @@ else
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var currentCulture = '@check';
+        var sidebar = document.getElementById('sidebar');
+        var toggleButton = document.getElementById('toggle-btn');
+
+        toggleButton.addEventListener('click', function () {
+            var isCollapsed = sidebar.classList.contains('collapsed');
+
+            if (currentCulture === 'ar-JO' && !isCollapsed) {
+                sidebar.style.zIndex = '-1';
+            } else {
+                sidebar.style.zIndex = '';
+            }
+        });
+    });
+</script>
