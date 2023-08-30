@@ -3,12 +3,19 @@
 @using Ecommerce_App.Areas.Identity.Pages.Account;
 @using Microsoft.AspNetCore.Identity
 @using Ecommerce_App.Areas.Identity.Data
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+
+
+@inject IViewLocalizer localize
+
 
 @inject SignInManager<Ecommerce_AppUser> SignInManager
 @inject UserManager<Ecommerce_AppUser> UserManager
 
 @{
     ViewData["Title"] = "Edit";
+    var check = CultureInfo.CurrentCulture.Name;
 }
 
 <div class="wrapper">
@@ -19,62 +26,124 @@
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
                     <form class="card mt-5" asp-action="Edit" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="card-header">
-                            <h3 class="card-title">Edit User Information</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="FirstName">First Name</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" asp-for="FirstName" required>
-                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                        @if (check == "en-US")
+                        {
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Edit User Information</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="FirstName">First Name</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="FirstName" required>
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="LastName">Last Name</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="LastName" required>
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="Email">Email</label>
+                                    <div class="col">
+                                        <input type="email" class="form-control" asp-for="Email" required>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="Address">Address</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="Address" required>
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label" for="NewPassword">New Password</label>
+                                    <div class="col">
+                                        <input type="password" class="form-control" id="NewPassword" name="NewPassword" placeholder="New Password">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label" for="Image">Image</label>
+                                    <div class="col">
+                                        <input type="file" class="form-control" id="Image" name="Image">
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="LastName">Last Name</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" asp-for="LastName" required>
-                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <a asp-action="Index" class="btn btn-secondary" role="button">@localize["BackToList"]</a>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">@localize["SaveChanges"]</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Email">Email</label>
-                                <div class="col">
-                                    <input type="email" class="form-control" asp-for="Email" required>
-                                    <span asp-validation-for="Email" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="card-header">
+                                <h3 class="card-title text-lg-end">تعديل معلوماتي</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="FirstName" required>
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">@localize["FirstName"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="LastName" required>
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">@localize["LastName"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="email" class="form-control" asp-for="Email" required>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">@localize["Email"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="Address" required>
+                                        <span asp-validation-for="Address" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">@localize["Address"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="password" class="form-control" id="NewPassword" name="NewPassword" placeholder="New Password">
+                                    </div>
+                                    <label class="col-3 col-form-label" for="NewPassword">@localize["Password"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="file" class="form-control" id="Image" name="Image">
+                                    </div>
+                                    <label class="col-3 col-form-label">@localize["Image"]</label>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Address">Address</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" asp-for="Address" required>
-                                    <span asp-validation-for="Address" class="text-danger"></span>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">@localize["SaveChanges"]</button>
+                                    </div>
+                                    <div>
+                                        <a asp-action="Index" class="btn btn-secondary" role="button">@localize["BackToList"]</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label" for="NewPassword">New Password</label>
-                                <div class="col">
-                                    <input type="password" class="form-control" id="NewPassword" name="NewPassword" placeholder="New Password">
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label" for="Image">Image</label>
-                                <div class="col">
-                                    <input type="file" class="form-control" id="Image" name="Image">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </form>
                 </div>
             </div>

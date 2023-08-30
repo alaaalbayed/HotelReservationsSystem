@@ -21,7 +21,7 @@
             @if (check == "en-US")
             {
                 <a class="sidebar-brand" asp-controller="Home" asp-action="">
-                    <span class="align-middle">AdminKit</span>
+                    <span class="align-middle">Admin Page</span>
                 </a>
 
                 <ul class="sidebar-nav">
@@ -79,7 +79,7 @@
             else
             {
                 <a class="sidebar-brand text-end" asp-controller="Home" asp-action="">
-                    <span class="align-middle">AdminKit</span>
+                    <span class="align-middle">صفحة المسؤول</span>
                 </a>
 
                 <ul class="sidebar-nav">
@@ -180,8 +180,10 @@ else
 
             if (currentCulture === 'ar-JO' && !isCollapsed) {
                 sidebar.style.zIndex = '-1';
+                sidebar.style.display = 'none';
             } else {
                 sidebar.style.zIndex = '';
+                sidebar.style.display = '';
             }
         });
     });

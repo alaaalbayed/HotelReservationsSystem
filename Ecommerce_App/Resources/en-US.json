@@ -77,7 +77,18 @@
   "AdultPrice": "Adult Price",
   "ChildrenPrice": "Children Price",
   "RoomNumber": "Room Number",
-  "RoomType": "Room Type"
+  "RoomType": "Room Type",
+  "Nationality": "Nationality",
+  "EditProfile": "Edit Profile",
+  "SaveChanges": "Save Changes",
+  "BackToList": "Back To List",
+  "ProfileImage": "Profile Image",
+  "EditType": "Edit Type",
+  "CreateNewType": "Create New Type",
+  "NationalityId": "NationalityId",
+  "IsAdult": "Is Adult"
+
+
 
 
 

@@ -77,7 +77,16 @@
   "AdultPrice": "السعر لكل بالغ",
   "ChildrenPrice": "السعر لكل طفل",
   "RoomNumber": "رقم الغرفة",
-  "RoomType" :  "نوع الغرفة"
+  "RoomType": "نوع الغرفة",
+  "Nationality": "الجنسية",
+  "EditProfile": "تعديل الحساب",
+  "SaveChanges": "حفظ التغيرات",
+  "BackToList": "العودة الى القائمة",
+  "ProfileImage": "الصورة الشخصية",
+  "EditType": "تعديل النوع",
+  "CreateNewType": "انشاء نوع جديد",
+  "NationalityId": "الرقم الوطني",
+  "IsAdult": "بالغ"
 
 }
 
