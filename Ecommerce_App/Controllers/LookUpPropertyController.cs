@@ -14,7 +14,6 @@ namespace Ecommerce_App.Controllers
         private readonly ILookUpPropertyService _lookUpPropertyService;
         private readonly ILookUpTypeService _lookUpTypeService;
 
-
         public LookUpPropertyController(ILookUpPropertyService lookUpPropertyService, ILookUpTypeService lookUpTypeService, ILoggerService logger) : base(logger)
         {
             _lookUpPropertyService = lookUpPropertyService;

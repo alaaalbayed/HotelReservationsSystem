@@ -24,8 +24,7 @@ namespace Ecommerce_App.Controllers
             ILookUpTypeService lookUpTypeService,
             IRoomImageService roomImageService,
             ILookUpPropertyService lookUpPropertyService,
-            ILoggerService logger
-            ) : base(logger)
+            ILoggerService logger) : base(logger)
         {
             _db = db;
             _roomService = roomService;

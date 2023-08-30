@@ -203,11 +203,12 @@
                                                 @Html.DisplayFor(modelItem => item.Price)$
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CheckOut)
+                                                @((item.CheckOut).ToString("dd/MM/yy:hh:mm:ss tt", CultureInfo.InvariantCulture))
                                             </td>
                                             <td>
-                                                @Html.DisplayFor(modelItem => item.CheckIn)
+                                                @((item.CheckIn).ToString("dd/MM/yy:hh:mm:ss tt", CultureInfo.InvariantCulture))
                                             </td>
+
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.PhoneNumber)
                                             </td>

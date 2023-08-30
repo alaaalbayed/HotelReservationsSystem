@@ -18,9 +18,7 @@ namespace Ecommerce_App.Controllers
             UserManager<Ecommerce_AppUser> userManager,
             Ecommerce_AppContext db,
             RoleManager<IdentityRole> roleManager,
-            ILoggerService logger
-            )
-            : base(logger)
+            ILoggerService logger) : base(logger)
         {
             _userManager = userManager;
             _db = db;

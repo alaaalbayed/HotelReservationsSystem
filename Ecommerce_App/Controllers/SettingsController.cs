@@ -15,8 +15,7 @@ namespace Ecommerce_App.Controllers
         public SettingsController(
             UserManager<Ecommerce_AppUser> userManager,
             SignInManager<Ecommerce_AppUser> signInManager,
-            ILoggerService logger
-            ) : base(logger)
+            ILoggerService logger) : base(logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;

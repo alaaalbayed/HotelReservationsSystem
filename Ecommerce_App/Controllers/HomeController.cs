@@ -10,7 +10,10 @@ namespace Ecommerce_App.Controllers
     {
         private readonly IAnalyticService _analyticService;
         private readonly IReservationService _reservationService;
-        public HomeController(IAnalyticService analyticService, IReservationService reservationService, ILoggerService logger) : base(logger)
+        public HomeController(
+            IAnalyticService analyticService,
+            IReservationService reservationService,
+            ILoggerService logger) : base(logger)
         {
             _analyticService = analyticService;
             _reservationService = reservationService;
