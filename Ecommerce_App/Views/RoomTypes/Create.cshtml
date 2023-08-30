@@ -1,7 +1,12 @@
 ﻿@model Domain.DTO_s.RoomType
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+
+@inject IViewLocalizer localize
 
 @{
     ViewData["Title"] = "Create";
+    var check = CultureInfo.CurrentCulture.Name;
 }
 <div class="wrapper">
     <partial name="_Slide" />
@@ -11,64 +16,118 @@
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
                     <form class="card mt-5" asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="card-header">
-                            <h3 class="card-title">Create New Room Type</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Breakfast"></label>
-                                <div class="col">
-                                    <input type="number" class="form-control" asp-for="Breakfast" placeholder="Property En">
-                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
-                                    <span asp-validation-for="Breakfast" class="text-danger"></span>
+                        @if (check == "en-US")
+                        {
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Create New Room Type</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="Breakfast"></label>
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Breakfast" placeholder="Breakfast Price">
+                                        <span asp-validation-for="Breakfast" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="Lunch"></label>
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Lunch" placeholder="Lunch Price">
+                                        <span asp-validation-for="Lunch" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="Dinner"></label>
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Dinner" placeholder="Dinner Price">
+                                        <span asp-validation-for="Dinner" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="ExtraBed"></label>
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="ExtraBed" placeholder="ExtraBed Price">
+                                        <span asp-validation-for="ExtraBed" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="TypeId">@localize["Types"]</label>
+                                    <div class="col">
+                                        <select class="form-select" asp-for="TypeId" asp-items="ViewBag.TypeOptions">
+                                            <option value="" disabled selected>Select a Type</option>
+                                        </select>
+                                        <span asp-validation-for="TypeId" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Dinner"></label>
-                                <div class="col">
-                                    <input type="number" class="form-control" asp-for="Dinner" placeholder="Property En">
-                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
-                                    <span asp-validation-for="Dinner" class="text-danger"></span>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <a asp-action="Index" class="btn btn-secondary" role="button">@localize["BackToList"]</a>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">@localize["Create"]</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Lunch"></label>
-                                <div class="col">
-                                    <input type="number" class="form-control" asp-for="Lunch" placeholder="Property En">
-                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
-                                    <span asp-validation-for="Lunch" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="card-header">
+                                <h3 class="card-title text-lg-end">انشاء نوع غرفة جديد</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Breakfast" placeholder="سعر الافطار">
+                                        <span asp-validation-for="Breakfast" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" asp-for="Breakfast"></label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Lunch" placeholder="سعر الغداء">
+                                        <span asp-validation-for="Lunch" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" asp-for="Lunch"></label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Dinner" placeholder="سعر العشاء">
+                                        <span asp-validation-for="Dinner" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" asp-for="Dinner"></label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="ExtraBed" placeholder="سعر السرير الاضافي">
+                                        <span asp-validation-for="ExtraBed" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" asp-for="ExtraBed"></label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <select class="form-select" asp-for="TypeId" asp-items="ViewBag.TypeOptions">
+                                            <option value="" disabled selected>Select a Type</option>
+                                        </select>
+                                        <span asp-validation-for="TypeId" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" asp-for="TypeId">@localize["Types"]</label>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="ExtraBed"></label>
-                                <div class="col">
-                                    <input type="number" class="form-control" asp-for="ExtraBed" placeholder="Property En">
-                                    <small class="form-hint">Here The Property Name That Will Display For The User In English.</small>
-                                    <span asp-validation-for="ExtraBed" class="text-danger"></span>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">@localize["Create"]</button>
+                                    </div>
+                                    <div>
+                                        <a asp-action="Index" class="btn btn-secondary" role="button">@localize["BackToList"]</a>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="TypeId"></label>
-                                <div class="col">
-                                    <select class="form-select" asp-for="TypeId" asp-items="ViewBag.TypeOptions">
-                                        <option value="">Select a Type</option>
-                                    </select>
-                                    <small class="form-hint">Select the corresponding property type.</small>
-                                    <span asp-validation-for="TypeId" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Create</button>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </form>
                 </div>
             </div>

@@ -18,18 +18,12 @@
             {
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">LookUpType Info</h3>
+                        <h3 class="card-title">Type Info</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-8">
                                 <dl class="row">
-                                    <dt class="col-sm-2">
-                                        @Html.DisplayNameFor(model => model.Type)
-                                    </dt>
-                                    <dd class="col-sm-10">
-                                        @Html.DisplayFor(model => model.Type)
-                                    </dd>
                                     <dt class="col-sm-2">
                                         @Html.DisplayNameFor(model => model.NameEn)
                                     </dt>
@@ -50,13 +44,28 @@
             }
             else
             {
-                <div class="table-container-ar">
-                    <div class="table-row">
-                        <div class="table-cell">
-                            @Model.NameEn
-                        </div>
-                        <div class="table-cell">
-                            <label class="control-label">@localizer["Type"]</label>
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title text-lg">معلومات عن النوع</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <dl class="row">
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.NameEn)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.NameEn)
+                                    </dd>
+                                    <dt class="col-sm-2">
+                                        @Html.DisplayNameFor(model => model.NameAr)
+                                    </dt>
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.NameAr)
+                                    </dd>
+                                </dl>
+                            </div>
                         </div>
                     </div>
                 </div>

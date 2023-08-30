@@ -69,6 +69,9 @@
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+                            <a class="dropdown-item" asp-controller="Settings" asp-action="Index"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">@localizer["LogOut"]</a>
                         </div>
                     </li>
@@ -92,6 +95,9 @@
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">@localizer["Analytics"] <i class="align-middle me-1" data-feather="pie-chart"></i></a>
+                            <a class="dropdown-item" asp-controller="Settings" asp-action="Index">@localizer["Settings"] <i class="align-middle me-1" data-feather="settings"></i></a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">@localizer["LogOut"]</a>
                         </div>
                     </li>

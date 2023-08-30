@@ -1,7 +1,12 @@
 ﻿@model Domain.DTO_s.Room
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using System.Globalization;
+
+@inject IViewLocalizer localizer
 
 @{
     ViewData["Title"] = "Create";
+    var check = CultureInfo.CurrentCulture.Name;
 }
 
 <div class="wrapper">
@@ -12,86 +17,158 @@
             <div class="row justify-content-md-center">
                 <div class="col-md-6">
                     <form class="card mt-5" asp-action="Edit" enctype="multipart/form-data">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="card-header">
-                            <h3 class="card-title">Edit Room</h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="RoomNumber">Room Number</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" asp-for="RoomNumber" placeholder="Room Number">
-                                    <small class="form-hint">Enter the room number.</small>
-                                    <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                        @if (check == "en-US")
+                        {
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="card-header">
+                                <h3 class="card-title">Edit Room</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="RoomNumber">Room Number</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="RoomNumber" placeholder="Room Number">
+                                        <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="Capacity">Capacity</label>
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Capacity" placeholder="Capacity">
+                                        <span asp-validation-for="Capacity" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="AdultPrice">Adult Price</label>
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="AdultPrice">
+                                        <span asp-validation-for="AdultPrice" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="ChildrenPrice">Children Price</label>
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="ChildrenPrice">
+                                        <span asp-validation-for="ChildrenPrice" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required">Select Room Type</label>
+                                    <div class="col">
+                                        <select asp-for="RoomTypeId" class="form-control" asp-items="@Model.RoomTypes"></select>
+                                        <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required">Upload Images</label>
+                                    <div class="col">
+                                        <input type="file" asp-for="RoomImages" name="RoomImages" multiple class="form-control" accept="image/*" />
+                                        <span asp-validation-for="RoomImages" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row" hidden>
+                                    <label class="col-3 col-form-label required" asp-for="NameAr">Room Number</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="NameAr" placeholder="Room Number">
+                                        <span asp-validation-for="NameAr" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row" hidden>
+                                    <label class="col-3 col-form-label required" asp-for="NameEn">Room Number</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="NameEn" placeholder="Room Number">
+                                        <span asp-validation-for="NameEn" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="Capacity">Capacity</label>
-                                <div class="col">
-                                    <input type="number" class="form-control" asp-for="Capacity" placeholder="Capacity">
-                                    <small class="form-hint">Enter the room capacity.</small>
-                                    <span asp-validation-for="Capacity" class="text-danger"></span>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <a asp-action="Index" class="btn btn-secondary" role="button">@localizer["BackToList"]</a>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">@localizer["SaveChanges"]</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="AdultPrice">Adult Price</label>
-                                <div class="col">
-                                    <input type="number" class="form-control" asp-for="AdultPrice">
-                                    <small class="form-hint">Enter the adult price for the room.</small>
-                                    <span asp-validation-for="AdultPrice" class="text-danger"></span>
+                        }
+                        else
+                        {
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="card-header">
+                                <h3 class="card-title text-lg-end">تعديل الغرفة</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="RoomNumber" placeholder="Room Number">
+                                        <span asp-validation-for="RoomNumber" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">@localizer["RoomNumber"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="Capacity" placeholder="Capacity">
+                                        <span asp-validation-for="Capacity" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" >@localizer["Capacity"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="AdultPrice">
+                                        <span asp-validation-for="AdultPrice" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">@localizer["AdultPrice"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="number" class="form-control" asp-for="ChildrenPrice">
+                                        <span asp-validation-for="ChildrenPrice" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">@localizer["ChildrenPrice"]</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <select asp-for="RoomTypeId" class="form-control" asp-items="@Model.RoomTypes"></select>
+                                        <span asp-validation-for="RoomTypeId" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">اختيار نوع الغرفة</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="file" asp-for="RoomImages" name="RoomImages" multiple class="form-control" accept="image/*" />
+                                        <span asp-validation-for="RoomImages" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required">رفع الصور</label>
+                                </div>
+                                <div class="mb-3 row" hidden>
+                                    <label class="col-3 col-form-label required" asp-for="NameAr">Room Number</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="NameAr" placeholder="Room Number">
+                                        <small class="form-hint">Enter the room number.</small>
+                                        <span asp-validation-for="NameAr" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row" hidden>
+                                    <label class="col-3 col-form-label required" asp-for="NameEn">Room Number</label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="NameEn" placeholder="Room Number">
+                                        <small class="form-hint">Enter the room number.</small>
+                                        <span asp-validation-for="NameEn" class="text-danger"></span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="ChildrenPrice">Children Price</label>
-                                <div class="col">
-                                    <input type="number" class="form-control" asp-for="ChildrenPrice">
-                                    <small class="form-hint">Enter the children price for the room.</small>
-                                    <span asp-validation-for="ChildrenPrice" class="text-danger"></span>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <a asp-action="Index" class="btn btn-secondary" role="button">@localizer["BackToList"]</a>
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">@localizer["SaveChanges"]</button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required">Select Room Type</label>
-                                <div class="col">
-                                    <select asp-for="RoomTypeId" class="form-control" asp-items="@Model.RoomTypes"></select>
-                                    <small class="form-hint">Select a room type from the list.</small>
-                                    <span asp-validation-for="RoomTypeId" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required">Upload Images</label>
-                                <div class="col">
-                                    <label>Upload Images</label>
-                                    <input type="file" asp-for="RoomImages" name="RoomImages" multiple class="form-control" accept="image/*" />
-                                    <span asp-validation-for="RoomImages" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="mb-3 row" hidden>
-                                <label class="col-3 col-form-label required" asp-for="NameAr">Room Number</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameAr" placeholder="Room Number">
-                                    <small class="form-hint">Enter the room number.</small>
-                                    <span asp-validation-for="NameAr" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="mb-3 row" hidden>
-                                <label class="col-3 col-form-label required" asp-for="NameEn">Room Number</label>
-                                <div class="col">
-                                    <input type="text" class="form-control" asp-for="NameEn" placeholder="Room Number">
-                                    <small class="form-hint">Enter the room number.</small>
-                                    <span asp-validation-for="NameEn" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <a asp-action="Index" class="btn btn-secondary" role="button">Back to List</a>
-                                </div>
-                                <div>
-                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </form>
                 </div>
             </div>
