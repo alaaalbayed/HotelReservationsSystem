@@ -131,8 +131,16 @@ namespace Ecommerce_App.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-					_logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
+                    var roles = await _signInManager.UserManager.GetRolesAsync(user);
+
+                    if (roles.Contains("Admin") || roles.Contains("Employees"))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else if (roles.Contains("User"))
+                    {
+                        return RedirectToAction("Index", "Home1");
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
