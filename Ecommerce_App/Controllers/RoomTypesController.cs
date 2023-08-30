@@ -13,7 +13,11 @@ namespace Ecommerce_App.Controllers
         private readonly ILookUpTypeService _lookUpTypeService;
         private readonly ILookUpPropertyService _lookUpPropertyService;
 
-        public RoomTypesController(IRoomTypeService roomTypeService, ILookUpTypeService lookUpTypeService, ILookUpPropertyService lookUpPropertyService, ILoggerService logger) : base(logger)
+        public RoomTypesController(
+            IRoomTypeService roomTypeService,
+            ILookUpTypeService lookUpTypeService,
+            ILookUpPropertyService lookUpPropertyService,
+            ILoggerService logger) : base(logger)
         {
             _roomTypeService = roomTypeService;
             _lookUpTypeService = lookUpTypeService;

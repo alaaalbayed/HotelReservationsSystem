@@ -26,8 +26,7 @@ namespace Ecommerce_App.Controllers
             IRoomService roomService,
             IRoomTypeService roomTypeService,
             IEscortService escortService,
-            ILoggerService logger
-            ) : base(logger)
+            ILoggerService logger) : base(logger)
         {
             _db = db;
             _userManager = userManager;
@@ -35,7 +34,6 @@ namespace Ecommerce_App.Controllers
             _roomService = roomService;
             _roomTypeService = roomTypeService;
             _escortService = escortService;
-
         }
 
         public async Task<IActionResult> Index()
