@@ -64,12 +64,12 @@
                             }
                             else
                             {
-                                <img src="~/assets/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
+                                <img src="~/assets/admin/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
                             }
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" asp-controller="Home" asp-action="Index"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
+                            <a class="dropdown-item" asp-controller="Analytics" asp-action="Index"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
                             <a class="dropdown-item" asp-controller="Settings" asp-action="Index"><i class="align-middle me-1" data-feather="settings"></i> Settings</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">@localizer["LogOut"]</a>
@@ -90,12 +90,12 @@
                             }
                             else
                             {
-                                <img src="~/assets/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
+                                <img src="~/assets/admin/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
                             }
 
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" asp-controller="Home" asp-action="Index">@localizer["Analytics"] <i class="align-middle me-1" data-feather="pie-chart"></i></a>
+                            <a class="dropdown-item" asp-controller="Analytics" asp-action="Index">@localizer["Analytics"] <i class="align-middle me-1" data-feather="pie-chart"></i></a>
                             <a class="dropdown-item" asp-controller="Settings" asp-action="Index">@localizer["Settings"] <i class="align-middle me-1" data-feather="settings"></i></a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">@localizer["LogOut"]</a>
@@ -120,39 +120,40 @@
                             </div>
                         </a>
                     </li>
-                }      
+                }
             }
             else
             {
-                if(check == "en-US"){
-                <li class="nav-item dropdown me-3">
-                    <a class="nav-icon dropdown-toggle" href="#" style="text-decoration: none;" id="alertsDropdown" data-bs-toggle="dropdown">
-                        <div class="position-relative mt-1" style="font-size:15px">
-                            <form method="post" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" class="form-inline">
-                                <div class="form-group">
-                                    @if (requestCulture != null)
-                                    {
-                                        <select name="culture" id="languageSelect"
-                                                asp-for="@requestCulture.RequestCulture.UICulture.Name"
-                                                asp-items="cultures"
-                                                onchange="this.form.submit();"
-                                                class="form-control">
-                                        </select>
-                                    }
-                                </div>
-                            </form>
-                        </div>
-                    </a>
-                </li>
-                <li class="sidebar-item mt-1 me-4">
-                    <a asp-area="Identity" asp-page="/Account/Login">
-                        <input type="button" value="@localizer["SignIn"]" class="btn btn-primary">
-                    </a>
-                </li>
-                <li class="sidebar-item mt-1">
-                    <a asp-area="Identity" asp-page="/Account/Register">
-                        <input type="button" value="@localizer["SignUp"]" class="btn btn-primary">
-                    </a>
+                if (check == "en-US")
+                {
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-icon dropdown-toggle" href="#" style="text-decoration: none;" id="alertsDropdown" data-bs-toggle="dropdown">
+                            <div class="position-relative mt-1" style="font-size:15px">
+                                <form method="post" asp-action="SetLanguage" asp-route-returnUrl="@returnUrl" class="form-inline">
+                                    <div class="form-group">
+                                        @if (requestCulture != null)
+                                        {
+                                            <select name="culture" id="languageSelect"
+                                                    asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                                                    asp-items="cultures"
+                                                    onchange="this.form.submit();"
+                                                    class="form-control">
+                                            </select>
+                                        }
+                                    </div>
+                                </form>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="sidebar-item mt-1 me-4">
+                        <a asp-area="Identity" asp-page="/Account/Login">
+                            <input type="button" value="@localizer["SignIn"]" class="btn btn-primary">
+                        </a>
+                    </li>
+                    <li class="sidebar-item mt-1">
+                        <a asp-area="Identity" asp-page="/Account/Register">
+                            <input type="button" value="@localizer["SignUp"]" class="btn btn-primary">
+                        </a>
                     </li>
                 }
                 else

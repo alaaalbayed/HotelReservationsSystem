@@ -1,66 +1,133 @@
-﻿using Domain.Interface;
-using Domain.Models;
+﻿using Domain.DTO_s;
+using Domain.Interface;
+using Domain.Service;
+using Ecommerce_App.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce_App.Controllers
 {
-    [Authorize(Roles = "Admin, Employee")]
-    public class HomeController : BaseController
+    public class HomeController : Controller
     {
-        private readonly IAnalyticService _analyticService;
+        private readonly Infrastructure.Data.Ecommerce_AppContext _db;
+        private readonly UserManager<Ecommerce_AppUser> _userManager;
         private readonly IReservationService _reservationService;
-        public HomeController(
-            IAnalyticService analyticService,
+        private readonly IRoomService _roomService;
+
+        public HomeController(Infrastructure.Data.Ecommerce_AppContext db,
+            UserManager<Ecommerce_AppUser> userManager,
             IReservationService reservationService,
-            ILoggerService logger) : base(logger)
+            IRoomService roomService)
         {
-            _analyticService = analyticService;
+            _db = db;
+            _userManager = userManager;
             _reservationService = reservationService;
+            _roomService = roomService;
         }
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            try
-            {
-                var totalReservations = await _analyticService.TotalReservationsNumber();
-                var totalIncome = await _analyticService.TotalIncome();
-                var getAllReservations = await _reservationService.GetAllReservations();
-                var getTotalUsers = await _analyticService.TotalUsers();
-                var getTotalAdmins = await _analyticService.TotalAdmins();
-                var getTotalEmployees = await _analyticService.TotalEmployees();
+            return View();
+        }
 
-                var viewModel = new AnalyticsViewModel
+        public async Task<IActionResult> Reservation()
+        {
+            var allRoomAvailable = await _roomService.GetAllRoom();
+            var model = new Reservation
+            {
+                Rooms = allRoomAvailable.Select(rt => new SelectListItem
                 {
-                    TotalReservations = totalReservations,
-                    TotalIncome = totalIncome,
-                    Reservations = getAllReservations,
-                    TotalUsers = getTotalUsers,
-                    TotalAdmins = getTotalAdmins,
-                    TotalEmployees = getTotalEmployees,
+                    Value = rt.RoomId.ToString(),
+                    Text = rt.RoomNumber.ToString()
+                }).ToList()
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reservation(Reservation reservation)
+        {
+            var allRoomAvailable = await _roomService.GetAllRoom();
+            if (!ModelState.IsValid)
+            {
+                var model = new Reservation
+                {
+                    Rooms = allRoomAvailable.Select(rt => new SelectListItem
+                    {
+                        Value = rt.RoomId.ToString(),
+                        Text = rt.RoomNumber.ToString()
+                    }).ToList()
                 };
 
-                return View(viewModel);
+                return View(model);
             }
-            catch (Exception ex)
+            else
             {
-                _logger.LogError("An error occurred in the HomeController Index action.", ex);
-                return NotFound500();
+                var room = await _roomService.GetId(reservation.RoomId);
+
+                var roomIsEmpty = await _reservationService.AreDatesAcceptable(room.RoomId,
+                                                                              reservation.CheckIn,
+                                                                              reservation.CheckOut,
+                                                                              null);
+                if (!roomIsEmpty)
+                {
+                    ModelState.AddModelError(nameof(reservation.CheckIn), "Room is already reserved at that time");
+                    var model = new Reservation
+                    {
+                        Rooms = allRoomAvailable.Select(rt => new SelectListItem
+                        {
+                            Value = rt.RoomId.ToString(),
+                            Text = rt.RoomNumber.ToString()
+                        }).ToList()
+                    };
+                    return View(model);
+                }
+
+                var userId = _userManager.GetUserId(User);
+                await _reservationService.Add(reservation, userId);
+
+                return RedirectToAction(nameof(Index));
             }
         }
-
         [HttpGet]
-        public async Task<IActionResult> GetMonthlySale(string year, int month)
+        public async Task<IActionResult> GetRoomCapacity(int roomId)
         {
-            var monthlySale = await _analyticService.GetMonthlySale(year, month);
-            return Json(monthlySale);
+            var roomCapacity = await _roomService.GetRoomCapacity(roomId);
+            return Json(roomCapacity);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetMonthlyOrder(string year, int month)
+        public async Task<IActionResult> GetRoomTypePrice(int roomNumber)
         {
-            var monthlyOrder = await _analyticService.GetMonthlyOrder(year, month);
-            return Json(monthlyOrder);
+            var room = await _db.Rooms.SingleOrDefaultAsync(x => x.RoomId == roomNumber);
+
+            var roomTypeId = room.RoomTypeId;
+            var roomType = await _db.RoomTypes.SingleOrDefaultAsync(x => x.TypeId == roomTypeId);
+
+            var adultPrice = room.AdultPrice;
+            var childrenPrice = room.ChildrenPrice;
+            var breakfast = roomType.Breakfast;
+            var lunch = roomType.Lunch;
+            var dinner = roomType.Dinner;
+            var extraBed = roomType.ExtraBed;
+
+            var result = new
+            {
+                AdultPrice = adultPrice,
+                ChildrenPrice = childrenPrice,
+                Breakfast = breakfast,
+                Lunch = lunch,
+                Dinner = dinner,
+                ExtraBed = extraBed
+            };
+
+            return Json(result);
         }
     }
 }
+
+

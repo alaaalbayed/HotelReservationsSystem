@@ -9,6 +9,7 @@ namespace Domain.Models
         public int TotalUsers { get; set;}
         public int TotalAdmins { get; set;}
         public int TotalEmployees { get; set;}
+        public int TotalVisitors { get; set; }
         public IEnumerable<Reservation> Reservations { get; set; }
     }
 }

@@ -132,15 +132,8 @@ namespace Ecommerce_App.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     var roles = await _signInManager.UserManager.GetRolesAsync(user);
-
-                    if (roles.Contains("Admin") || roles.Contains("Employees"))
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else if (roles.Contains("User"))
-                    {
-                        return RedirectToAction("Index", "Home1");
-                    }
+                    return RedirectToAction("Index", "Home");
+   
                 }
                 if (result.RequiresTwoFactor)
                 {

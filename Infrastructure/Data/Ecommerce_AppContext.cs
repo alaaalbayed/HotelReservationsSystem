@@ -41,6 +41,8 @@ public partial class Ecommerce_AppContext : DbContext
 
     public virtual DbSet<Rooms> Rooms { get; set; }
 
+    public virtual DbSet<Visitors> Visitors { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AspNetRoleClaims>(entity =>
@@ -244,6 +246,17 @@ public partial class Ecommerce_AppContext : DbContext
                 .HasForeignKey(d => d.RoomTypeId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_LookUpProperty_Rooms_RoomTypeId");
+        });
+
+        modelBuilder.Entity<Visitors>(entity =>
+        {
+            entity.HasKey(e => e.VisitorId).HasName("PK__Visitors__B121AF88ADD69C1E");
+
+            entity.Property(e => e.Ipaddress)
+                .IsRequired()
+                .HasMaxLength(45)
+                .HasColumnName("IPAddress");
+            entity.Property(e => e.VisitDate).HasColumnType("datetime");
         });
 
         OnModelCreatingPartial(modelBuilder);
