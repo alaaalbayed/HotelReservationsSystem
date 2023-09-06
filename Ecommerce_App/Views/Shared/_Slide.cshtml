@@ -20,7 +20,7 @@
         <div class="sidebar-content js-simplebar">
             @if (check == "en-US")
             {
-                <a class="sidebar-brand" asp-controller="Home" asp-action="">
+                <a class="sidebar-brand" asp-controller="Analytics" asp-action="">
                     <span class="align-middle">Admin Page</span>
                 </a>
 
@@ -30,7 +30,7 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" asp-controller="Home" asp-action="">
+                        <a class="sidebar-link" asp-controller="Analytics" asp-action="Index">
                             <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">@localizer["Dashboard"]</span>
                         </a>
                     </li>
@@ -78,7 +78,7 @@
             }
             else
             {
-                <a class="sidebar-brand text-end" asp-controller="Home" asp-action="">
+                <a class="sidebar-brand text-end" asp-controller="Analytics" asp-action="Index">
                     <span class="align-middle">صفحة المسؤول</span>
                 </a>
 
@@ -88,7 +88,7 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link text-end fs-5" asp-controller="Home" asp-action="">
+                        <a class="sidebar-link text-end fs-5" asp-controller="Analytics" asp-action="Index">
                             <span class="align-middle">@localizer["Dashboard"]</span> <i class="align-middle" data-feather="sliders"></i>
                         </a>
                     </li>
@@ -144,7 +144,7 @@ else
     <nav id="sidebar" class="sidebar js-sidebar">
         <!-- Sidebar content -->
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" asp-controller="Home" asp-action="">
+            <a class="sidebar-brand" asp-controller="Analytics" asp-action="">
                 <span class="align-middle">AdminKit</span>
             </a>
         </div>

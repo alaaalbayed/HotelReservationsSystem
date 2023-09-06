@@ -86,7 +86,8 @@
   "EditType": "Edit Type",
   "CreateNewType": "Create New Type",
   "NationalityId": "NationalityId",
-  "IsAdult": "Is Adult"
+  "IsAdult": "Is Adult",
+  "TotalVisitors": "Visitors"
 
 
 

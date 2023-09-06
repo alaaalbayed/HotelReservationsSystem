@@ -56,6 +56,7 @@ builder.Services.AddScoped<ILookUpTypeService, LookUpTypeService>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IEscortService, EscortService>();
 builder.Services.AddScoped<IAnalyticService, AnalyticService>();
+builder.Services.AddScoped<IVisitorService, VisitorService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization();
 
@@ -148,6 +149,8 @@ using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Ecommerce_AppUser>>();
+
+    app.UseMiddleware<VisitorCountMiddleware>();
 
     var roles = new[] { "Admin", "User", "Employee" };
     foreach (var role in roles)

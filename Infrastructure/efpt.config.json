@@ -74,6 +74,10 @@
       {
          "Name": "[dbo].[RoomTypes]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Visitors]",
+         "ObjectType": 0
       }
    ],
    "UiHint": "desktop-prvhl27.Ecommerce_App.dbo",
