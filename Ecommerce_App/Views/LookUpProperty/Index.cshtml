@@ -40,6 +40,9 @@
                                                     Options
                                                 </th>
                                                 <th>
+                                                    @localizer["Details"]
+                                                </th>
+                                                <th>
                                                     @localizer["Events"]
                                                 </th>
                                             </tr>
@@ -49,6 +52,9 @@
                                             <tr>
                                                 <th>
                                                     @localizer["Events"]
+                                                </th>
+                                                <th>
+                                                    @localizer["Details"]
                                                 </th>
                                                 <th>
                                                     الخيارات
@@ -70,6 +76,9 @@
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.NameEn)
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Details)
                                                     </td>
                                                     <td class="col-5">
 
@@ -143,6 +152,9 @@
                                                                 <path d="M16 5l3 3"></path>
                                                             </svg>
                                                         </a>
+                                                    </td>
+                                                    <td>
+                                                        @Html.DisplayFor(modelItem => item.Details)
                                                     </td>
                                                     <td>
                                                         @Html.DisplayFor(modelItem => item.NameAr)

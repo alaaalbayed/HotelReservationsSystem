@@ -8,6 +8,8 @@
 
         public string NameEn { get; set; }
 
+        public string Details { get; set; }
+
         public long TypeId { get; set; }
 
         public LookUpType LookUpType { get; set; } = new LookUpType();

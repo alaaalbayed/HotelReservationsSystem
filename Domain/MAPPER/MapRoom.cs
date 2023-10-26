@@ -1,4 +1,5 @@
-﻿using dto = Domain.DTO_s;
+﻿using System.Runtime.Remoting;
+using dto = Domain.DTO_s;
 using orm = Infrastructure.Data;
 
 namespace Domain.MAPPER
@@ -14,9 +15,9 @@ namespace Domain.MAPPER
                 {
                     RoomId = obj.RoomId,
                     Capacity = obj.Capacity,
-                    AdultPrice = obj.AdultPrice,
-                    ChildrenPrice = obj.ChildrenPrice,
+                    PricePerNight = obj.PricePerNight,
                     RoomNumber = obj.RoomNumber,
+                    Status = obj.Status,
                     RoomTypeId = obj.RoomTypeId,
                 };
             }
@@ -45,15 +46,16 @@ namespace Domain.MAPPER
                 {
                     RoomId = obj.RoomId,
                     Capacity = obj.Capacity,
-                    AdultPrice = obj.AdultPrice,
-                    ChildrenPrice = obj.ChildrenPrice,
+                    PricePerNight = obj.PricePerNight,
                     RoomNumber = obj.RoomNumber,
+                    Status = obj.Status,
                     RoomTypeId = obj.RoomTypeId,
                     RoomType = obj.RoomType != null ? new dto.LookUpProperty
                     {
                         Id = obj.RoomType.Id,
                         NameAr = obj.RoomType.NameAr,
                         NameEn = obj.RoomType.NameEn,
+                        Details = obj.RoomType.Details,
                     } : null,
                     RoomImages2 = obj.RoomImages.Select(ri => new dto.RoomImage
                     {

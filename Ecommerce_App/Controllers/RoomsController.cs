@@ -1,5 +1,6 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
+using Domain.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -108,8 +109,7 @@ namespace Ecommerce_App.Controllers
                 var viewModel = new Room
                 {
                     Capacity = room.Capacity,
-                    AdultPrice = room.AdultPrice,
-                    ChildrenPrice = room.ChildrenPrice,
+                    PricePerNight = room.PricePerNight,
                     RoomNumber = room.RoomNumber,
                     RoomTypeId = room.RoomTypeId,
                 };
@@ -150,8 +150,7 @@ namespace Ecommerce_App.Controllers
 
                 existingRoom.Capacity = viewModel.Capacity;
                 existingRoom.RoomNumber = viewModel.RoomNumber;
-                existingRoom.ChildrenPrice = viewModel.ChildrenPrice;
-                existingRoom.AdultPrice = viewModel.AdultPrice;
+                existingRoom.PricePerNight = viewModel.PricePerNight;
                 existingRoom.RoomTypeId = viewModel.RoomTypeId;
 
                 await _roomService.Update(id, existingRoom, viewModel.RoomImages);
@@ -173,17 +172,16 @@ namespace Ecommerce_App.Controllers
             }
         }
 
-        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 await _roomService.Delete(id);
-                return Ok();
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                _logger.LogError("An error occurred while deleting a room", ex);
+                _logger.LogError("An error occurred while deleting a reservation", ex);
                 return NotFound500();
             }
         }

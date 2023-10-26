@@ -41,10 +41,10 @@ namespace Domain.Service
 
         public async Task Delete(int id)
         {
-            var data = await _db.LookUpType.FirstOrDefaultAsync(x => x.Id == id);
-            if (data != null)
+            var lookUpProperty = await _db.LookUpProperty.FirstOrDefaultAsync(x => x.Id == id);
+            if (lookUpProperty != null)
             {
-                _db.LookUpType.Remove(data);
+                _db.LookUpProperty.Remove(lookUpProperty);
                 await _db.SaveChangesAsync();
             }
         }

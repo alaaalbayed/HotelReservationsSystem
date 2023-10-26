@@ -38,7 +38,7 @@ namespace Domain.Service
             reservation.Price = finalPrice;
 
             var _reservation = await _db.Reservations.AddAsync(MapReservation.MAP(reservation));
-            await _db.SaveChangesAsync();
+             await _db.SaveChangesAsync();
 
             if (escorts != null && escorts.Any())
             {
@@ -149,9 +149,11 @@ namespace Domain.Service
         public async Task<double> GetFinalPrice(Reservation reservation, List<Escort> escorts)
         {
             double price = 0;
-            double roomPrice = reservation.IsAdult ? await _roomService.GetAdultPrice(reservation.RoomId) : await _roomService.GetChildrenPrice(reservation.RoomId);
+            double roomPrice = await _roomService.GetPricePerNight(reservation.RoomId);
             var room = await _roomService.GetRoomByRoomId(reservation.RoomId);
             var roomType = await _roomTypeService.GetRoomTypeByID(room.RoomTypeId);
+
+            price += roomPrice * room.Capacity;
 
             if (reservation.Lunch)
                 price += roomType.Lunch;
@@ -165,14 +167,8 @@ namespace Domain.Service
             if (reservation.ExtraBed)
                 price += roomType.ExtraBed;
 
-            foreach (Escort escort in escorts)
-            {
-                double escortPrice = escort.IsAdult ? await _roomService.GetAdultPrice(reservation.RoomId) : await _roomService.GetChildrenPrice(reservation.RoomId);
-                price += escortPrice;
-            }
-
             int numberOfDays = GetDaysBetweenDates(reservation.CheckIn, reservation.CheckOut);
-            return (price + roomPrice) * numberOfDays;
+            return price * numberOfDays;
         }
     }
 }

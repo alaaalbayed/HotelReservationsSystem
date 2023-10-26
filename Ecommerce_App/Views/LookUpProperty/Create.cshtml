@@ -40,6 +40,14 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="Details"></label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="Details" placeholder="RoomType Details">
+
+                                        <span asp-validation-for="Details" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
                                     <label class="col-3 col-form-label required" asp-for="TypeId"></label>
                                     <div class="col">
                                         <select class="form-select" asp-for="TypeId" asp-items="ViewBag.TypeOptions">
@@ -82,6 +90,14 @@
                                         <span asp-validation-for="NameAr" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required" asp-for="NameAr"></label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="Details" placeholder="RoomType Details">
+
+                                        <span asp-validation-for="Details" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" asp-for="Details"></label>
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col">

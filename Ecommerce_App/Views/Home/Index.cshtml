@@ -1,145 +1,240 @@
-﻿@using Ecommerce_App.Areas.Identity.Data;
-@using Ecommerce_App.Areas.Identity.Pages.Account;
-@using Microsoft.AspNetCore.Identity;
+﻿@model Domain.Models.LookUpPropertyIndexView
 
-@inject SignInManager<Ecommerce_AppUser> SignInManager
-@inject UserManager<Ecommerce_AppUser> UserManager
+@{
+    Layout = "_HotelLayout";
+    ViewData["Title"] = "Pretal Hotel";
+}
+
 
 <!DOCTYPE html>
+<html lang="zxx">
 
-<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>uiCookies:Atlantis &mdash; Free Bootstrap Theme, Free Responsive Bootstrap Website Template</title>
-    <meta name="description" content="Free Bootstrap Theme by uicookies.com">
-    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+    <meta charset="UTF-8">
+    <meta name="description" content="Sona Template">
+    <meta name="keywords" content="Sona, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PRETAL HOTEAL</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Crimson+Text:300,400,700|Rubik:300,400,700,900" rel="stylesheet">
-    <link href="~/assets/hotel/css/custom.css" rel="stylesheet" />
-    <link href="~/assets/hotel/css/style.min.css" rel="stylesheet" />
-    <link href="~/assets/hotel/css/styles-merged.css" rel="stylesheet" />
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
 
-
-    <!--[if lt IE 9]>
-      <script src="js/vendor/html5shiv.min.js"></script>
-      <script src="js/vendor/respond.min.js"></script>
-    <![endif]-->
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/assets/hotel/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/style.css" type="text/css">
 </head>
+
 <body>
 
-    <!-- START: header -->
-
-    <header role="banner" class="probootstrap-header ms-7">
-        <!-- <div class="container"> -->
-        <div class="row">
-            <a asp-controller="Home" asp-action="Index" class="probootstrap-logo visible-xs"><img src="~/assets/hotel/img/logo_md.png" class="hires" width="120" height="33" /></a>
-
-            <a href="#" class="probootstrap-burger-menu visible-xs"><i>Menu</i></a>
-            <div class="mobile-menu-overlay"></div>
-
-            <nav role="navigation" class="probootstrap-nav hidden-xs">
-                <ul class="probootstrap-main-nav">
-                    <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Our Rooms</a></li>
-                    <li class="hidden-xs probootstrap-logo-center"><a asp-controller="Home" asp-action="Index"><img src="~/assets/hotel/img/logo_md.png" class="hires" width="181" height="50" /></a></li>
-                    <li><a asp-controller="Home" asp-action="Reservation">Reservation</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                    @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
-                    {
-                        <li><a asp-controller="Analytics" asp-action="Index">Admin Panel</a></li>
-                    }
-                    @if (SignInManager.IsSignedIn(User))
-                    {
-                        var user = await SignInManager.UserManager.GetUserAsync(User);
-                        <li class="nav-item dropdown">
-                            <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
-                                <i class="align-middle" data-feather="settings"></i>
-                            </a>
-                            <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                                @if (!string.IsNullOrEmpty(user?.Image))
-                                {
-                                    <img src="~/Images/@user.Image" class="avatar img-fluid rounded" alt="User Image" />
-                                    <span class="text-dark">@user.FirstName @user.LastName</span>
-                                }
-                                else
-                                {
-                                    <img src="~/assets/hotel/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
-                                }
-
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">LogOut</a>
-                            </div>
-                        </li>
-                    }
-                    else
-                    {
-                        <li>
-                            <a asp-area="Identity" asp-page="/Account/Login">
-                                <input type="button" value="SignIn" class="btn btn-primary">
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-area="Identity" asp-page="/Account/Register">
-                                <input type="button" value="SignUp" class="btn btn-primary">
-                            </a>
-                        </li>
-                    }
-                </ul>
-                <div class="extra-text visible-xs">
-                    <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
-                    <h5>Connect With Us</h5>
-                    <ul class="social-buttons">
-                        <li><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li><a href="#"><i class="icon-facebook2"></i></a></li>
-                        <li><a href="#"><i class="icon-instagram2"></i></a></li>
-                    </ul>
+    <!-- Header Section Begin -->
+    <partial name="_HotelNav" />
+    <!-- Header End -->
+    <!-- Hero Section Begin -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="hero-text">
+                        <h1>Pretal Hotel</h1>
+                        <p>
+                            Here are the best hotel booking sites, including recommendations for international
+                            travel and for finding low-priced hotel rooms.
+                        </p>
+                        <a href="#" class="primary-btn">Discover Now</a>
+                    </div>
                 </div>
-            </nav>
+                <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1">
+                    <div class="booking-form">
+                        <h3>Booking Your Hotel</h3>
+                        <form action="#">
+                            <div class="check-date">
+                                <label for="date-in">Check In:</label>
+                                <input type="text" class="date-input" id="date-in">
+                                <i class="icon_calendar"></i>
+                            </div>
+                            <div class="check-date">
+                                <label for="date-out">Check Out:</label>
+                                <input type="text" class="date-input" id="date-out">
+                                <i class="icon_calendar"></i>
+                            </div>
+                            <div class="select-option">
+                                <label for="room">Room Type</label>
+                                <select id="room">
+                                    <option value="" selected disabled>Select a Room Type</option>
+                                    @foreach (var room in Model.RoomTypes)
+                                    {
+                                        <option value="@room.Value">@room.Text</option>
+                                    }
+                                </select>
+                            </div>
+                            <button type="submit" asp-action="Rooms" asp-controller="Home">Check Availability</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- </div> -->
-    </header>
-    <!-- END: header -->
-
-    <section class="probootstrap-slider flexslider">
-        <ul class="slides">
-            <li style="background-image: url(../../wwwroot/assets/hotel/img/slider_1.jpg);" class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="probootstrap-slider-text text-center">
-                                <p><img src="~/assets/hotel/img/curve_white.svg" class="seperator probootstrap-animate" /></p>
-                                <h1 class="probootstrap-heading probootstrap-animate">Welcome to Atlantis</h1>
-                                <div class="probootstrap-animate probootstrap-sub-wrap">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li style="background-image: url(../../assets/hotel/img/slider_2.jpg);" class="overlay">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-10 col-md-offset-1">
-                            <div class="probootstrap-slider-text text-center">
-                                <p><img src="~/assets/hotel/img/curve_white.svg" class="seperator probootstrap-animate" /></p>
-                                <h1 class="probootstrap-heading probootstrap-animate">Enjoy Luxury Experience</h1>
-                                <div class="probootstrap-animate probootstrap-sub-wrap">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        </ul>
+        <div class="hero-slider owl-carousel">
+            <img class="hs-item set-bg" src="~/assets/hotel/img/hero/2023-07-21.jpg">
+            <img class="hs-item set-bg" src="~/assets/hotel/img/hero/hero-2.jpg">
+            <img class="hs-item set-bg" src="~/assets/hotel/img/hero/hero-3.jpg">
+        </div>
     </section>
+    <!-- Hero Section End -->
+    <!-- About Us Section Begin -->
+    <section class="aboutus-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about-text">
+                        <div class="section-title">
+                            <span>About Us</span>
+                            <h2>Intercontinental LA <br />Westlake Hotel</h2>
+                        </div>
+                        <p class="f-para">
+                            Sona.com is a leading online accommodation site. We’re passionate about
+                            travel. Every day, we inspire and reach millions of travelers across 90 local websites in 41
+                            languages.
+                        </p>
+                        <p class="s-para">
+                            So when it comes to booking the perfect hotel, vacation rental, resort,
+                            apartment, guest house, or tree house, we’ve got you covered.
+                        </p>
+                        <a href="#" class="primary-btn about-btn">Read More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-pic">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <img src="~/assets/hotel/img/about/about-1.jpg">
+                            </div>
+                            <div class="col-sm-6">
+                                <img src="~/assets/hotel/img/about/about-2.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Us Section End -->
+    <!-- Services Section End -->
+    <section class="services-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <span>What We Do</span>
+                        <h2>Discover Our Services</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="service-item">
+                        <img src="data:image/png;base64,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">
+                        <h4>Free parking</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="service-item">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAAACXBIWXMAAAsTAAALEwEAmpwYAAADCUlEQVR4nO2cTWvUQBiAn+QPCD1X9GTxVhc9iWcr2J4XaSk9KAU9iaDipUd/gB+w2y29ePGieFp79bYa6N09KKIodBH2oBWqkcAE45BkM9kkOrPvA3Pa2WzeZ9/5yCQZEARBEATBPRaAPWAM7ANLKXWOAx3gPXAAvAKu4Agt4B5wA5jLqXcGGAFhovwE1rV6L7U6cXmI5dwCjhIBfVLydFoporKERcKDjLprWMrdjIBGmjAPGGTUNRX2Ggu5PCF4Xdg8MKxA2Dcs5MWEwOsS9hkL6ReQVYewHhayUVBWLCwaCacV1lfTCuvw1L/cpDCr8YDHBsK+Auc0YW9FGCIsL8MeSYYVx2+oD0u7lrQSvwFh0cW3M/g1C4tWK5hlYQcGwqIVCVwUtl2xsJFaD3MSr8QoeTZjHqZ/5kxGLVecYYOMNTKr8RNitioUFmWo803ufoVN0hn8nMyZNsMWcQivQMZIhmGWKSuznGGeQR/UU4LKfj8qHyfcZnNWVFlhV7EM36AJbeeISh6vW/B4N5lhUSbCDm261PFrElVE2C+bmqBfs6jk73RSFvw2sQS/IVFJVoFnwBPgAjM26v13nAd2gadA29KMaoRN1baTAXSm7DucFHVNjRZhSumWHJWcFHUa+DEhoK7hfMdJUagZbZHAugVn0s6KQk3UwgpGK8/VUS/JMeDDlMK8WRCV9wRwaNCEVlxuemksqgWyshl22/WMakpYzzVRdQlzUpRXYR+25VoflaSl7tjOVyhs2UVRyWb3DjiZ8VmRsuOioJiFlOwZVpxhzrCXEfBwSmFOdurjnICHIuxv9idkyFCE/WEpZcEvFGHZtLUXI8OUIqOkCCtPWzLMjPWG+jArH1k8oZ4Jn2tY2AYWsqtOPmhYWB8L+ZIIIGhQ2HMs5LsWRFCBsLy9F+JyCQt5kxJIUELYwGA97A6WspYRUGAgTH8zPqaldv6I6x2pnUGs5kHBTng9RZj+6ppOJPy62mMmr55VrKotRw7VBhE7Ga/zX1QX32Ml89Q/OFdBEARBEKiT36g6geIgFUP3AAAAAElFTkSuQmCC">
+                        <h4>Fitness centre</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="service-item">
+                        <img src="data:image/png;base64,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">
+                        <h4>Family rooms</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="service-item">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAAACXBIWXMAAAsTAAALEwEAmpwYAAADbklEQVR4nO2bW4hNURiAvxl3DTKllEskYXjQaGbjgahJSVGelFAmL57IpaRMEUczeeCJXKKQ8iLPIi8i15JbSXiYcp0wzME4WtM69dudOWcvZ6999mV9tR6mvfZaa3+z17/+tfYMOBwOh8PhSA5HgZ/A8VoPJO5sBgq69APDBqm3ANityxZgBdBIhhgDvBeyzpap903Uk3LvauEjSTl7xYO/BRoMZcnyCmghpdRrQcWH3VChvpqGHcAx4KJ+o377hPUBbaSQNt9bpeSZomLWTuCjaOsDMJ2UcVI8YK7KtiYD90R7l4mAJmAfMCeCvp6Ih1sYQnuTgG4R+OdimW7dWQ/gWe6rT8gaFVKb20SbXVikDngjOrMpbIQvKIfFOOCHbvcRlvG0pCiEfbfwZinu6Db/AOuAxWVSksQIeyD6CHO5P1UiB1Mpxi2gPeRfTGTCDon2r+kwEAYbKySvT4FWEiZsqi/Id4YkTOVr63U6cnqQ5FVt2leRMGEHfA9xFZhB+EwEdgFfRF9fgWlJElYPXPEJ+wWcB9ZYiC9T9DQs9nUBC3gWhakjmSN69fLHlzxwHzgD7ABWA7OBoVX0N1/0lbd1zONZnpJLgRsVgnOx9AI39SLR+h+x7rZoayWW8CJYJVt0cH4WUJwqL/WB4PCAfZwQ924lJYlrI7Bcb2OKK1sxQy9VHgIzAx5jF+/ZjmW8CIX5GaLjlsrOzwGffcI+6evluCTqb4pi0F4NhUka9JlWrxjLC2B0mXsei7rLohqoFxNhinm+Q0D1YaMUE8RqqNKUsVEO0ouRsLViHO/0lPXTLuqoVTFyvJgIUynEczGOJSXqXBfXVVZPloV1lZmKdeJoqF9n9GRZWJPuVwX8RSWud2phh4kBXgyEqaA9noTQ7FuZekL6KJFampMmLKd31oUISkeAKRnHktfnapGJKiRc2MAXplp0nAswJeNY/v0hpTGsUOYZOyq89bGVZUtYamXZEJZqWWELS72sMIVlQlZYwjIjKwxhmZJVrbDMyapGmBVZcSu5mGX6ke8NCwndSw7sDQ86YVQSpV6o/SSc5qSdh9UaJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJ8wQJyyBf4GYaGGvaz2gJAlzsgKg/pdnDzArSGWHw+Eg5vwFPQrJGlptrl4AAAAASUVORK5CYII=">
+                        <h4>Non-smoking rooms</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="service-item">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFUAAABVCAYAAAA49ahaAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEcklEQVR4nO2bW4hVVRjHf6eZyltWVlph49g9evChhwwyoYduOhJ0g3nQirLLg0VB89CFXooiKCJ6yECj6KZGQQrS5akeYrIyLcxIM0NttHJSEDWnIx/8J4bhnLPX3rP2OXvP+X6w2Oyzz17rW99Z+1vfZR9wHMdxHMdxHMdxHMdxHMdxHMfJkw5gNnAFcC2wCOgFluq4SJ/b9W593xnBmcCtwDPAGmAzcASopmiHdd9q9XOL+m0bTgJuAF4AvgWGUiowtA2pfxvneo077rgceA4YyEmJSe1v4DXgakrOBOBBYFOLFFmvbZJcJl9pmAQ8DOyKqIiDWm0HI/Zp8j0ETKTAdEqZAxkmuBP4UCbiLmAuMBM4vc5Y9vl5wFXA3cDzwEfA7xnG/gNYJvkLhU3u+5Q2bjVwP3BRZFkuBh5Q//tTyPQdcCUF4DTgZeBY4I78KbBYJqIZnAz0AKuAowEy/ge8CZxBC1fnzgBB/wKeBM6mtZwDPCV5kmT+TSaoqSwNcNL3AU9rNReJKdqg9iTI/y/QB1TyFmgq8EGCMEcU2Uym2Jh8zwaYBbPNp+QlxDTgqwQBvpCjXyZsY/ssYV4bgLNiD9wF/NRg0EMyCZXYAwMnyoU6X0c7j43JfZ/mUW+OW+TGReHShA3pZ2BOpBVzL/ASsB74VcmSWmMe1vX1+v49kVyzOZpPvbmaHi6JtUq31RlkjexsFjqAm4AVgV5ENXDXtv5uHENKcKrmVav/bdIHeSn2xYyP+2xFQDHD2FptlyI0Gy8tFT0BuSl0GLMnv2gAEzYt3QoU6j3SebWjcujNvKSlT33syPjjBGG/1JKU95wKvCq/r9rCZuO/InnSsCSPFToW7gB2p5j4kHII7ygK61VSe57KJ/N03qvr7yqVN5TSLNxGCZkCvB04yQPASk00axnEfMjbgTdSpAffKkGA8j+XAT8GTGqDHq3JOfygdwLfBMjwg1zGQjMf+CdhIv3AgibE1BVlqL5OkGdQZqWQLEiISPYrkXFCk+WqKN34ZwPZzCO5mYJh1cqtDYReC8xosYyWelzXQMatRay6jvRjq2rHlP5r9upstGr7aiTVc/VDx0oXsF2CmilYSDHpGWGqthfND61FF7BRm1YWOlVVeAR4HfhEnsJmHe18ua7PHUPBbr7kLLxCh8mys18jP3MwZaQ0qPvs/rTkntVvpdfQHykU7Vfmq205N6A0k7XZLj+LNqMnZU0+SzugNwrbgidUX09SyiHVvJarQNeno51/mRBoDDcb53HGOY8FpOfeV+Y+6QWyibKfqwLSijbuuKVrhB87ulm674KM/V4IvFen31L4obEVuy/ijr1wVIzfFgodrdgtOezSs1RObyuFDmMTnk4+zGhHhTrO+KJT/y55VGVxO15XxLeey0CH/uywt46bNKC3pf2PaYFMUqUgJBT9uIlvZZeamQ0ChFqOvX3fyViaqZapBFJGxe5whcZVrCs0smJdoRGxkPNzDz0dx3Ecx3Ecx3Ecx3Ecx3Ecx6HpHAd1IFvyXJ+LZQAAAABJRU5ErkJggg==">
+                        <h4>Free WiFi</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="service-item">
+                        <img src="data:image/png;base64,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">
+                        <h4>Room service</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+    <!-- Home Room Section Begin -->
+    <section class="hp-room-section mb-5">
+        <div class="container-fluid">
+            <div class="hp-room-items">
+                <div class="row">
+                    @{
+                        var roomsToDisplay = Model.Rooms.Take(4);
+                        foreach (var room in roomsToDisplay)
+                        {
+                            <div class="col-lg-3 col-md-6">
+                                <div class="hp-room-item set-bg">
+                                    @if (room.RoomImages2 != null && room.RoomImages2.Any())
+                                    {
+                                        <img class="hp-room-item set-bg" src="@room.RoomImages2.First().ImageUrl" alt="">
+                                    }
+                                    <div class="hr-text mb-6">
+                                        <h3>@room.RoomType.NameEn</h3>
+                                        <h2>@room.PricePerNight JOD<span>/ Per night</span></h2>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="r-o">Capacity:</td>
+                                                    <td>@room.Capacity</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="r-o">Services:</td>
+                                                    <td>Wifi, Television, Bathroom,...</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <a class="primary-btn" asp-action="RoomDetails" asp-controller="Home" asp-route-id="@room.RoomId" data-delete-url="@Url.Action("RoomDetails", new { id = room.RoomId })">More Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
 
-    <script src="~/assets/hotel/js/scripts.js"></script>
-    <script src="~/assets/hotel/js/custom.js"></script>
-    <script src="~/assets/hotel/js/scripts.min.js"></script>
-    <script src="~/assets/hotel/js/main.min.js"></script>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Home Room Section End -->
+    <!-- Footer Section Begin -->
+    <partial name="_HotelFooter" />
+    <!-- Footer Section End -->
+    <!-- Js Plugins -->
+    <script src="~/assets/hotel/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/hotel/js/bootstrap.min.js"></script>
+    <script src="~/assets/hotel/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/hotel/js/jquery.nice-select.min.js"></script>
+    <script src="~/assets/hotel/js/jquery-ui.min.js"></script>
+    <script src="~/assets/hotel/js/jquery.slicknav.js"></script>
+    <script src="~/assets/hotel/js/owl.carousel.min.js"></script>
     <script src="~/assets/hotel/js/main.js"></script>
 
 </body>
+
 </html>

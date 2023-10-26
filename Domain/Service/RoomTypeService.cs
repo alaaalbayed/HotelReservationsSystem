@@ -28,9 +28,14 @@ namespace Domain.Service
             }
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            var roomType = await _db.RoomTypes.FirstOrDefaultAsync(x => x.Id == id);
+            if (roomType != null)
+            {
+                _db.RoomTypes.Remove(roomType);
+                await _db.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<RoomType>> GetAllRoomType()

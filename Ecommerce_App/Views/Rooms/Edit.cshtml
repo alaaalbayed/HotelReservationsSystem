@@ -39,17 +39,10 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
-                                    <label class="col-3 col-form-label required" asp-for="AdultPrice">Adult Price</label>
+                                    <label class="col-3 col-form-label required" asp-for="PricePerNight">Price Per Night</label>
                                     <div class="col">
-                                        <input type="number" class="form-control" asp-for="AdultPrice">
-                                        <span asp-validation-for="AdultPrice" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label class="col-3 col-form-label required" asp-for="ChildrenPrice">Children Price</label>
-                                    <div class="col">
-                                        <input type="number" class="form-control" asp-for="ChildrenPrice">
-                                        <span asp-validation-for="ChildrenPrice" class="text-danger"></span>
+                                        <input type="number" class="form-control" asp-for="PricePerNight">
+                                        <span asp-validation-for="PricePerNight" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
@@ -115,17 +108,10 @@
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col">
-                                        <input type="number" class="form-control" asp-for="AdultPrice">
-                                        <span asp-validation-for="AdultPrice" class="text-danger"></span>
+                                        <input type="number" class="form-control" asp-for="PricePerNight">
+                                        <span asp-validation-for="PricePerNight" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required">@localizer["AdultPrice"]</label>
-                                </div>
-                                <div class="mb-3 row">
-                                    <div class="col">
-                                        <input type="number" class="form-control" asp-for="ChildrenPrice">
-                                        <span asp-validation-for="ChildrenPrice" class="text-danger"></span>
-                                    </div>
-                                    <label class="col-3 col-form-label required">@localizer["ChildrenPrice"]</label>
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col">
