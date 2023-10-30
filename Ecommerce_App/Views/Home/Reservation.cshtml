@@ -113,13 +113,6 @@
                                     <span asp-validation-for="Email" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="mb-3 row">
-                                <label class="col-3 col-form-label required" asp-for="IsAdult"></label>
-                                <div class="col">
-                                    <input id="isAdultCheckbox" type="checkbox" class="form-check-input" asp-for="IsAdult">
-                                    <span asp-validation-for="IsAdult" class="text-danger"></span>
-                                </div>
-                            </div>
                             <div class="form-group mb-3 row">
                                 <div class="col">
                                     <input type="hidden" id="roomDropdown" asp-for="RoomId" />
@@ -222,64 +215,53 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function () {
-            var roomDropdown = $('#roomDropdown');
+            $(document).ready(function () {
+                var roomDropdown = $('#roomDropdown');
+                var escortFields = $('#escortFields');
+                var capacityLabel = $('#capacity');
 
-            roomDropdown.change(function () {
-                var selectedRoomId = roomDropdown.val();
 
-                $.ajax({
-                    url: '/Home/GetRoomCapacity',
-                    type: 'GET',
-                    data: { roomId: selectedRoomId },
-                    success: function (capacity) {
-                        $('#capacity').text(capacity);
+                function appendEscortInput(index) {
+                    var inputHtml = `
+                            <div class="mb-3 row mt-4 escort-input">
+                                <label class="col-3 col-form-label required">Full Name</label>
+                                <div class="col">
+                                            <input type="text" class="form-control" name="Escorts[${index}].FullName" placeholder="Full Name For Guest ${index + 1}">
+                                </div>
+                            </div>`;
 
-                        var existingEscortCount = $('#escortFields .escort-input').length;
-                        var additionalEscortCount = capacity - existingEscortCount;
+                    escortFields.append(inputHtml);
+                }
 
-                        if (additionalEscortCount > 0) {
-                            for (var i = 0; i < additionalEscortCount; i++) {
-                                appendEscortInput(existingEscortCount + i);
+                // Function to update capacity based on the selected room
+                function updateCapacity(selectedRoomId) {
+                    $.ajax({
+                        url: '/Home/GetRoomCapacity',
+                        type: 'GET',
+                        data: { roomId: selectedRoomId },
+                        success: function (capacity) {
+                            capacityLabel.text(capacity);
+
+                            escortFields.empty();
+
+                            for (var i = 0; i < capacity - 1; i++) {
+                                appendEscortInput(i);
                             }
+                        },
+                        error: function (xhr, status, error) {
+                            console.log("AJAX error:", error);
                         }
-                        else if (additionalEscortCount < 0) {
-                            $('#escortFields .escort-input:gt(' + (capacity - 1) + ')').remove();
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("AJAX error:", error);
-                    }
-                });
+                    });
+                }
+
+                // Trigger the updateCapacity function when the page loads
+                updateCapacity(roomDropdown.val());
+
+                // Handle dropdown change event
+                roomDropdown.change(function () {
+                    var selectedRoomId = roomDropdown.val();
+                    updateCapacity(selectedRoomId);
             });
-
-            function appendEscortInput(index) {
-                var inputHtml = `
-                                <div class="mb-3 row mt-4 escort-input">
-                                    <label class="col-3 col-form-label required">Full Name</label>
-                                    <div class="col">
-                                        <input type="text" class="form-control" name="Escorts[${index}].FullName" placeholder="Full Name">
-                                    </div>
-                                    <div class="col">
-                                        <div class="col">
-                                            <input type="hidden" name="Escorts[${index}].IsAdult" value="false">
-                                            <input type="checkbox" class="form-check-input escort-checkbox" name="Escorts[${index}].IsAdultCheckbox" id="escort_${index}_IsAdult">
-                                            <small style="font-size:23px" class="form-hint m-5">Is Adult</small>
-                                            <span class="text-danger" data-valmsg-for="Escorts[${index}].IsAdult" data-valmsg-replace="true"></span>
-                                        </div>
-                                    </div>
-                                </div>`;
-
-                $('#escortFields').append(inputHtml);
-
-                $(`#escort_${index}_IsAdult`).change(function () {
-                    var isChecked = $(this).prop('checked');
-                    $(`input[name="Escorts[${index}].IsAdult"]`).val(isChecked ? "true" : "false");
-                    updatePrice();
-                });
-            }
-
-            appendEscortInput(0);
 
             function updatePrice() {
                 var selectedRoomNumber = $('#roomDropdown').val();

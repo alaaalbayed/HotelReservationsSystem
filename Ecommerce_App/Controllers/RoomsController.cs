@@ -39,9 +39,6 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var rooms = await _roomService.GetAllRoom();
-                var roomTypes = await _lookUpPropertyService.GetAllLookUpProperty();
-
-                ViewBag.RoomTypes = roomTypes;
                 return View(rooms);
             }
             catch (Exception ex)
@@ -191,10 +188,6 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var room = await _roomService.GetId(id);
-
-                var roomTypes = await _lookUpTypeService.GetAllLookUpTypes();
-
-                ViewBag.RoomTypes = roomTypes;
 
                 if (room == null)
                 {

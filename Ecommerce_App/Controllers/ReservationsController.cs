@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Ecommerce_App.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
+using Domain.Service;
 
 namespace Ecommerce_App.Controllers
 {
@@ -41,6 +42,7 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var reservations = await _reservationService.GetAllReservations();
+
                 return View(reservations);
             }
             catch (Exception ex)

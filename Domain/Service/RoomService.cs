@@ -136,6 +136,7 @@ namespace Domain.Service
         {
             var room = await _db.Rooms
                 .Include(r => r.RoomImages)
+                .Include(r => r.RoomType)
                 .FirstOrDefaultAsync(r => r.RoomId == id);
 
             return MapRoom.MAP(room);
@@ -181,30 +182,9 @@ namespace Domain.Service
                 .Include(r => r.RoomType)
                 .Include(r => r.RoomImages)
                 .FirstOrDefaultAsync(x => x.RoomId == id);
+                
             return MapRoom.MAP(room);
         }
-
-        public Task<Dictionary<string, int>> GetRoomTypeCounts()
-        {
-            Dictionary<string, int> roomTypeCounts = new Dictionary<string, int>();
-
-            foreach (var item in _db.LookUpProperty)
-            {
-                string roomType = item.NameEn; 
-
-                if (roomTypeCounts.ContainsKey(roomType))
-                {
-                    roomTypeCounts[roomType]++;
-                }
-                else
-                {
-                    roomTypeCounts[roomType] = 1;
-                }
-            }
-
-            return Task.FromResult(roomTypeCounts);
-        }
-
 
     }
 }

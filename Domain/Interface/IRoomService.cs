@@ -17,7 +17,6 @@ namespace Domain.Interface
 		Task<int> GetRoomNumber(int roomId);
 		Task<double> GetPricePerNight(int roomId);
         Task<Room> GetRoomByRoomId(int id);
-        Task<Dictionary<string, int>> GetRoomTypeCounts();
 
     }
 }

@@ -6,6 +6,7 @@ namespace Domain.DTO_s
     {
         public int? ReservationId { get; set; }
         public string FullName { get; set; }
+        public int Capacity { get; set; }
         public string Nationality { get; set; }
         public string NationalityId { get; set; }
         public string PhoneNumber { get; set; }
@@ -24,6 +25,7 @@ namespace Domain.DTO_s
         public string? UserId { get; set; }
         public List<SelectListItem>? Rooms { get; set; }
         public List<Escort> Escorts { get; set; } = new List<Escort>();
+        public LookUpProperty? RoomType { get; set; }
 
     }
 }

@@ -109,6 +109,8 @@ namespace Ecommerce_App.Controllers
 
                     await _reservationService.Add(reservation, userId);
 
+                    Response.Cookies.Append("ReservationMade", "true");
+
                     return RedirectToAction("ThankYou");
                 }
             }
@@ -121,7 +123,16 @@ namespace Ecommerce_App.Controllers
 
         public IActionResult ThankYou()
         {
-            return View();
+            if (Request.Cookies["ReservationMade"] == "true")
+            {
+                Response.Cookies.Append("ReservationMade","false");
+                return View();
+            }
+            else
+            {
+                return View("page-404");
+            }
+
         }
 
         public IActionResult Contact()

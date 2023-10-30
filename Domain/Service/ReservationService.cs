@@ -92,6 +92,7 @@ namespace Domain.Service
             var reservations = await _db.Reservations
                 .Include(r => r.Room)
                 .Include(r => r.User)
+                .Include(r => r.Room.RoomType)
                 .FirstOrDefaultAsync(r => r.ReservationId == reservationId);
 
             return MapReservation.MAP(reservations);
@@ -102,6 +103,7 @@ namespace Domain.Service
             var reservations = await _db.Reservations
                 .Include(r => r.Room)
                 .Include(r => r.User)
+                .Include(r => r.Room.RoomType)
                 .OrderByDescending(r => r.OrderDate)
                 .ToListAsync();
 
