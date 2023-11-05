@@ -6,7 +6,7 @@ namespace Domain.Interface
     public interface IRoomImageService
     {
         Task AddRange(int id, List<IFormFile> roomImages);
-        Task Remove(int roomImageId);
+        Task RemoveAll(int roomId);
         Task Update(int roomImageId, RoomImage roomImage);
         Task<List<RoomImage>> GetAllRoomImage();
 

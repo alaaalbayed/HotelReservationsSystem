@@ -57,7 +57,6 @@ namespace Ecommerce_App.Controllers
             return View(model);
         }
 
-
         public async Task<IActionResult> Reservation(int roomId)
         {
             var room = await _roomService.GetId(roomId);
@@ -123,6 +122,7 @@ namespace Ecommerce_App.Controllers
 
         public IActionResult ThankYou()
         {
+
             if (Request.Cookies["ReservationMade"] == "true")
             {
                 Response.Cookies.Append("ReservationMade","false");
@@ -162,7 +162,7 @@ namespace Ecommerce_App.Controllers
             return Json(new { success = false, message = "Validation errors occurred." });
         }
 
-        public async Task<IActionResult> Rooms()
+        public async Task<IActionResult> Rooms(int roomId)
         {
             var rooms = await _roomService.GetAllActiveRooms();
             return View(rooms);

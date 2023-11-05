@@ -60,7 +60,9 @@ namespace Domain.Service
 
         public async Task<RoomType> GetById(double id)
         {
-            var roomType = await _db.RoomTypes.FirstOrDefaultAsync(x => x.Id == id);
+            var roomType = await _db.RoomTypes
+                .Include(r => r.Type)
+                .FirstOrDefaultAsync(x => x.Id == id);
             return MapRoomType.MAP(roomType);
         }
 

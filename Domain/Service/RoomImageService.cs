@@ -37,7 +37,6 @@ namespace Domain.Service
                     };
 
                     var newImageEntity = MapImage.MAP(newImageDto);
-
                     _db.RoomImages.Add(newImageEntity); 
                 }
 
@@ -45,15 +44,17 @@ namespace Domain.Service
             }
         }
 
-        public async Task Remove(int roomImageId)
+        public async Task RemoveAll(int roomId)
         {
-            var roomImage = await _db.RoomImages.FindAsync(roomImageId);
-            if (roomImage != null)
+            var roomImages = await _db.RoomImages.Where(r => r.RoomId == roomId).ToListAsync();
+
+            if (roomImages != null && roomImages.Any())
             {
-                _db.RoomImages.Remove(roomImage);
+                _db.RoomImages.RemoveRange(roomImages);
                 await _db.SaveChangesAsync();
             }
         }
+
 
         public async Task Update(int Id, RoomImage roomImage)
         {

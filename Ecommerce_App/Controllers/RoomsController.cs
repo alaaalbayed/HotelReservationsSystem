@@ -142,7 +142,7 @@ namespace Ecommerce_App.Controllers
 
                 if (!await _roomService.IsRoomNumberFree(viewModel.RoomNumber, id))
                 {
-                    ModelState.AddModelError(nameof(viewModel.RoomNumber), "Number with same Id already exists");
+                    ModelState.AddModelError(nameof(viewModel.RoomNumber), "Number with the same Id already exists");
                 }
 
                 existingRoom.Capacity = viewModel.Capacity;
@@ -150,15 +150,15 @@ namespace Ecommerce_App.Controllers
                 existingRoom.PricePerNight = viewModel.PricePerNight;
                 existingRoom.RoomTypeId = viewModel.RoomTypeId;
 
-                await _roomService.Update(id, existingRoom, viewModel.RoomImages);
-
-                if (imageIds != null && imageIds.Any())
+                if (!viewModel.KeepExistingImages)
                 {
-                    foreach (var imageId in imageIds)
+                    if (existingRoom.RoomImages2 != null && existingRoom.RoomImages2.Any())
                     {
-                        await _roomImageService.Remove(imageId);
+                        await _roomImageService.RemoveAll(existingRoom.RoomId);
                     }
                 }
+
+                await _roomService.Update(id, existingRoom, viewModel.RoomImages);
 
                 return RedirectToAction("Index");
             }

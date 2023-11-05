@@ -61,7 +61,6 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization();
 
-
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 builder.Services.AddMvcCore()
 	.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)

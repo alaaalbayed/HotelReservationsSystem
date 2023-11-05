@@ -59,6 +59,12 @@
                                         <span asp-validation-for="RoomImages" class="text-danger"></span>
                                     </div>
                                 </div>
+                                <div class="mb-3 row">
+                                    <label class="col-3 col-form-label" asp-for="KeepExistingImages">Use Same Image</label>
+                                    <div class="col">
+                                        <input type="checkbox" asp-for="KeepExistingImages" name="KeepExistingImages" class="form-check-input" />
+                                    </div>
+                                </div>
                                 <div class="mb-3 row" hidden>
                                     <label class="col-3 col-form-label required" asp-for="NameAr">Room Number</label>
                                     <div class="col">
@@ -126,6 +132,12 @@
                                         <span asp-validation-for="RoomImages" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required">رفع الصور</label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="checkbox" asp-for="KeepExistingImages" name="KeepExistingImages" class="form-check-input" />
+                                    </div>
+                                    <label class="col-3 col-form-label" asp-for="KeepExistingImages">استخدام الصور الموجوده</label>
                                 </div>
                                 <div class="mb-3 row" hidden>
                                     <label class="col-3 col-form-label required" asp-for="NameAr">Room Number</label>

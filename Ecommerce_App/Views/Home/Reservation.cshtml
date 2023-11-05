@@ -8,10 +8,12 @@
 @inject SignInManager<Ecommerce_AppUser> SignInManager
 @inject UserManager<Ecommerce_AppUser> UserManager
 
+
 @inject IViewLocalizer localizer
 @{
     ViewData["Title"] = "Create";
 }
+
 
 <!DOCTYPE html>
 
@@ -38,6 +40,7 @@
     <link rel="stylesheet" href="~/assets/hotel/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="~/assets/hotel/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/assets/hotel/css/style.css" type="text/css">
+
 
     <style>
         .checkbox-lg .form-check-input {
@@ -309,17 +312,21 @@
 
             $('#isAdultCheckbox, #breakfastCheckbox, #lunchCheckbox, #dinnerCheckbox, #ExtraBed, .escort-checkbox').change(updatePrice);
 
+            $('#checkInInput, #checkOutInput').change(function () {
+                updatePrice(); 
+            });
+
             function CheckDates() {
-                var accDate = document.getElementById("checkInInput");
-                var relDate = document.getElementById("checkOutInput");
-                if (new Date(accDate.value) >= new Date(relDate.value) || new Date(accDate.value) < new Date()) {
-                    document.getElementById("date-inval").style.display = "block!important";
-                }
-                else {
-                    document.getElementById("date-inval").style.display = "none!important";
+                var accDate = new Date($('#checkInInput').val());
+                var relDate = new Date($('#checkOutInput').val());
+
+                if (relDate < accDate || accDate < new Date()) {
+                    document.getElementById("date-inval").style.display = "block";
+                } else {
+                    document.getElementById("date-inval").style.display = "none";
+                    updatePrice();
                 }
             }
-
 
             var currentDate = new Date();
             var year = currentDate.getFullYear();
