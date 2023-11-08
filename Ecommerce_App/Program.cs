@@ -57,9 +57,9 @@ builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IEscortService, EscortService>();
 builder.Services.AddScoped<IAnalyticService, AnalyticService>();
 builder.Services.AddScoped<IVisitorService, VisitorService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization();
-
 
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 builder.Services.AddMvcCore()
@@ -152,7 +152,7 @@ using (var scope = app.Services.CreateScope())
 
     app.UseMiddleware<VisitorCountMiddleware>();
 
-    var roles = new[] { "Admin", "User", "Employee" };
+    var roles = new[] { "Admin", "User", "Employee", "Guest" };
     foreach (var role in roles)
     {
         if (!await roleManager.RoleExistsAsync(role))

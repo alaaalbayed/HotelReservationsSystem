@@ -372,21 +372,15 @@
                         console.log('Data from server:', data);
 
 
-                        var adultPrice = isAdult ? (data.adultPrice || 0) : 0
-                        var childrenPrice = isAdult ? (data.childrenPrice || 0) : 0;
+                        var capacity = data.capacity
+                        var pricePerNight = data.pricePerNight;
                         var breakfastPrice = breakfast ? (data.breakfast || 0) : 0;
                         var lunchPrice = lunch ? (data.lunch || 0) : 0;
                         var dinnerPrice = dinner ? (data.dinner || 0) : 0;
                         var extraBedPrice = extraBed ? (data.extraBed || 0) : 0;
-                        var escortPrice = 0;
 
-                        escortCheckboxes.each(function () {
-                            var isAdultEscort = $(this).prop('checked');
-                            escortPrice += isAdultEscort ? adultPrice : childrenPrice;
-                        });
-
-                        var totalPrice = (isAdult ? adultPrice : childrenPrice) +
-                            breakfastPrice + lunchPrice + dinnerPrice + extraBedPrice + escortPrice;
+                        var totalPrice = (pricePerNight * capacity) +
+                            breakfastPrice + lunchPrice + dinnerPrice + extraBedPrice;
 
                         totalPrice *= daysBetween + 1;
 

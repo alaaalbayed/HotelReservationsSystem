@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Domain.MAPPER;
+using System.Collections;
 
 namespace Domain.Service
 {
@@ -54,8 +55,7 @@ namespace Domain.Service
             {
                 roomToChange.RoomTypeId = selectedRoomType.Id;
 
-                roomToChange.AdultPrice = room.AdultPrice;
-                roomToChange.ChildrenPrice = room.ChildrenPrice;
+                roomToChange.PricePerNight = room.PricePerNight;
                 roomToChange.Capacity = room.Capacity;
                 roomToChange.RoomNumber = room.RoomNumber;
 
@@ -73,28 +73,70 @@ namespace Domain.Service
         public async Task Delete(int id)
         {
             var room = await _db.Rooms.FindAsync(id);
-
-            if (room == null)
+            if (room != null)
             {
-                throw new ArgumentException($"Room with ID {id} not found.");
+                room.Status = !room.Status;
+                _db.Rooms.Update(room);
+                await _db.SaveChangesAsync();
             }
-
-            _db.Rooms.Remove(room);
-
-            await _db.SaveChangesAsync();
-
         }
+
+
         public async Task<IEnumerable<Room>> GetAllRoom()
         {
-            var rooms = await _db.Rooms.Include(r => r.RoomType)
+            var rooms = await _db.Rooms
+                .Include(r => r.RoomType)
+                .Include(r => r.RoomImages)
                 .ToListAsync();
-            return rooms.Select(roomEntity => MapRoom.MAP(roomEntity));
+
+            return rooms.Select(roomEntity =>
+            {
+                var roomDto = MapRoom.MAP(roomEntity);
+
+                var roomImages = roomEntity.RoomImages.Select(imageEntity => new RoomImage
+                {
+                    ImageUrl = imageEntity.ImageUrl
+
+                }).ToList();
+
+                roomDto.RoomImages2 = roomImages;
+
+                return roomDto;
+            });
         }
+
+
+        public async Task<IEnumerable<Room>> GetAllActiveRooms()
+        {
+            var rooms = await _db.Rooms
+                .Include(r => r.RoomType)
+                .Include(r => r.RoomImages)
+                .Where(r => r.Status == false)
+                .ToListAsync();
+
+            return rooms.Select(roomEntity =>
+            {
+                var roomDto = MapRoom.MAP(roomEntity);
+
+                var roomImages = roomEntity.RoomImages.Select(imageEntity => new RoomImage
+                {
+                    ImageUrl = imageEntity.ImageUrl
+
+                }).ToList();
+
+                roomDto.RoomImages2 = roomImages;
+
+                return roomDto;
+            });
+        }
+
+
 
         public async Task<Room> GetId(int id)
         {
             var room = await _db.Rooms
                 .Include(r => r.RoomImages)
+                .Include(r => r.RoomType)
                 .FirstOrDefaultAsync(r => r.RoomId == id);
 
             return MapRoom.MAP(room);
@@ -125,29 +167,24 @@ namespace Domain.Service
             return 0;
         }
 
-        public async Task<double> GetAdultPrice(int roomId)
+        public async Task<double> GetPricePerNight(int roomId)
         {
             var room = await _db.Rooms.FindAsync(roomId);
             if (room != null)
             {
-                return room.AdultPrice;
-            }
-            return 0;
-        }
-
-        public async Task<double> GetChildrenPrice(int roomId)
-        {
-            var room = await _db.Rooms.FindAsync(roomId);
-            if (room != null)
-            {
-                return room.ChildrenPrice;
+                return room.PricePerNight;
             }
             return 0;
         }
         public async Task<Room> GetRoomByRoomId(int id)
         {
-            var room = await _db.Rooms.FirstOrDefaultAsync(x => x.RoomId == id);
+            var room = await _db.Rooms
+                .Include(r => r.RoomType)
+                .Include(r => r.RoomImages)
+                .FirstOrDefaultAsync(x => x.RoomId == id);
+                
             return MapRoom.MAP(room);
         }
+
     }
 }

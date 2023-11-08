@@ -15,6 +15,8 @@ public partial class LookUpProperty
 
     public long TypeId { get; set; }
 
+    public string Details { get; set; }
+
     public virtual ICollection<RoomTypes> RoomTypes { get; set; } = new List<RoomTypes>();
 
     public virtual ICollection<Rooms> Rooms { get; set; } = new List<Rooms>();

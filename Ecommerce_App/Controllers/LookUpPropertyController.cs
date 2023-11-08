@@ -149,8 +149,7 @@ namespace Ecommerce_App.Controllers
         {
             try
             {
-
-                await _lookUpTypeService.Delete(id);
+                await _lookUpPropertyService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

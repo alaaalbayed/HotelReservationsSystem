@@ -1,4 +1,5 @@
-﻿using dto = Domain.DTO_s;
+﻿using System.Diagnostics.Metrics;
+using dto = Domain.DTO_s;
 using orm = Infrastructure.Data;
 namespace Domain.MAPPER
 {
@@ -29,7 +30,8 @@ namespace Domain.MAPPER
                     OrderDate = obj.OrderDate,
                     Status = obj.Status,
                     RoomId = obj.RoomId,
-                    UserId = obj.UserId
+                    UserId = obj.UserId,
+                    RoomType = MapLookUpProperty.MAP(obj.Room.RoomType)
 
                 };
             }

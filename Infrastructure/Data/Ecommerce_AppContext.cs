@@ -170,6 +170,9 @@ public partial class Ecommerce_AppContext : DbContext
 
         modelBuilder.Entity<LookUpProperty>(entity =>
         {
+            entity.Property(e => e.Details)
+                .HasMaxLength(450)
+                .IsUnicode(false);
             entity.Property(e => e.NameAr).IsRequired();
             entity.Property(e => e.NameEn).IsRequired();
 

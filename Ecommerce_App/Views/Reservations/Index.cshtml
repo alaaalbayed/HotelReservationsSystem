@@ -27,9 +27,6 @@
                                             @localizer["FullName"]
                                         </th>
                                         <th>
-                                            @localizer["Nationality"]
-                                        </th>
-                                        <th>
                                             @localizer["PhoneNumber"]
                                         </th>
                                         <th>
@@ -37,6 +34,9 @@
                                         </th>
                                         <th>
                                             @localizer["CheckOut"]
+                                        </th>
+                                        <th>
+                                            Room Type
                                         </th>
                                         <th>
                                             @localizer["Price"]
@@ -64,6 +64,9 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.CheckOut)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RoomType.NameEn)
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Price)$
@@ -130,6 +133,9 @@
                                         </th>
                                         <th>
                                             @localizer["Price"]
+                                        </th>
+                                        <th>
+                                            Room Type
                                         </th>
                                         <th>
                                             @localizer["CheckOut"]
@@ -201,6 +207,9 @@
                                             </td>
                                             <td>
                                                 @Html.DisplayFor(modelItem => item.Price)$
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RoomType.NameEn)
                                             </td>
                                             <td>
                                                 @((item.CheckOut).ToString("dd/MM/yy:hh:mm:ss tt", CultureInfo.InvariantCulture))

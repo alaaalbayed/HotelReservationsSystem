@@ -11,13 +11,13 @@ public partial class Rooms
 
     public int Capacity { get; set; }
 
-    public double AdultPrice { get; set; }
-
-    public double ChildrenPrice { get; set; }
-
     public int RoomNumber { get; set; }
 
     public long RoomTypeId { get; set; }
+
+    public bool Status { get; set; }
+
+    public double PricePerNight { get; set; }
 
     public virtual ICollection<Reservations> Reservations { get; set; } = new List<Reservations>();
 

@@ -87,7 +87,10 @@
   "CreateNewType": "انشاء نوع جديد",
   "NationalityId": "الرقم الوطني",
   "IsAdult": "بالغ",
-  "TotalVisitors": "عدد الزوار"
+  "TotalVisitors": "عدد الزوار",
+  "PricePerNight": "السعر لليلة الواحدة",
+  "AvailableRooms": "الغرف المتوفره",
+  "Details": "التفاصيل",
 
 }
 

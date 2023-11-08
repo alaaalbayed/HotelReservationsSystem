@@ -1,0 +1,147 @@
+﻿@model Domain.DTO_s.Room
+
+@{
+    ViewData["Title"] = "Room Details";
+}
+
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Sona Template">
+    <meta name="keywords" content="Sona, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sona | Template</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="~/assets/hotel/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/hotel/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+</head>
+
+
+<body>
+    <partial name="_HotelNav" />
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <div class="bt-option">
+                            <a asp-action="Index" asp-controller="Home">Home</a>
+                            <span>Rooms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section End -->
+    <!-- Room Details Section Begin -->
+    <section class="room-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="room-details-item">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @{
+                                    var isFirstItem = true;
+                                    foreach (var image in Model.RoomImages2)
+                                    {
+                                        <div class="carousel-item @(isFirstItem ? "active" : "")">
+                                            <a data-fancybox="gallery" data-type="image" data-src="@image.ImageUrl" data-caption="@Model.RoomType.NameEn" data-width="1200" data-height="620">
+                                                <img class="d-block w-100" height="620" width="1200" src="@image.ImageUrl" alt="@Model.RoomType.NameEn">
+                                            </a>
+                                        </div>
+                                        isFirstItem = false;
+                                    }
+                                }
+                            </div>
+
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+
+                        </div>
+
+                        <div class="rd-text">
+                            <div class="rd-title">
+                                <h3>@Model.RoomType.NameEn</h3>
+                                <div class="rdt-right">
+                                    <a asp-action="Reservation" asp-controller="Home" asp-route-roomId="@Model.RoomId">Book this Room</a>
+                                </div>
+                            </div>
+                            <h2>@Model.PricePerNight JOD<span>/ Pernight</span></h2>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="r-o">Capacity:</td>
+                                        <td>@Model.Capacity</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="r-o">Services:</td>
+                                        <td>Wifi, Television, Bathroom,...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p class="f-para">
+                                @Model.RoomType.Details
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <partial name="_HotelFooter" />
+    <!-- Js Plugins -->
+    <script src="~/assets/hotel/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/hotel/js/bootstrap.min.js"></script>
+    <script src="~/assets/hotel/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/hotel/js/jquery.nice-select.min.js"></script>
+    <script src="~/assets/hotel/js/jquery-ui.min.js"></script>
+    <script src="~/assets/hotel/js/jquery.slicknav.js"></script>
+    <script src="~/assets/hotel/js/owl.carousel.min.js"></script>
+    <script src="~/assets/hotel/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <script>
+
+        $('[data-fancybox="gallery"]').fancybox({
+            beforeShow: function (instance, current) {
+                var width = current.opts.$orig.data('width');
+                var height = current.opts.$orig.data('height');
+                current.width = width;
+                current.height = height;
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

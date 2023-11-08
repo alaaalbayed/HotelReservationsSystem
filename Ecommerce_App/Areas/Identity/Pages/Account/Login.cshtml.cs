@@ -122,7 +122,6 @@ namespace Ecommerce_App.Areas.Identity.Pages.Account
                 var user = await _signInManager.UserManager.FindByEmailAsync(Input.Email);
                 if (user != null && user.Status)
                 {
-                    // Account is not active, set ViewData flag
                     ViewData["AccountNotActive"] = true;
                     ModelState.AddModelError(string.Empty, "Your account is not active.");
                     return Page();
@@ -130,10 +129,15 @@ namespace Ecommerce_App.Areas.Identity.Pages.Account
 
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
-                {
-                    var roles = await _signInManager.UserManager.GetRolesAsync(user);
+                {                   
                     return RedirectToAction("Index", "Home");
    
+                }
+                if(!result.Succeeded)
+                {
+                    ViewData["EmailOrPass"] = true;
+                    ModelState.AddModelError(string.Empty, "The email address or password is incorrect.");
+                    return Page();
                 }
                 if (result.RequiresTwoFactor)
                 {

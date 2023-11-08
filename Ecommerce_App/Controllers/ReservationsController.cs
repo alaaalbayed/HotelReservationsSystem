@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Ecommerce_App.Areas.Identity.Data;
 using Microsoft.AspNetCore.Authorization;
+using Domain.Service;
 
 namespace Ecommerce_App.Controllers
 {
@@ -41,6 +42,7 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var reservations = await _reservationService.GetAllReservations();
+
                 return View(reservations);
             }
             catch (Exception ex)
@@ -60,7 +62,7 @@ namespace Ecommerce_App.Controllers
                     Rooms = allRoomAvailable.Select(rt => new SelectListItem
                     {
                         Value = rt.RoomId.ToString(),
-                        Text = rt.RoomNumber.ToString()
+                        Text = rt.RoomType.NameEn
                     }).ToList()
                 };
                 return View(model);
@@ -86,7 +88,7 @@ namespace Ecommerce_App.Controllers
                         Rooms = allRoomAvailable.Select(rt => new SelectListItem
                         {
                             Value = rt.RoomId.ToString(),
-                            Text = rt.RoomNumber.ToString()
+                            Text = rt.RoomType.NameEn
                         }).ToList()
                     };
 
@@ -96,27 +98,8 @@ namespace Ecommerce_App.Controllers
                 {
                     var room = await _roomService.GetId(reservation.RoomId);
 
-                    var roomIsEmpty = await _reservationService.AreDatesAcceptable(room.RoomId,
-                                                                                  reservation.CheckIn,
-                                                                                  reservation.CheckOut,
-                                                                                  null);
-                    if (!roomIsEmpty)
-                    {
-                        ModelState.AddModelError(nameof(reservation.CheckIn), "Room is already reserved at that time");
-                        var model = new Reservation
-                        {
-                            Rooms = allRoomAvailable.Select(rt => new SelectListItem
-                            {
-                                Value = rt.RoomId.ToString(),
-                                Text = rt.RoomNumber.ToString()
-                            }).ToList()
-                        };
-                        return View(model);
-                    }
-
                     var userId = _userManager.GetUserId(User);
                     await _reservationService.Add(reservation, userId);
-
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -126,7 +109,6 @@ namespace Ecommerce_App.Controllers
                 return NotFound500();
             }
         }
-
 
         public async Task<IActionResult> Edit(int id)
         {
@@ -252,8 +234,8 @@ namespace Ecommerce_App.Controllers
                     return NotFound404();
                 }
 
-                var adultPrice = room.AdultPrice;
-                var childrenPrice = room.ChildrenPrice;
+                var capacity = room.Capacity;
+                var pricePerNight = room.PricePerNight;
                 var breakfast = roomType.Breakfast;
                 var lunch = roomType.Lunch;
                 var dinner = roomType.Dinner;
@@ -261,8 +243,8 @@ namespace Ecommerce_App.Controllers
 
                 var result = new
                 {
-                    AdultPrice = adultPrice,
-                    ChildrenPrice = childrenPrice,
+                    PricePerNight = pricePerNight,
+                    Capacity = capacity,
                     Breakfast = breakfast,
                     Lunch = lunch,
                     Dinner = dinner,

@@ -22,10 +22,13 @@ namespace Ecommerce_App.Controllers
             _visitorService = visitorService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             try
             {
+
+                int pageSize = 7;
+
                 var totalReservations = await _analyticService.TotalReservationsNumber();
                 var totalIncome = await _analyticService.TotalIncome();
                 var getAllReservations = await _reservationService.GetAllReservations();
@@ -34,11 +37,14 @@ namespace Ecommerce_App.Controllers
                 var getTotalEmployees = await _analyticService.TotalEmployees();
                 var getTotalVisitors = await _visitorService.GetVisitorsCount();
 
+                var totalPages = (int)Math.Ceiling(totalReservations / (double)pageSize);
                 var viewModel = new AnalyticsViewModel
                 {
                     TotalReservations = totalReservations,
+                    Reservations = getAllReservations.Skip((page - 1) * pageSize).Take(pageSize).ToList(),
+                    CurrentPage = page,
+                    TotalPages = totalPages,
                     TotalIncome = totalIncome,
-                    Reservations = getAllReservations,
                     TotalUsers = getTotalUsers,
                     TotalAdmins = getTotalAdmins,
                     TotalEmployees = getTotalEmployees,

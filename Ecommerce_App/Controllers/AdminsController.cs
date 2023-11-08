@@ -69,6 +69,10 @@ namespace Ecommerce_App.Controllers
                         {
                             await _userManager.AddToRoleAsync(user, "Admin");
                         }
+                        else if (selectedRole == "Guest")
+                        {
+                            await _userManager.AddToRoleAsync(user, "Guest");
+                        }
 
                         return RedirectToAction(nameof(Index));
                     }

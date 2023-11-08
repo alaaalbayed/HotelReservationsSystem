@@ -16,6 +16,7 @@ namespace Domain.MAPPER
                     Id = obj.Id,
                     NameAr = obj.NameAr,
                     NameEn = obj.NameEn,
+                    Details = obj.Details,
                     TypeId = obj.TypeId,
 
                 };
@@ -48,6 +49,7 @@ namespace Domain.MAPPER
                     Id = obj.Id,
                     NameAr = obj.NameAr,
                     NameEn = obj.NameEn,
+                    Details = obj.Details,
                     TypeId = obj.TypeId,
                 };
             }

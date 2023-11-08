@@ -87,9 +87,10 @@
   "CreateNewType": "Create New Type",
   "NationalityId": "NationalityId",
   "IsAdult": "Is Adult",
-  "TotalVisitors": "Visitors"
-
-
+  "TotalVisitors": "Visitors",
+  "PricePerNight": "Price Per Night",
+  "AvailableRooms": "Available Rooms",
+  "Details": "Details",
 
 
 

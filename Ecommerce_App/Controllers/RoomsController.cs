@@ -1,5 +1,6 @@
 ﻿using Domain.DTO_s;
 using Domain.Interface;
+using Domain.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -38,9 +39,6 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var rooms = await _roomService.GetAllRoom();
-                var roomTypes = await _lookUpPropertyService.GetAllLookUpProperty();
-
-                ViewBag.RoomTypes = roomTypes;
                 return View(rooms);
             }
             catch (Exception ex)
@@ -108,8 +106,7 @@ namespace Ecommerce_App.Controllers
                 var viewModel = new Room
                 {
                     Capacity = room.Capacity,
-                    AdultPrice = room.AdultPrice,
-                    ChildrenPrice = room.ChildrenPrice,
+                    PricePerNight = room.PricePerNight,
                     RoomNumber = room.RoomNumber,
                     RoomTypeId = room.RoomTypeId,
                 };
@@ -145,24 +142,23 @@ namespace Ecommerce_App.Controllers
 
                 if (!await _roomService.IsRoomNumberFree(viewModel.RoomNumber, id))
                 {
-                    ModelState.AddModelError(nameof(viewModel.RoomNumber), "Number with same Id already exists");
+                    ModelState.AddModelError(nameof(viewModel.RoomNumber), "Number with the same Id already exists");
                 }
 
                 existingRoom.Capacity = viewModel.Capacity;
                 existingRoom.RoomNumber = viewModel.RoomNumber;
-                existingRoom.ChildrenPrice = viewModel.ChildrenPrice;
-                existingRoom.AdultPrice = viewModel.AdultPrice;
+                existingRoom.PricePerNight = viewModel.PricePerNight;
                 existingRoom.RoomTypeId = viewModel.RoomTypeId;
 
-                await _roomService.Update(id, existingRoom, viewModel.RoomImages);
-
-                if (imageIds != null && imageIds.Any())
+                if (!viewModel.KeepExistingImages)
                 {
-                    foreach (var imageId in imageIds)
+                    if (existingRoom.RoomImages2 != null && existingRoom.RoomImages2.Any())
                     {
-                        await _roomImageService.Remove(imageId);
+                        await _roomImageService.RemoveAll(existingRoom.RoomId);
                     }
                 }
+
+                await _roomService.Update(id, existingRoom, viewModel.RoomImages);
 
                 return RedirectToAction("Index");
             }
@@ -173,17 +169,16 @@ namespace Ecommerce_App.Controllers
             }
         }
 
-        [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
             try
             {
                 await _roomService.Delete(id);
-                return Ok();
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                _logger.LogError("An error occurred while deleting a room", ex);
+                _logger.LogError("An error occurred while deleting a reservation", ex);
                 return NotFound500();
             }
         }
@@ -193,10 +188,6 @@ namespace Ecommerce_App.Controllers
             try
             {
                 var room = await _roomService.GetId(id);
-
-                var roomTypes = await _lookUpTypeService.GetAllLookUpTypes();
-
-                ViewBag.RoomTypes = roomTypes;
 
                 if (room == null)
                 {

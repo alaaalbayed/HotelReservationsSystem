@@ -1,0 +1,159 @@
+﻿@using Ecommerce_App.Areas.Identity.Data;
+@using Ecommerce_App.Areas.Identity.Pages.Account;
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<Ecommerce_AppUser> SignInManager
+@inject UserManager<Ecommerce_AppUser> UserManager
+
+
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Offcanvas Menu Section Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="canvas-open">
+    <i class="icon_menu"></i>
+</div>
+<div class="offcanvas-menu-wrapper">
+    <div class="canvas-close">
+        <i class="icon_close"></i>
+    </div>
+    <nav class="mainmenu mobile-menu">
+        <ul>
+            <li class="active"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li><a asp-action="Rooms" asp-controller="Home">Rooms</a></li>
+            <li><a href="./about-us.html">About Us</a></li>
+            <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+            @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+            {
+                <li class="none"><a asp-controller="Analytics" asp-action="Index">Admin Panel</a></li>
+            }
+        </ul>
+    </nav>
+    <div class="mainmenu mobile-menu">
+        <ul style="list-style-type: none;">
+            @if (SignInManager.IsSignedIn(User))
+            {
+                var user = await SignInManager.UserManager.GetUserAsync(User);
+                <li class="nav-item dropdown">
+                    <div>
+                        <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">Log Out</a>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a asp-area="Identity" asp-page="/Account/Login">
+                        Sign In
+                    </a>
+                    <a asp-area="Identity" asp-page="/Account/Register">
+                        Sign Up
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <div class="top-social">
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-instagram"></i></a>
+    </div>
+    <ul class="top-widget">
+        <li><i class="fa fa-phone"></i>+962790497780</li>
+        <li><i class="fa fa-envelope"></i>info@pretalhotel.com</li>
+    </ul>
+</div>
+
+<header class="header-section header-normal">
+    <div class="menu-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="logo">
+                        <a asp-action="Index" asp-controller="Home">
+                            <img src="/assets/hotel/img/logo.png" alt="" height="50">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="nav-menu">
+                        <nav class="mainmenu">
+                            <ul>
+                                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                                <li><a asp-action="Rooms" asp-controller="Home">Rooms</a></li>
+                                <li><a href="./about-us.html">About Us</a></li>
+                                <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+                                @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
+                                {
+                                    <li class="none"><a asp-controller="Analytics" asp-action="Index">Admin Panel</a></li>
+                                }
+                            </ul>
+                        </nav>
+                        <div class="nav-right">
+                            <ul style="list-style-type: none;">
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    var user = await SignInManager.UserManager.GetUserAsync(User);
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                                            <i class="align-middle" data-feather="settings"></i>
+                                        </a>
+                                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                                            @if (!string.IsNullOrEmpty(user?.Image))
+                                            {
+                                                <img src="~/Images/@user.Image" class="avatar img-fluid rounded" alt="User Image" />
+                                                <span class="text-dark">@user.FirstName @user.LastName</span>
+                                            }
+                                            else
+                                            {
+                                                <img src="~/assets/hotel/img/avatars/default-avatar.jpg" class="avatar img-fluid rounded me-1" alt="Default Avatar" />
+                                            }
+
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })">Log Out</a>
+                                        </div>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a asp-area="Identity" asp-page="/Account/Login">
+                                            <input style="background-color:#dfa974; border: none;" type="button" value="Sign In" class="btn btn-primary mr-4">
+                                        </a>
+                                        <a asp-area="Identity" asp-page="/Account/Register">
+                                            <input style="background-color:#dfa974; border: none;" type="button" value="Sign Up" class="btn btn-primary">
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+     $(document).ready(function () {
+         $('.mainmenu a').click(function () {
+             $('.mainmenu li').removeClass('active');
+
+             $(this).parent().addClass('active');
+
+             localStorage.setItem('activeItem', $(this).attr('href'));
+         });
+
+         var activeHref = localStorage.getItem('activeItem');
+         if (activeHref) {
+             $('.mainmenu a[href="' + activeHref + '"]').parent().addClass('active');
+         }
+     });
+</script>
+
+
+

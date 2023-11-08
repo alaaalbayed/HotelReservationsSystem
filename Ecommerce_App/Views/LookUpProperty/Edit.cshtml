@@ -40,6 +40,14 @@
                                     </div>
                                 </div>
                                 <div class="mb-3 row">
+                                    <label class="col-3 col-form-label required" asp-for="LookUpProperty.Details"></label>
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="LookUpProperty.Details">
+                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
+                                        <span asp-validation-for="LookUpProperty.Details" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.TypeId"></label>
                                     <div class="col">
                                         <select asp-for="LookUpProperty.TypeId" asp-items="@(new SelectList(Model.AllLookUpTypes, "Id", "NameEn", Model.LookUpProperty.TypeId))" class="form-select">
@@ -83,6 +91,14 @@
                                         <span asp-validation-for="LookUpProperty.NameAr" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.NameAr"></label>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col">
+                                        <input type="text" class="form-control" asp-for="LookUpProperty.Details">
+                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
+                                        <span asp-validation-for="LookUpProperty.Details" class="text-danger"></span>
+                                    </div>
+                                    <label class="col-3 col-form-label required" asp-for="LookUpProperty.Details"></label>
                                 </div>
                                 <div class="mb-3 row">
                                     <div class="col">
