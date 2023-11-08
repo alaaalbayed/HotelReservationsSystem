@@ -25,6 +25,20 @@
 	<link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-up.html" />
 
 	<title>Sign Up</title>
+    <style>
+        #validator-output {
+            .valid
+
+        {
+            color: green;
+        }
+
+        .invalid {
+            color: red;
+        }
+
+        }
+    </style>
 
 	<link href="~/assets/admin/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -62,15 +76,16 @@
 										</div>
 										<div class="mb-3">
 											<label asp-for="Input.Password"></label>
-											<input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                                            <input asp-for="Input.Password" id="exampleInputPassword1" class="form-control" autocomplete="new-password" aria-required="true" accept="image /*" />
 											<span asp-validation-for="Input.Password" class="text-danger"></span>
 										</div>
 										<div class="mb-3">
 											<label asp-for="Input.ConfirmPassword"></label>
-											<input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                                            <input asp-for="Input.ConfirmPassword" id="exampleInputPassword1-confirmation" class="form-control" autocomplete="new-password" aria-required="true" />
 											<span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 										</div>
-										<div class="mb-3">
+                                        <div id="validator-output"></div>
+										<div class="mb-3 mt-3">
 											<label asp-for="Input.PhoneNumber"></label>
 											<input type="number" asp-for="Input.PhoneNumber" class="form-control" autocomplete="phonenumber" aria-required="true" />
 											<span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
@@ -91,6 +106,7 @@
 										<div class="d-grid gap-2 mt-3">
 											<button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Sign up</button>
 										</div>
+
 									</form>
 								</div>
 							</div>
@@ -108,6 +124,111 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.13/jquery.validate.unobtrusive.min.js"></script>
 
 	<script src="~/assets/admin/js/app.js"></script>
+	<script>
+		$(function () {
+  $("#validator-output").realtimePasswordValidator({
+    debug: true,
+    input1: $("#exampleInputPassword1"),
+    input2: $("#exampleInputPassword1-confirmation"),
+    validators: [
+      {
+        regexp: "[a-z]",
+        message: "1 lowercase"
+      },
+      {
+        regexp: "[A-Z]",
+        message: "1 uppercase"
+      },
+      {
+        regexp: "[0-9]",
+        message: "1 number"
+      },
+      {
+        regexp: ".*[!@@#$%?=*&]",
+        message: "1 special char !@@#$%?=*&"
+      },
+    ],
+    ok: function (instance) {
+      console.log("ok");
+
+      $("#submit").removeAttr("disabled");
+    },
+    ko: function (instance) {
+      console.log("ko");
+      $("#submit").attr("disabled", "");
+    }
+  });
+});
+
+// plugin definition
+(function ($, window, document, undefined) {
+  "use strict";
+  var pluginName = "realtimePasswordValidator",
+    defaults = {
+      debug: false
+    };
+  function Plugin(element, options) {
+    this.element = element;
+    this.settings = $.extend({}, defaults, options);
+    this._defaults = defaults;
+    this._name = pluginName;
+    this.init();
+  }
+
+  $.extend(Plugin.prototype, {
+    init: function () {
+      this.settings.input1.on("input", { self: this }, this.validateEvent);
+      this.settings.input2.on("input", { self: this }, this.validateEvent);
+    },
+
+    validateEvent: function (event) {
+      const self = event.data.self;
+      const messages = [];
+      let valid_count = 0;
+      $(self.element).empty();
+      $(self.settings.validators).each(function (index, validator) {
+        let valid = false;
+        if (validator.regexp)
+          valid = new RegExp(validator.regexp).test(self.settings.input1.val());
+        if (validator.compare)
+          valid = self.settings.input1.val() == $(self.settings.input2).val();
+        const message = $("<div>" + validator.message + "</div>");
+        message.addClass(valid ? "valid" : "invalid");
+        if (self.settings.input1.val().length > 0)
+          $(self.element).append(message);
+        if (valid) valid_count++;
+        if (this.debug)
+          console.log(
+            index,
+            self.settings.input1.val(),
+            validator.message,
+            valid
+          );
+      });
+      if (valid_count == self.settings.validators.length) {
+        if (self.settings.ok) self.settings.ok(self);
+      } else {
+        if (self.settings.ko) self.settings.ko(self);
+      }
+      if (this.debug)
+        console.log(
+          "valid",
+          valid_count,
+          "of",
+          self.settings.validators.length
+        );
+    }
+  });
+
+  $.fn[pluginName] = function (options) {
+    return this.each(function () {
+      if (!$.data(this, "plugin_" + pluginName)) {
+        $.data(this, "plugin_" + pluginName, new Plugin(this, options));
+      }
+    });
+  };
+})(jQuery, window, document);
+	</script>
 
 </body>
 

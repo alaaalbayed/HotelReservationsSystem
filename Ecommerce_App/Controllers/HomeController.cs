@@ -41,38 +41,53 @@ namespace Ecommerce_App.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var allRooms = await _roomService.GetAllRoom();
-            var roomTypeItems = allRooms.Select(rt => new SelectListItem
+            try
             {
-                Value = rt.RoomId.ToString(),
-                Text = rt.RoomType.NameEn.ToString()
-            }).ToList();
+                var allRooms = await _roomService.GetAllRoom();
+                var roomTypeItems = allRooms.Select(rt => new SelectListItem
+                {
+                    Value = rt.RoomId.ToString(),
+                    Text = rt.RoomType.NameEn.ToString()
+                }).ToList();
 
-            var model = new LookUpPropertyIndexView
+                var model = new LookUpPropertyIndexView
+                {
+                    Rooms = allRooms.ToList(),
+                    RoomTypes = roomTypeItems
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
             {
-                Rooms = allRooms.ToList(),
-                RoomTypes = roomTypeItems
-            };
-
-            return View(model);
-        }
+                _logger.LogError("An error occurred while getting Home", ex);
+                return View("page-500");
+            }
+        }     
 
         public async Task<IActionResult> Reservation(int roomId)
         {
-            var room = await _roomService.GetId(roomId);
-
-            if (room.Status == true || room.RoomId == 0)
+            try
             {
-                return View("page-404");
+                var room = await _roomService.GetId(roomId);
+
+                if (room.Status == true || room.RoomId == 0)
+                {
+                    return View("page-404");
+                }
+
+                var model = new Reservation
+                {
+                    RoomId = roomId
+                };
+
+                return View(model);
             }
-
-            var model = new Reservation
+            catch (Exception ex)
             {
-                RoomId = roomId
-            };
-
-            return View(model);
-
+                _logger.LogError("An error occurred while getting Reservation", ex);
+                return View("page-500");
+            }
         }
 
         [HttpPost]
@@ -122,15 +137,23 @@ namespace Ecommerce_App.Controllers
 
         public IActionResult ThankYou()
         {
-
-            if (Request.Cookies["ReservationMade"] == "true")
+            try
             {
-                Response.Cookies.Append("ReservationMade","false");
-                return View();
+                if (Request.Cookies["ReservationMade"] == "true")
+                {
+                    Response.Cookies.Append("ReservationMade", "false");
+                    return View();
+                }
+                else
+                {
+                    return View("page-404");
+                }
             }
-            else
+            catch(Exception ex)
             {
-                return View("page-404");
+                _logger.LogError("An error occurred while getting Thank You", ex);
+                return View("page-500");
+
             }
 
         }
@@ -145,7 +168,7 @@ namespace Ecommerce_App.Controllers
         {
             if (ModelState.IsValid)
             {
-                string recipientEmail = "alaa.albayed2016@gmail.com";
+                string recipientEmail = "info@pretalhotel.com";
                 string body = $"Name: {contact.Name}<br>Email: {contact.Email}<br>Message: {contact.Message}";
 
                 try
@@ -162,29 +185,54 @@ namespace Ecommerce_App.Controllers
             return Json(new { success = false, message = "Validation errors occurred." });
         }
 
-        public async Task<IActionResult> Rooms(int roomId)
+        public async Task<IActionResult> Rooms()
         {
-            var rooms = await _roomService.GetAllActiveRooms();
-            return View(rooms);
+            try
+            {
+                var rooms = await _roomService.GetAllActiveRooms();
+                return View(rooms);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("There is an error while getting rooms",ex);
+                return View("page-500");
+            }
         }
 
         public async Task<IActionResult> RoomDetails(int id)
         {
-            var room = await _roomService.GetRoomByRoomId(id);
-
-            if(room.Status == true || room.RoomId == 0)
+            try
             {
-                return View("page-404");
+                var room = await _roomService.GetRoomByRoomId(id);
+
+                if (room.Status == true || room.RoomId == 0)
+                {
+                    return View("page-404");
+                }
+
+                return View(room);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("There is an error while getting room details", ex);
+                return View("page-500");
             }
 
-            return View(room);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetRoomCapacity(int roomId)
         {
-            var roomCapacity = await _roomService.GetRoomCapacity(roomId);
-            return Json(roomCapacity);
+            try
+            {
+                var roomCapacity = await _roomService.GetRoomCapacity(roomId);
+                return Json(roomCapacity);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("There is an error while getting room capacity", ex);
+                return View("page-500");
+            }
 
         }
 
