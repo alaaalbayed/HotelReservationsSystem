@@ -167,6 +167,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>@localizer["FullName"]</th>
+                                                        <th>@localizer["PhoneNumber"]</th>
+                                                        <th>@localizer["RoomType"]</th>
                                                         <th class="d-none d-xxl-table-cell">@localizer["CheckIn"]</th>
                                                         <th class="d-none d-xl-table-cell">@localizer["CheckOut"]</th>
                                                         <th>@localizer["Status"]</th>
@@ -179,6 +181,8 @@
                                                     {
                                                         <tr>
                                                             <td>@item.FullName</td>
+                                                            <td>@item.PhoneNumber</td>
+                                                            <td>@item.RoomType.NameEn</td>
                                                             <td class="d-none d-xl-table-cell">@item.CheckIn</td>
                                                             <td class="d-none d-xl-table-cell">@item.CheckOut</td>
                                                             @if (item.Status)
@@ -425,6 +429,8 @@
                                                         <th>@localizer["Status"]</th>
                                                         <th class="d-none d-xl-table-cell">@localizer["CheckOut"]</th>
                                                         <th class="d-none d-xxl-table-cell">@localizer["CheckIn"]</th>
+                                                        <th>@localizer["RoomType"]</th>
+                                                        <th>@localizer["PhoneNumber"]</th>
                                                         <th>@localizer["FullName"]</th>
                                                     </tr>
                                                 </thead>
@@ -447,6 +453,8 @@
 
                                                             <td class="d-none d-xl-table-cell">@item.CheckOut.ToString("dd/MM/yy:hh:mm:ss tt", CultureInfo.InvariantCulture)</td>
                                                             <td class="d-none d-xl-table-cell">@item.CheckIn.ToString("dd/MM/yy:hh:mm:ss tt", CultureInfo.InvariantCulture)</td>
+                                                            <td>@item.RoomType.NameAr</td>
+                                                            <td>@item.PhoneNumber</td>
                                                             <td>@item.FullName</td>
                                                         </tr>
                                                     }
