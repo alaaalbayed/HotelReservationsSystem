@@ -118,7 +118,8 @@ namespace Ecommerce_App.Controllers
 
                     if (string.IsNullOrEmpty(userId))
                     {
-                        userId = "6724007d-0cc3-4b3c-bd17-190cfe2f12ab";
+                        var guestUser = await _db.AspNetUsers.SingleOrDefaultAsync(u => u.Email == "Guest@gmail.com");
+                        userId = guestUser.Id;
                     }
 
                     await _reservationService.Add(reservation, userId);

@@ -156,10 +156,7 @@ namespace Ecommerce_App.Areas.Identity.Pages.Account
                 user.Address = Input.Address;
 
                 var file = HttpContext.Request.Form.Files;
-                if (file.Count > 0 &&
-                    (Path.GetExtension(file[0].FileName).ToLower() == ".jpg" ||
-                    Path.GetExtension(file[0].FileName).ToLower() == ".png" ||
-                    Path.GetExtension(file[0].FileName).ToLower() == ".jpeg"))
+                if (file.Count > 0)
                 {
 
                     string imageName = Guid.NewGuid().ToString() + Path.GetExtension(file[0].FileName);
@@ -168,11 +165,6 @@ namespace Ecommerce_App.Areas.Identity.Pages.Account
                     user.Image = imageName;
 
                     Input.Image = new FormFile(file[0].OpenReadStream(), file[0].Length, file[0].Length, file[0].Name, file[0].FileName);
-                }
-
-                else
-                {
-                    return BadRequest("Only image files jpg, jpeg, png are allowed.");
                 }
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
