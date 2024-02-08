@@ -6,6 +6,8 @@
 @inject IViewLocalizer localizer
 
 @{
+    ViewData["Title"] = "Types Options | Info";
+    ViewData["ActivePage"] = "TypesOptions";
     var check = CultureInfo.CurrentCulture.Name;
 }
 
@@ -46,6 +48,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="mt-5 ms-2">
+                    <a class="btn btn-primary" asp-action="Index">Back to List</a>
                 </div>
             }
             else

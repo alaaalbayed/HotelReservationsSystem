@@ -5,7 +5,8 @@
 @inject IViewLocalizer localizer
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Types Options | Edit";
+    ViewData["ActivePage"] = "TypesOptions";
     var check = CultureInfo.CurrentCulture.Name;
 }
 <div class="wrapper">
@@ -27,7 +28,6 @@
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.NameEn"></label>
                                     <div class="col">
                                         <input type="text" class="form-control" asp-for="LookUpProperty.NameEn">
-                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In English.</small>
                                         <span asp-validation-for="LookUpProperty.NameEn" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -35,7 +35,6 @@
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.NameAr"></label>
                                     <div class="col">
                                         <input type="text" class="form-control" asp-for="LookUpProperty.NameAr">
-                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
                                         <span asp-validation-for="LookUpProperty.NameAr" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -43,7 +42,6 @@
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.Details"></label>
                                     <div class="col">
                                         <input type="text" class="form-control" asp-for="LookUpProperty.Details">
-                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
                                         <span asp-validation-for="LookUpProperty.Details" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -51,9 +49,7 @@
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.TypeId"></label>
                                     <div class="col">
                                         <select asp-for="LookUpProperty.TypeId" asp-items="@(new SelectList(Model.AllLookUpTypes, "Id", "NameEn", Model.LookUpProperty.TypeId))" class="form-select">
-                                            <option value="">-- Select Type --</option>
                                         </select>
-                                        <small class="form-hint">Select the type from the dropdown.</small>
                                         <span asp-validation-for="LookUpProperty.TypeId" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -79,7 +75,6 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <input type="text" class="form-control" asp-for="LookUpProperty.NameEn">
-                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In English.</small>
                                         <span asp-validation-for="LookUpProperty.NameEn" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.NameEn"></label>
@@ -87,7 +82,6 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <input type="text" class="form-control" asp-for="LookUpProperty.NameAr">
-                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
                                         <span asp-validation-for="LookUpProperty.NameAr" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.NameAr"></label>
@@ -95,7 +89,6 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <input type="text" class="form-control" asp-for="LookUpProperty.Details">
-                                        <small class="form-hint">Here The Updated Type Name That Will Display For The User In Arabic.</small>
                                         <span asp-validation-for="LookUpProperty.Details" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.Details"></label>
@@ -103,9 +96,7 @@
                                 <div class="mb-3 row">
                                     <div class="col">
                                         <select asp-for="LookUpProperty.TypeId" asp-items="@(new SelectList(Model.AllLookUpTypes, "Id", "NameEn", Model.LookUpProperty.TypeId))" class="form-select">
-                                            <option value="">-- Select Type --</option>
                                         </select>
-                                        <small class="form-hint">Select the type from the dropdown.</small>
                                         <span asp-validation-for="LookUpProperty.TypeId" class="text-danger"></span>
                                     </div>
                                     <label class="col-3 col-form-label required" asp-for="LookUpProperty.TypeId"></label>

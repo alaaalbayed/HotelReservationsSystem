@@ -221,6 +221,11 @@ namespace Ecommerce_App.Controllers
 
         }
 
+        public IActionResult AboutUS()
+        {
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetRoomCapacity(int roomId)
         {

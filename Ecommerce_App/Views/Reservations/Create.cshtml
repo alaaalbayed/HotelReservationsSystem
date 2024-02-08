@@ -4,7 +4,8 @@
 
 @inject IViewLocalizer localizer
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Reservations | Create";
+    ViewData["ActivePage"] = "Reservations";
     var check = CultureInfo.CurrentCulture.Name;
 }
 
@@ -369,8 +370,6 @@
                     type: 'GET',
                     data: { roomNumber: selectedRoomNumber },
                     success: function (data) {
-                        console.log('Data from server:', data);
-
 
                         var capacity = data.capacity
                         var pricePerNight = data.pricePerNight;

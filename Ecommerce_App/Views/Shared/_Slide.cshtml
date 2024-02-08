@@ -10,6 +10,7 @@
 
 @{
     var check = CultureInfo.CurrentCulture.Name;
+    var ViewData2 = ViewData["ActivePage"];
 }
 
 @if (SignInManager.IsSignedIn(User))
@@ -29,47 +30,47 @@
                         @localizer["Pages"]
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Analytics" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="Analytics" asp-action="Index">
                             <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">@localizer["Dashboard"]</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Users" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="Users" asp-action="Index">
                             <i class="align-middle" data-feather="user"></i> <span class="align-middle">@localizer["Users"]</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" asp-controller="Admins" asp-action="Index">
+                    <li class="sidebar-item @(ViewData2 == "Admins" ? "active" : "")">
+                        <a class="sidebar-link " asp-controller="Admins" asp-action="Index">
                             <i class="align-middle" data-feather="shield"></i> <span class="align-middle">@localizer["Admins"]</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Types" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="LookUpTypes" asp-action="Index">
                             <i class="fa-solid fa-hotel"></i> <span class="align-middle">Types</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "TypesOptions" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="LookUpProperty" asp-action="Index">
                             <i class="fa-solid fa-hotel"></i> <span class="align-middle">Types Options</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "RoomTypes" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="RoomTypes" asp-action="Index">
                             <i class="fa-solid fa-hotel"></i> <span class="align-middle">Room Types</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Rooms" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="Rooms" asp-action="Index">
                             <i class="fa-solid fa-hotel"></i> <span class="align-middle">@localizer["Rooms"]</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Reservations" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="Reservations" asp-action="Index">
                             <i class="align-middle" data-feather="inbox"></i> <span class="align-middle">@localizer["Reservations"]</span>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Settings" ? "active" : "")">
                         <a class="sidebar-link" asp-controller="Settings" asp-action="Index">
                             <i class="align-middle" data-feather="settings"></i> <span class="align-middle">@localizer["Settings"]</span>
                         </a>
@@ -87,47 +88,47 @@
                         @localizer["Pages"]
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Analytics" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="Analytics" asp-action="Index">
                             <span class="align-middle">@localizer["Dashboard"]</span> <i class="align-middle" data-feather="sliders"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Users" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="Users" asp-action="Index">
                             <span class="align-middle">@localizer["Users"]</span> <i class="align-middle" data-feather="user"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Admins" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="Admins" asp-action="Index">
                             <span class="align-middle">@localizer["Admins"]</span> <i class="align-middle" data-feather="shield"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Types" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="LookUpTypes" asp-action="Index">
                             <span class="align-middle">@localizer["LookUpType"]</span> <i class="fa-solid fa-hotel"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "TypesOptions" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="LookUpProperty" asp-action="Index">
                             <span class="align-middle">@localizer["LookUpProperty"]</span> <i class="fa-solid fa-hotel"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "RoomTypes" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="RoomTypes" asp-action="Index">
                             <span class="align-middle">@localizer["RoomTypes"]</span> <i class="fa-solid fa-hotel"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Rooms" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="Rooms" asp-action="Index">
                             <span class="align-middle">@localizer["Rooms"]</span> <i class="fa-solid fa-hotel"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Reservations" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="Reservations" asp-action="Index">
                             <span class="align-middle">@localizer["Reservations"]</span> <i class="align-middle me-2" data-feather="inbox"></i>
                         </a>
                     </li>
-                    <li class="sidebar-item">
+                    <li class="sidebar-item @(ViewData2 == "Settings" ? "active" : "")">
                         <a class="sidebar-link text-end fs-5" asp-controller="Settings" asp-action="Index">
                             <span class="align-middle">@localizer["Settings"]</span> <i class="align-middle" data-feather="settings"></i>
                         </a>
@@ -152,23 +153,6 @@ else
 }
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('li.sidebar-item a').click(function () {
-            $('li.sidebar-item').removeClass('active');
-
-            $(this).parent().addClass('active');
-
-            localStorage.setItem('activeItem', $(this).attr('href'));
-        });
-
-        var activeHref = localStorage.getItem('activeItem');
-        if (activeHref) {
-            $('a[href="' + activeHref + '"]').parent().addClass('active');
-        }
-    });
-</script>
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var currentCulture = '@check';

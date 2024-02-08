@@ -2,7 +2,8 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Rooms | Info";
+    ViewData["ActivePage"] = "Rooms";
 }
 
 <div class="wrapper">
@@ -53,8 +54,8 @@
                                     @foreach (var image in Model.RoomImages2)
                                     {
                                         <div class="col-md-4 mb-4">
-                                            <div class="card" style="width: 150px;">
-                                                <img class="card-img-top" src="@image.ImageUrl" alt="Room Image" style="width: 150px; height: 150px;">
+                                            <div class="card" style="width: 350px; height: 250px;">
+                                                <img class="card-img-top" src="@image.ImageUrl" alt="Room Image" style="width: 250px; height: 250px;">
                                             </div>
                                         </div>
                                     }
@@ -72,6 +73,7 @@
                 <a class="btn btn-primary" asp-action="Index">Back to List</a>
             </div>
         </main>
+
         <partial name="_Footer" />
     </div>
 </div>

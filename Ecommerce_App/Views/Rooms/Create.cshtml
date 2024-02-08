@@ -5,7 +5,8 @@
 @inject IViewLocalizer localizer
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Rooms | Create";
+    ViewData["ActivePage"] = "Rooms";
     var check = CultureInfo.CurrentCulture.Name;
 }
 
@@ -55,7 +56,6 @@
                                 <div class="mb-3 row">
                                     <label class="col-3 col-form-label required">Upload Images</label>
                                     <div class="col">
-                                        <label>Upload Images</label>
                                         <input type="file" asp-for="RoomImages" name="RoomImages" multiple class="form-control" accept="image/*" />
                                         <span asp-validation-for="RoomImages" class="text-danger"></span>
                                     </div>
