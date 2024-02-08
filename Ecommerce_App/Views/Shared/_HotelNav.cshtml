@@ -5,6 +5,10 @@
 @inject SignInManager<Ecommerce_AppUser> SignInManager
 @inject UserManager<Ecommerce_AppUser> UserManager
 
+@{
+    var ViewData2 = ViewData["ActivePage"];
+}
+
 
 <div id="preloder">
     <div class="loader"></div>
@@ -21,13 +25,13 @@
     </div>
     <nav class="mainmenu mobile-menu">
         <ul>
-            <li class="active"><a asp-action="Index" asp-controller="Home">Home</a></li>
-            <li><a asp-action="Rooms" asp-controller="Home">Rooms</a></li>
-            <li><a href="./about-us.html">About Us</a></li>
-            <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+            <li class="@(ViewData2 == "Index" ? "active" : "")"><a asp-action="Index" asp-controller="Home">Home</a></li>
+            <li class="@(ViewData2 == "Rooms" ? "active" : "")"><a asp-action="Rooms" asp-controller="Home">Rooms</a></li>
+            <li class="@(ViewData2 == "AboutUs" ? "active" : "")"><a asp-action="AboutUs" asp-controller="Home">About Us</a></li>
+            <li class="@(ViewData2 == "Contact" ? "active" : "")"><a asp-action="Contact" asp-controller="Home">Contact</a></li>
             @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
             {
-                <li class="none"><a asp-controller="Analytics" asp-action="Index">Admin Panel</a></li>
+                <li class="@(ViewData2 == "Admin" ? "active" : "")" class="none"><a asp-controller="Analytics" asp-action="Index">Admin Panel</a></li>
             }
         </ul>
     </nav>
@@ -82,13 +86,13 @@
                     <div class="nav-menu">
                         <nav class="mainmenu">
                             <ul>
-                                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                                <li><a asp-action="Rooms" asp-controller="Home">Rooms</a></li>
-                                <li><a href="./about-us.html">About Us</a></li>
-                                <li><a asp-action="Contact" asp-controller="Home">Contact</a></li>
+                                <li class="@(ViewData2 == "Index" ? "active" : "")"><a asp-action="Index" asp-controller="Home">Home</a></li>
+                                <li class="@(ViewData2 == "Rooms" ? "active" : "")"><a asp-action="Rooms" asp-controller="Home">Rooms</a></li>
+                                <li class="@(ViewData2 == "AboutUs" ? "active" : "")"><a asp-action="AboutUs" asp-controller="Home">About Us</a></li>
+                                <li class="@(ViewData2 == "Contact" ? "active" : "")"><a asp-action="Contact" asp-controller="Home">Contact</a></li>
                                 @if (User.IsInRole("Admin") || User.IsInRole("Employee"))
                                 {
-                                    <li class="none"><a asp-controller="Analytics" asp-action="Index">Admin Panel</a></li>
+                                    <li class="@(ViewData2 == "Admin" ? "active" : "")"><a asp-controller="Analytics" asp-action="Index">Admin Panel</a></li>
                                 }
                             </ul>
                         </nav>
@@ -137,23 +141,6 @@
         </div>
     </div>
 </header>
-
-<script>
-     $(document).ready(function () {
-         $('.mainmenu a').click(function () {
-             $('.mainmenu li').removeClass('active');
-
-             $(this).parent().addClass('active');
-
-             localStorage.setItem('activeItem', $(this).attr('href'));
-         });
-
-         var activeHref = localStorage.getItem('activeItem');
-         if (activeHref) {
-             $('.mainmenu a[href="' + activeHref + '"]').parent().addClass('active');
-         }
-     });
-</script>
 
 
 

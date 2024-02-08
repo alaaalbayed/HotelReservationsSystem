@@ -44,6 +44,13 @@ namespace Ecommerce_App.Controllers
                     await UploadImage(user);
                     user.UserName = user.Email;
 
+                    var existingUser = await _userManager.FindByEmailAsync(user.Email);
+                    if (existingUser != null)
+                    {
+                        ModelState.AddModelError("Email", "Email already exists. Please use a different email address.");
+                        return View(user);
+                    }
+
                     var result = await _userManager.CreateAsync(user, newPassword);
 
                     if (result.Succeeded)

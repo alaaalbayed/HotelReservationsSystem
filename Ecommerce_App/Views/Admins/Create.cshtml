@@ -9,7 +9,8 @@
 @inject IViewLocalizer localizer
 
 @{
-    ViewData["Title"] = "Create User";
+    ViewData["Title"] = "Admin | Create";
+    ViewData["ActivePage"] = "Admins";
     var check = CultureInfo.CurrentCulture.Name;
 }
 
@@ -77,7 +78,7 @@
                                 <div class="mb-3">
                                     <label class="col-3 col-form-label required" asp-for="Image">Image</label>
                                     <div class="col">
-                                        <input type="file" class="form-control" asp-for="Image">
+                                        <input type="file" class="form-control" asp-for="Image" accept="image/*">
                                         <span asp-validation-for="Image" class="text-danger"></span>
                                     </div>
                                 </div>
@@ -149,7 +150,7 @@
                                 <div class="mb-3">
                                     <label class="col-3 col-form-label required">@localizer["Image"]</label>
                                     <div class="col">
-                                        <input type="file" class="form-control" asp-for="Image">
+                                        <input type="file" class="form-control" asp-for="Image" accept="image/*">
                                         <span asp-validation-for="Image" class="text-danger"></span>
                                     </div>
                                 </div>

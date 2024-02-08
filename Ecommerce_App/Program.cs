@@ -162,16 +162,30 @@ using (var scope = app.Services.CreateScope())
     }
 
     var adminEmail = "test@gmail.com";
+    var guestEmail = "guest@gmail.com";
     var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    var guestUser = await userManager.FindByEmailAsync(guestEmail);
     if (adminUser == null)
     {
         var admin = new Ecommerce_AppUser
         {
+            FirstName = "Admin",
             UserName = adminEmail,
             Email = adminEmail,
         };
         await userManager.CreateAsync(admin, "Admin123@");
         await userManager.AddToRoleAsync(admin, "Admin");
+    }
+    if (guestUser == null)
+    {
+        var guest = new Ecommerce_AppUser
+        {
+            FirstName = "Guest",
+            UserName = guestEmail,
+            Email = guestEmail,
+        };
+        await userManager.CreateAsync(guest, "Guest123@");
+        await userManager.AddToRoleAsync(guest, "Guest");
     }
 }
 
